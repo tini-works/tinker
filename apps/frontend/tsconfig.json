@@ -3,6 +3,7 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src",
+    "tsBuildInfoFile": "./node_modules/.cache/.tsbuildinfo.frontend",
     "paths": {
       "@/*": ["./src/*"],
       "@invoice-approval/shared": ["../../packages/shared/src"]
@@ -15,4 +16,3 @@
     }
   ]
 }
-
