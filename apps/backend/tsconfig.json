@@ -1,0 +1,20 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "module": "commonjs",
+    "target": "es2020",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@invoice-approval/shared": ["../../packages/shared/src"]
+    }
+  },
+  "include": ["src/**/*"],
+  "references": [
+    {
+      "path": "../../packages/shared"
+    }
+  ]
+}
+
