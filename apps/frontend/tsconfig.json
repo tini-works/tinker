@@ -12,11 +12,10 @@
       "@invoice-approval/shared/*": ["../../packages/shared/src/*"]
     }
   },
-  "include": ["src/**/*", "vite.config.ts"],
+  "include": ["src/**/*"],
   "references": [
     {
       "path": "../../packages/shared"
     }
   ]
 }
-
