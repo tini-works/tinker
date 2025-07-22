@@ -5,6 +5,7 @@
     "rootDir": "./src",
     "module": "commonjs",
     "target": "es2020",
+    "tsBuildInfoFile": "./node_modules/.cache/.tsbuildinfo.backend",
     "paths": {
       "@/*": ["./src/*"],
       "@invoice-approval/shared": ["../../packages/shared/src"]
@@ -17,4 +18,3 @@
     }
   ]
 }
-
