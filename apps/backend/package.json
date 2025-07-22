@@ -11,7 +11,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@invoice-approval/shared": "workspace:*",
+    "@invoice-approval/shared": "0.1.0",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "dotenv": "^16.3.1"
