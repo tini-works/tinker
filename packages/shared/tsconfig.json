@@ -9,5 +9,7 @@
     "noEmit": false,
     "tsBuildInfoFile": "./node_modules/.cache/.tsbuildinfo.shared"
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*.ts"],
+  "files": ["src/index.ts", "src/types.ts", "src/utils.ts"]
 }
+
