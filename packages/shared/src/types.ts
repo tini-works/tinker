@@ -1,66 +1,70 @@
-// Shared types for the Invoice Approval System
-
-// Invoice status
-export enum InvoiceStatus {
-  PENDING = 'PENDING',
-  LINKED = 'LINKED',
-  OBSOLETE = 'OBSOLETE',
-}
-
-// Payment request status
-export enum PaymentRequestStatus {
-  DRAFT = 'DRAFT',
-  PENDING_APPROVAL = 'PENDING_APPROVAL',
-  APPROVED = 'APPROVED',
-  REJECTED = 'REJECTED',
-  CHANGES_REQUESTED = 'CHANGES_REQUESTED',
-  COMPLETED = 'COMPLETED',
-}
-
-// Invoice interface
+/**
+ * Invoice interface representing an invoice in the system
+ */
 export interface Invoice {
   id: string;
-  vendorName: string;
   invoiceNumber: string;
+  vendorName: string;
   amount: number;
-  date: string;
-  description: string;
+  currency: string;
+  issueDate: string;
+  dueDate: string;
   status: InvoiceStatus;
-  createdAt: string;
-  updatedAt: string;
+  description?: string;
+  attachments?: string[];
 }
 
-// Payment request interface
+/**
+ * Payment Request interface representing a payment request in the system
+ */
 export interface PaymentRequest {
   id: string;
-  title: string;
-  description: string;
-  department: string;
-  createdBy: string;
-  status: PaymentRequestStatus;
-  invoices: string[]; // Array of invoice IDs
+  requestNumber: string;
+  invoices: Invoice[];
   totalAmount: number;
-  approvalHistory: ApprovalEvent[];
-  createdAt: string;
-  updatedAt: string;
+  currency: string;
+  requestDate: string;
+  dueDate: string;
+  status: PaymentRequestStatus;
+  approvers: Approver[];
+  description?: string;
 }
 
-// Approval event interface
-export interface ApprovalEvent {
-  id: string;
-  userId: string;
-  userName: string;
-  action: 'APPROVED' | 'REJECTED' | 'CHANGES_REQUESTED';
-  comment: string;
-  timestamp: string;
-}
-
-// User interface
-export interface User {
+/**
+ * Approver interface representing an approver in the system
+ */
+export interface Approver {
   id: string;
   name: string;
   email: string;
-  department: string;
-  role: 'ADMIN' | 'APPROVER' | 'FINANCE' | 'USER';
+  role: string;
+  approved?: boolean;
+  approvalDate?: string;
+  comments?: string;
+}
+
+/**
+ * Invoice status enum
+ */
+export enum InvoiceStatus {
+  DRAFT = 'DRAFT',
+  PENDING = 'PENDING',
+  APPROVED = 'APPROVED',
+  REJECTED = 'REJECTED',
+  PAID = 'PAID',
+  CANCELLED = 'CANCELLED'
+}
+
+/**
+ * Payment request status enum
+ */
+export enum PaymentRequestStatus {
+  DRAFT = 'DRAFT',
+  PENDING_APPROVAL = 'PENDING_APPROVAL',
+  PARTIALLY_APPROVED = 'PARTIALLY_APPROVED',
+  APPROVED = 'APPROVED',
+  REJECTED = 'REJECTED',
+  PAID = 'PAID',
+  CANCELLED = 'CANCELLED'
 }
 

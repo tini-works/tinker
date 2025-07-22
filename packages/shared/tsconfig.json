@@ -6,8 +6,13 @@
     "composite": true,
     "declaration": true,
     "declarationMap": true,
+    "sourceMap": true,
     "noEmit": false,
-    "tsBuildInfoFile": "./node_modules/.cache/.tsbuildinfo.shared"
+    "tsBuildInfoFile": "./node_modules/.cache/.tsbuildinfo.shared",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["src/**/*"]
 }
+

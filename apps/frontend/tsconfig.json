@@ -6,13 +6,17 @@
     "tsBuildInfoFile": "./node_modules/.cache/.tsbuildinfo.frontend",
     "paths": {
       "@/*": ["./src/*"],
-      "@invoice-approval/shared": ["../../packages/shared/src"]
+      "@components/*": ["./src/components/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@invoice-approval/shared": ["../../packages/shared/src"],
+      "@invoice-approval/shared/*": ["../../packages/shared/src/*"]
     }
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "vite.config.ts"],
   "references": [
     {
       "path": "../../packages/shared"
     }
   ]
 }
+

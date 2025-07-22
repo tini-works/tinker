@@ -14,7 +14,12 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "@invoice-approval/shared": ["./packages/shared/src"],
+      "@invoice-approval/shared/*": ["./packages/shared/src/*"]
+    }
   },
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist"]
 }
+

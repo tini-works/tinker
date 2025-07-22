@@ -8,8 +8,15 @@
     "tsBuildInfoFile": "./node_modules/.cache/.tsbuildinfo.backend",
     "paths": {
       "@/*": ["./src/*"],
-      "@invoice-approval/shared": ["../../packages/shared/src"]
-    }
+      "@controllers/*": ["./src/controllers/*"],
+      "@models/*": ["./src/models/*"],
+      "@routes/*": ["./src/routes/*"],
+      "@services/*": ["./src/services/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@invoice-approval/shared": ["../../packages/shared/src"],
+      "@invoice-approval/shared/*": ["../../packages/shared/src/*"]
+    },
+    "noEmit": false
   },
   "include": ["src/**/*"],
   "references": [
@@ -18,3 +25,4 @@
     }
   ]
 }
+
