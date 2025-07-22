@@ -1,0 +1,89 @@
+name: Auto Merge PRs
+
+on:
+  # Run when a check suite completes
+  check_suite:
+    types: [completed]
+  
+  # Run when a pull request is updated
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  
+  # Run on a schedule as a fallback (every hour)
+  schedule:
+    - cron: '0 * * * *'
+  
+  # Allow manual triggering
+  workflow_dispatch:
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    
+    # Only run on PRs, not on push events to branches
+    if: github.event_name == 'pull_request' || github.event_name == 'check_suite' || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Find PRs ready to merge
+        id: find-prs
+        run: |
+          # Install GitHub CLI
+          if ! command -v gh &> /dev/null; then
+            echo "Installing GitHub CLI..."
+            curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+            echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+            sudo apt update
+            sudo apt install gh
+          fi
+          
+          # Authenticate with GitHub CLI
+          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+          
+          # Get list of open PRs
+          echo "Finding PRs ready to merge..."
+          readyPRs=()
+          
+          # List all open PRs
+          prs=$(gh pr list --repo ${{ github.repository }} --state open --json number,title,headRefName,mergeStateStatus,reviewDecision,isDraft)
+          
+          # Process each PR
+          echo "$prs" | jq -c '.[]' | while read pr; do
+            prNumber=$(echo $pr | jq -r '.number')
+            prTitle=$(echo $pr | jq -r '.title')
+            isDraft=$(echo $pr | jq -r '.isDraft')
+            mergeStatus=$(echo $pr | jq -r '.mergeStateStatus')
+            
+            echo "Checking PR #$prNumber: $prTitle"
+            
+            # Skip draft PRs
+            if [ "$isDraft" = "true" ]; then
+              echo "  Skipping draft PR"
+              continue
+            fi
+            
+            # Check if PR can be merged
+            if [ "$mergeStatus" = "CLEAN" ] || [ "$mergeStatus" = "BEHIND" ]; then
+              # Check if all checks have passed
+              checkStatus=$(gh pr checks $prNumber --repo ${{ github.repository }} --json checkSuites)
+              failedChecks=$(echo $checkStatus | jq '[.checkSuites[] | select(.conclusion != "SUCCESS" and .conclusion != "SKIPPED" and .conclusion != null)] | length')
+              
+              if [ "$failedChecks" -eq "0" ]; then
+                echo "  All checks passed, merging PR #$prNumber"
+                gh pr merge $prNumber --repo ${{ github.repository }} --merge --delete-branch
+                echo "  Merged PR #$prNumber"
+              else
+                echo "  PR has failed checks, skipping"
+              fi
+            else
+              echo "  PR cannot be merged, status: $mergeStatus"
+            fi
+          done
+
