@@ -1,4 +1,3 @@
-
 # Invoice Approval System
 
 A monorepo for the Invoice Approval System, containing both frontend and backend code.
@@ -75,6 +74,26 @@ To lint all applications:
 npm run lint
 ```
 
+## Automated PR Merging
+
+This repository is configured with an automatic PR merging system. When a pull request passes all required checks, it will be automatically merged.
+
+### How It Works
+
+1. When a PR is opened, updated, or a check suite completes, the auto-merge workflow runs
+2. The workflow checks if:
+   - The PR is not in draft mode
+   - All required checks have passed
+   - The PR can be merged (no merge conflicts)
+3. If all conditions are met, the PR is automatically merged
+
+### Manual Triggering
+
+You can manually trigger the auto-merge workflow by:
+1. Going to the Actions tab in the GitHub repository
+2. Selecting the "Auto Merge PRs" workflow
+3. Clicking "Run workflow"
+
 ## Tech Stack
 
 - **Build Tools**: Turborepo, Vite
@@ -84,10 +103,6 @@ npm run lint
 - **Styling**: Tailwind CSS 4, DaisyUI v5
 - **Testing**: Vitest, Jest
 - **Linting**: ESLint, Prettier
-=======
-# Tinker Documentation
-
-This repository contains documentation for the Tinker project.
 
 ## Documentation
 
@@ -142,5 +157,4 @@ See the [Mermaid example page](docs/mermaid_example.md) for more examples.
 The documentation is automatically built and deployed to GitHub Pages when changes are pushed to the `main` branch. The deployment is handled by a GitHub Actions workflow defined in `.github/workflows/docs.yml`.
 
 You can also manually trigger the deployment by going to the Actions tab in the GitHub repository and running the "Build and Deploy Documentation" workflow.
-
 
