@@ -4,7 +4,7 @@ This repository contains documentation for the Tinker project.
 
 ## Documentation
 
-The documentation is built using [MkDocs](https://www.mkdocs.org/) with the [Material theme](https://squidfunk.github.io/mkdocs-material/).
+The documentation is built using [MkDocs](https://www.mkdocs.org/) with the [Material theme](https://squidfunk.github.io/mkdocs-material/) and includes support for [Mermaid diagrams](https://mermaid.js.org/).
 
 ### Viewing Documentation Locally
 
@@ -33,6 +33,22 @@ The documentation is organized as follows:
 - `docs/4_screen_mockups.md`: Screen Mockups documentation
 - `docs/5_screen_variations.md`: Screen Variations documentation
 - `docs/6_summary.md`: Summary documentation
+- `docs/mermaid_example.md`: Examples of Mermaid diagrams
+
+### Using Mermaid Diagrams
+
+You can create diagrams in your documentation using Mermaid syntax. For example:
+
+````markdown
+```mermaid
+flowchart TD
+    A[Start] --> B{Decision}
+    B -->|Yes| C[Action]
+    B -->|No| D[Alternative Action]
+```
+````
+
+See the [Mermaid example page](docs/mermaid_example.md) for more examples.
 
 ### Automated Deployment
 

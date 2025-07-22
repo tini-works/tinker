@@ -27,7 +27,11 @@ theme:
 markdown_extensions:
   - admonition
   - pymdownx.details
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.highlight
   - pymdownx.inlinehilite
   - pymdownx.tabbed
@@ -44,4 +48,5 @@ nav:
   - Screen Mockups: 4_screen_mockups.md
   - Screen Variations: 5_screen_variations.md
   - Summary: 6_summary.md
+  - Mermaid Examples: mermaid_example.md
 
