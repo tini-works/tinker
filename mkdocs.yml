@@ -1,0 +1,47 @@
+site_name: Tinker Documentation
+site_description: Documentation for the Tinker project
+site_author: Tinker Team
+
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.expand
+    - navigation.indexes
+    - content.code.copy
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Event Storming: 1_event_storming.md
+  - User Journeys: 2_user_journeys.md
+  - Touch Points & Screens: 3_touch_points_screens.md
+  - Screen Mockups: 4_screen_mockups.md
+  - Screen Variations: 5_screen_variations.md
+  - Summary: 6_summary.md
+
