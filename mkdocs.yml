@@ -40,6 +40,14 @@ markdown_extensions:
   - toc:
       permalink: true
 
+# Enable Mermaid JavaScript and custom CSS
+extra_javascript:
+  - https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js
+  - javascripts/extra.js
+
+extra_css:
+  - stylesheets/extra.css
+
 nav:
   - Home: index.md
   - Event Storming: 1_event_storming.md
