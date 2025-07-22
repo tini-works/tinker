@@ -13,11 +13,11 @@ const testInvoices: Invoice[] = [
     invoiceNumber: 'INV-001',
     vendorName: 'Test Corp',
     amount: 1500.00,
-    currency: 'USD',
-    issueDate: '2023-01-15',
-    dueDate: '2023-02-15',
-    status: InvoiceStatus.PAID,
-    description: 'Test supplies'
+    date: '2023-01-15',
+    description: 'Test supplies',
+    status: InvoiceStatus.PENDING,
+    createdAt: '2023-01-15T00:00:00Z',
+    updatedAt: '2023-01-15T00:00:00Z'
   }
 ];
 

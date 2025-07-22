@@ -1,5 +1,5 @@
 import React from 'react';
-import { Invoice, InvoiceStatus, formatCurrency, formatDate } from '@invoice-approval/shared';
+import { Invoice, InvoiceStatus, formatCurrency } from '@invoice-approval/shared';
 
 interface InvoiceCardProps {
   invoice: Invoice;
@@ -9,13 +9,11 @@ interface InvoiceCardProps {
 const InvoiceCard: React.FC<InvoiceCardProps> = ({ invoice, onClick }) => {
   const getStatusBadgeClass = (status: InvoiceStatus): string => {
     switch (status) {
-      case InvoiceStatus.PAID:
+      case InvoiceStatus.LINKED:
         return 'badge-success';
-      case InvoiceStatus.APPROVED:
-        return 'badge-info';
       case InvoiceStatus.PENDING:
         return 'badge-warning';
-      case InvoiceStatus.REJECTED:
+      case InvoiceStatus.OBSOLETE:
         return 'badge-error';
       default:
         return 'badge-ghost';
@@ -26,6 +24,7 @@ const InvoiceCard: React.FC<InvoiceCardProps> = ({ invoice, onClick }) => {
     <article 
       className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow cursor-pointer"
       onClick={() => onClick(invoice)}
+      role="article"
     >
       <div className="card-body">
         <div className="flex justify-between items-start">
@@ -39,11 +38,10 @@ const InvoiceCard: React.FC<InvoiceCardProps> = ({ invoice, onClick }) => {
         
         <div className="mt-2">
           <p className="text-2xl font-bold">
-            {formatCurrency(invoice.amount, invoice.currency)}
+            ${invoice.amount.toLocaleString()}
           </p>
           <div className="flex justify-between text-sm text-gray-500 mt-1">
-            <span>Issue: {formatDate(invoice.issueDate)}</span>
-            <span>Due: {formatDate(invoice.dueDate)}</span>
+            <span>Date: {invoice.date}</span>
           </div>
         </div>
         

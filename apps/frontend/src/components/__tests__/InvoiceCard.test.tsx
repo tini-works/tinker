@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
+import { vi } from 'vitest';
 import { Invoice, InvoiceStatus } from '@invoice-approval/shared';
 import InvoiceCard from '../InvoiceCard';
 
@@ -8,11 +9,11 @@ const mockInvoice: Invoice = {
   invoiceNumber: 'INV-001',
   vendorName: 'Test Corp',
   amount: 1500.00,
-  currency: 'USD',
-  issueDate: '2023-01-15',
-  dueDate: '2023-02-15',
+  date: '2023-01-15',
   status: InvoiceStatus.PENDING,
-  description: 'Test supplies'
+  description: 'Test supplies',
+  createdAt: '2023-01-15T00:00:00Z',
+  updatedAt: '2023-01-15T00:00:00Z'
 };
 
 describe('InvoiceCard', () => {
@@ -27,7 +28,7 @@ describe('InvoiceCard', () => {
     
     expect(screen.getByText('INV-001')).toBeInTheDocument();
     expect(screen.getByText('Test Corp')).toBeInTheDocument();
-    expect(screen.getByText('$1,500.00')).toBeInTheDocument();
+    expect(screen.getByText('$1,500')).toBeInTheDocument();
     expect(screen.getByText('PENDING')).toBeInTheDocument();
   });
 
@@ -42,10 +43,10 @@ describe('InvoiceCard', () => {
   });
 
   it('displays different status colors based on invoice status', () => {
-    const paidInvoice = { ...mockInvoice, status: InvoiceStatus.PAID };
-    const { rerender } = render(<InvoiceCard invoice={paidInvoice} onClick={mockOnClick} />);
+    const linkedInvoice = { ...mockInvoice, status: InvoiceStatus.LINKED };
+    const { rerender } = render(<InvoiceCard invoice={linkedInvoice} onClick={mockOnClick} />);
     
-    let statusBadge = screen.getByText('PAID');
+    let statusBadge = screen.getByText('LINKED');
     expect(statusBadge).toHaveClass('badge-success');
     
     const pendingInvoice = { ...mockInvoice, status: InvoiceStatus.PENDING };
@@ -54,10 +55,10 @@ describe('InvoiceCard', () => {
     statusBadge = screen.getByText('PENDING');
     expect(statusBadge).toHaveClass('badge-warning');
     
-    const rejectedInvoice = { ...mockInvoice, status: InvoiceStatus.REJECTED };
-    rerender(<InvoiceCard invoice={rejectedInvoice} onClick={mockOnClick} />);
+    const obsoleteInvoice = { ...mockInvoice, status: InvoiceStatus.OBSOLETE };
+    rerender(<InvoiceCard invoice={obsoleteInvoice} onClick={mockOnClick} />);
     
-    statusBadge = screen.getByText('REJECTED');
+    statusBadge = screen.getByText('OBSOLETE');
     expect(statusBadge).toHaveClass('badge-error');
   });
 });
