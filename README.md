@@ -1,9 +1,18 @@
-
 # Invoice Approval System
 
 A monorepo for the Invoice Approval System, containing both frontend and backend code.
 
-## Project Structure
+## Project Overview
+
+The Invoice Approval System is designed to manage the process of importing invoices, creating payment requests, and handling approvals. The system allows users to:
+
+- Import invoices in batches
+- Create payment requests linked to one or more invoices
+- Route payment requests through approval workflows
+- Track the status of invoices and payment requests
+- Complete the payment process and mark requests as completed
+
+## Repository Structure
 
 ```
 .
@@ -15,6 +24,14 @@ A monorepo for the Invoice Approval System, containing both frontend and backend
 └── docs/             # Project documentation
 ```
 
+### Workspaces
+
+- **Frontend (apps/frontend)**: A React application built with Vite, Tailwind CSS 4, and DaisyUI v5. It provides the user interface for the Invoice Approval System.
+
+- **Backend (apps/backend)**: An Express API that handles data storage, business logic, and API endpoints for the Invoice Approval System.
+
+- **Shared (packages/shared)**: A package containing shared types, interfaces, and utility functions used by both the frontend and backend.
+
 ## Getting Started
 
 ### Prerequisites
@@ -24,7 +41,13 @@ A monorepo for the Invoice Approval System, containing both frontend and backend
 
 ### Installation
 
-1. Clone the repository
+1. Clone the repository:
+
+```bash
+git clone https://github.com/tini-works/tinker.git
+cd tinker
+```
+
 2. Install dependencies:
 
 ```bash
@@ -51,12 +74,20 @@ To start only the backend:
 npm run dev --filter=@invoice-approval/backend
 ```
 
+The frontend will be available at http://localhost:5173 and the backend at http://localhost:4000.
+
 ### Building
 
 To build all applications:
 
 ```bash
 npm run build
+```
+
+To build a specific workspace:
+
+```bash
+npm run build --filter=@invoice-approval/frontend
 ```
 
 ### Testing
@@ -67,12 +98,52 @@ To run tests for all applications:
 npm run test
 ```
 
+To run tests for a specific workspace:
+
+```bash
+npm run test --filter=@invoice-approval/frontend
+```
+
 ### Linting
 
 To lint all applications:
 
 ```bash
 npm run lint
+```
+
+To lint a specific workspace:
+
+```bash
+npm run lint --filter=@invoice-approval/frontend
+```
+
+### Formatting
+
+To format all code:
+
+```bash
+npm run format
+```
+
+## Monorepo Structure
+
+This project uses [Turborepo](https://turbo.build/) to manage the monorepo structure. The key configuration files are:
+
+- **package.json**: Defines workspaces and root-level scripts
+- **turbo.json**: Configures the Turborepo pipeline
+- **tsconfig.base.json**: Provides base TypeScript configuration for all workspaces
+
+### Shared Package
+
+The shared package contains common types and utilities used by both the frontend and backend. To use the shared package in a workspace:
+
+```typescript
+// Import shared types
+import { Invoice, PaymentRequest } from '@invoice-approval/shared';
+
+// Import shared utilities
+import { formatCurrency, formatDate } from '@invoice-approval/shared';
 ```
 
 ## Tech Stack
@@ -82,18 +153,14 @@ npm run lint
 - **Backend**: Express, Node.js
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS 4, DaisyUI v5
-- **Testing**: Vitest, Jest
+- **Testing**: Vitest (frontend), Jest (backend)
 - **Linting**: ESLint, Prettier
-=======
-# Tinker Documentation
-
-This repository contains documentation for the Tinker project.
 
 ## Documentation
 
-The documentation is built using [MkDocs](https://www.mkdocs.org/) with the [Material theme](https://squidfunk.github.io/mkdocs-material/) and includes support for [Mermaid diagrams](https://mermaid.js.org/).
+The project documentation is built using [MkDocs](https://www.mkdocs.org/) with the [Material theme](https://squidfunk.github.io/mkdocs-material/) and includes support for [Mermaid diagrams](https://mermaid.js.org/).
 
-### Viewing Documentation Locally
+### Viewing Documentation
 
 To view the documentation locally:
 
@@ -120,27 +187,15 @@ The documentation is organized as follows:
 - `docs/4_screen_mockups.md`: Screen Mockups documentation
 - `docs/5_screen_variations.md`: Screen Variations documentation
 - `docs/6_summary.md`: Summary documentation
-- `docs/mermaid_example.md`: Examples of Mermaid diagrams
 
-### Using Mermaid Diagrams
+## Contributing
 
-You can create diagrams in your documentation using Mermaid syntax. For example:
+1. Create a new branch for your feature or bugfix
+2. Make your changes
+3. Run tests and linting to ensure code quality
+4. Submit a pull request
 
-````markdown
-```mermaid
-flowchart TD
-    A[Start] --> B{Decision}
-    B -->|Yes| C[Action]
-    B -->|No| D[Alternative Action]
-```
-````
+## License
 
-See the [Mermaid example page](docs/mermaid_example.md) for more examples.
-
-### Automated Deployment
-
-The documentation is automatically built and deployed to GitHub Pages when changes are pushed to the `main` branch. The deployment is handled by a GitHub Actions workflow defined in `.github/workflows/docs.yml`.
-
-You can also manually trigger the deployment by going to the Actions tab in the GitHub repository and running the "Build and Deploy Documentation" workflow.
-
+This project is licensed under the MIT License - see the LICENSE file for details.
 
