@@ -4,11 +4,10 @@ import { DashboardPage } from './pages/dashboard/DashboardPage';
 import { InvoiceListPage } from './pages/invoices/InvoiceListPage';
 import { InvoiceDetailPage } from './pages/invoices/detail/InvoiceDetailPage';
 import { InvoiceImportPage } from './pages/invoices/import/InvoiceImportPage';
+import { InvoiceSelectorPage } from './pages/invoices/selector/InvoiceSelectorPage';
 import { LoginPage } from './pages/auth/LoginPage';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
-// Import will be added when the file is implemented
-// import { InvoiceSelectorPage } from './pages/invoices/selector/InvoiceSelectorPage';
 import { PaymentRequestListPage } from './pages/payment-requests/PaymentRequestListPage';
 import { CreatePaymentRequestPage } from './pages/payment-requests/create/CreatePaymentRequestPage';
 import { PaymentRequestDetailPage } from './pages/payment-requests/detail/PaymentRequestDetailPage';
@@ -71,14 +70,13 @@ function AppRoutes() {
         </ProtectedRoute>
       } />
       
-      {/* Route will be uncommented when the component is implemented */}
-      {/* <Route path="/invoices/selector" element={
+      <Route path="/invoices/selector" element={
         <ProtectedRoute>
           <MainLayout>
             <InvoiceSelectorPage />
           </MainLayout>
         </ProtectedRoute>
-      } /> */}
+      } />
       
       <Route path="/payment-requests" element={
         <ProtectedRoute>
