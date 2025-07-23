@@ -1,16 +1,18 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { formatCurrency, formatDate } from '../../utils/formatters';
 
 // Mock payment request data
 interface PaymentRequest {
   id: string;
   requestNumber: string;
+  title: string;
   amount: number;
   date: string;
   dueDate: string;
   status: 'draft' | 'pending' | 'approved' | 'completed' | 'rejected';
   vendor: string;
+  department: string;
   invoiceNumber?: string;
   approver?: string;
 }
@@ -47,6 +49,9 @@ function StatusBadge({ status }: { status: string }) {
 }
 
 export function PaymentRequestListPage() {
+  const [searchParams] = useSearchParams();
+  const showDeletedMessage = searchParams.get('deleted') === 'true';
+  
   const [paymentRequests, setPaymentRequests] = useState<PaymentRequest[]>([]);
   const [filteredRequests, setFilteredRequests] = useState<PaymentRequest[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -57,6 +62,7 @@ export function PaymentRequestListPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const requestsPerPage = 10;
   
+  // Load payment requests
   useEffect(() => {
     // Simulate API call to fetch payment requests
     setTimeout(() => {
@@ -65,132 +71,63 @@ export function PaymentRequestListPage() {
         {
           id: '1',
           requestNumber: 'PR-2025-001',
-          amount: 1250.75,
+          title: 'Q3 Office Supplies Payment',
+          amount: 4250.75,
           date: '2025-07-15',
           dueDate: '2025-07-30',
           status: 'pending',
           vendor: 'Acme Corporation',
+          department: 'Operations',
           invoiceNumber: 'INV-2025-101',
           approver: 'Jane Smith',
         },
         {
           id: '2',
           requestNumber: 'PR-2025-002',
-          amount: 3450.00,
+          title: 'Marketing Campaign Services',
+          amount: 12500.00,
           date: '2025-07-16',
           dueDate: '2025-07-31',
-          status: 'approved',
+          status: 'draft',
           vendor: 'Globex Inc',
-          invoiceNumber: 'INV-2025-102',
-          approver: 'John Doe',
+          department: 'Marketing',
         },
         {
           id: '3',
           requestNumber: 'PR-2025-003',
-          amount: 875.50,
+          title: 'IT Equipment Purchase',
+          amount: 8750.50,
           date: '2025-07-18',
           dueDate: '2025-08-02',
-          status: 'completed',
+          status: 'approved',
           vendor: 'Initech',
+          department: 'IT',
           invoiceNumber: 'INV-2025-103',
           approver: 'Jane Smith',
         },
         {
           id: '4',
           requestNumber: 'PR-2025-004',
-          amount: 2100.25,
+          title: 'Legal Services Payment',
+          amount: 5600.25,
           date: '2025-07-20',
           dueDate: '2025-08-04',
-          status: 'rejected',
+          status: 'completed',
           vendor: 'Umbrella Corp',
+          department: 'Legal',
           invoiceNumber: 'INV-2025-104',
           approver: 'John Doe',
         },
         {
           id: '5',
           requestNumber: 'PR-2025-005',
-          amount: 5600.00,
+          title: 'Facility Maintenance',
+          amount: 3200.00,
           date: '2025-07-22',
           dueDate: '2025-08-06',
-          status: 'draft',
-          vendor: 'Wayne Enterprises',
-          invoiceNumber: 'INV-2025-105',
-        },
-        {
-          id: '6',
-          requestNumber: 'PR-2025-006',
-          amount: 950.25,
-          date: '2025-07-23',
-          dueDate: '2025-08-07',
-          status: 'pending',
-          vendor: 'Stark Industries',
-          invoiceNumber: 'INV-2025-106',
-          approver: 'Jane Smith',
-        },
-        {
-          id: '7',
-          requestNumber: 'PR-2025-007',
-          amount: 1800.00,
-          date: '2025-07-24',
-          dueDate: '2025-08-08',
-          status: 'approved',
-          vendor: 'Oscorp',
-          invoiceNumber: 'INV-2025-107',
-          approver: 'John Doe',
-        },
-        {
-          id: '8',
-          requestNumber: 'PR-2025-008',
-          amount: 3200.50,
-          date: '2025-07-25',
-          dueDate: '2025-08-09',
-          status: 'pending',
-          vendor: 'LexCorp',
-          invoiceNumber: 'INV-2025-108',
-          approver: 'Jane Smith',
-        },
-        {
-          id: '9',
-          requestNumber: 'PR-2025-009',
-          amount: 4500.75,
-          date: '2025-07-26',
-          dueDate: '2025-08-10',
-          status: 'completed',
-          vendor: 'Cyberdyne Systems',
-          invoiceNumber: 'INV-2025-109',
-          approver: 'John Doe',
-        },
-        {
-          id: '10',
-          requestNumber: 'PR-2025-010',
-          amount: 1100.00,
-          date: '2025-07-27',
-          dueDate: '2025-08-11',
-          status: 'draft',
-          vendor: 'Massive Dynamic',
-          invoiceNumber: 'INV-2025-110',
-        },
-        {
-          id: '11',
-          requestNumber: 'PR-2025-011',
-          amount: 2750.25,
-          date: '2025-07-28',
-          dueDate: '2025-08-12',
-          status: 'pending',
-          vendor: 'Soylent Corp',
-          invoiceNumber: 'INV-2025-111',
-          approver: 'Jane Smith',
-        },
-        {
-          id: '12',
-          requestNumber: 'PR-2025-012',
-          amount: 3900.50,
-          date: '2025-07-29',
-          dueDate: '2025-08-13',
           status: 'rejected',
-          vendor: 'Weyland-Yutani',
-          invoiceNumber: 'INV-2025-112',
-          approver: 'John Doe',
+          vendor: 'Wayne Enterprises',
+          department: 'Facilities',
         },
       ];
       
@@ -214,6 +151,7 @@ export function PaymentRequestListPage() {
       const query = searchQuery.toLowerCase();
       result = result.filter(request => 
         request.requestNumber.toLowerCase().includes(query) ||
+        request.title.toLowerCase().includes(query) ||
         request.vendor.toLowerCase().includes(query) ||
         (request.invoiceNumber && request.invoiceNumber.toLowerCase().includes(query))
       );
@@ -285,15 +223,24 @@ export function PaymentRequestListPage() {
   
   return (
     <div className="container mx-auto p-4">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
-        <h1 className="text-2xl font-bold mb-4 md:mb-0">Payment Requests</h1>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold">Payment Requests</h1>
         <Link to="/payment-requests/create" className="btn btn-primary">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
           </svg>
-          Create Payment Request
+          New Payment Request
         </Link>
       </div>
+      
+      {showDeletedMessage && (
+        <div className="alert alert-success mb-6">
+          <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>Payment request has been deleted successfully.</span>
+        </div>
+      )}
       
       <div className="card bg-base-100 shadow-xl">
         <div className="card-body">
@@ -302,7 +249,7 @@ export function PaymentRequestListPage() {
               <div className="input-group">
                 <input
                   type="text"
-                  placeholder="Search by request #, vendor, or invoice #"
+                  placeholder="Search by request #, title, vendor, or invoice #"
                   className="input input-bordered w-full"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -338,6 +285,12 @@ export function PaymentRequestListPage() {
                     onClick={() => handleSort('requestNumber')}
                   >
                     Request # {renderSortIndicator('requestNumber')}
+                  </th>
+                  <th 
+                    className="cursor-pointer"
+                    onClick={() => handleSort('title')}
+                  >
+                    Title {renderSortIndicator('title')}
                   </th>
                   <th 
                     className="cursor-pointer"
@@ -377,6 +330,7 @@ export function PaymentRequestListPage() {
                   currentRequests.map((request) => (
                     <tr key={request.id}>
                       <td>{request.requestNumber}</td>
+                      <td>{request.title}</td>
                       <td>{request.vendor}</td>
                       <td>{formatCurrency(request.amount)}</td>
                       <td>{formatDate(request.date)}</td>
@@ -389,9 +343,9 @@ export function PaymentRequestListPage() {
                           <Link to={`/payment-requests/${request.id}`} className="btn btn-sm btn-outline">
                             View
                           </Link>
-                          {request.status === 'draft' && (
-                            <Link to={`/payment-requests/${request.id}/edit`} className="btn btn-sm btn-outline">
-                              Edit
+                          {request.status === 'pending' && (
+                            <Link to={`/payment-requests/${request.id}/approve`} className="btn btn-sm btn-primary">
+                              Review
                             </Link>
                           )}
                         </div>
@@ -400,7 +354,7 @@ export function PaymentRequestListPage() {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={7} className="text-center py-4">
+                    <td colSpan={8} className="text-center py-4">
                       No payment requests found matching your criteria.
                     </td>
                   </tr>
