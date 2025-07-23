@@ -20,8 +20,11 @@ export const authService = {
    */
   async login(credentials: LoginCredentials): Promise<ApiResponse<User>> {
     try {
-      const response = await apiClient.post<LoginResponse>('/auth/login', credentials);
-      
+      const response = await apiClient.post<LoginResponse>(
+        '/auth/login',
+        credentials
+      );
+
       if (response.data && response.data.token) {
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('user', JSON.stringify(response.data.user));
@@ -30,7 +33,7 @@ export const authService = {
           status: response.status,
         };
       }
-      
+
       return {
         error: response.error || 'Login failed',
         status: response.status,
@@ -43,7 +46,7 @@ export const authService = {
       };
     }
   },
-  
+
   /**
    * Logout current user
    */
@@ -52,14 +55,14 @@ export const authService = {
     localStorage.removeItem('user');
     window.location.href = '/login';
   },
-  
+
   /**
    * Check if user is authenticated
    */
   isAuthenticated(): boolean {
     return !!localStorage.getItem('token');
   },
-  
+
   /**
    * Get current user
    */
@@ -75,7 +78,7 @@ export const authService = {
     }
     return null;
   },
-  
+
   /**
    * Get authentication token
    */
@@ -83,4 +86,3 @@ export const authService = {
     return localStorage.getItem('token');
   },
 };
-

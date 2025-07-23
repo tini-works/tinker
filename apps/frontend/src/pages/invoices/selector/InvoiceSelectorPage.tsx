@@ -19,7 +19,7 @@ export function InvoiceSelectorPage() {
   const [searchParams] = useSearchParams();
   const returnUrl = searchParams.get('returnUrl') || '/payment-requests/create';
   const preSelectedIds = searchParams.get('selected')?.split(',') || [];
-  
+
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [filteredInvoices, setFilteredInvoices] = useState<Invoice[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -30,7 +30,7 @@ export function InvoiceSelectorPage() {
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
   const [currentPage, setCurrentPage] = useState(1);
   const invoicesPerPage = 10;
-  
+
   // Load invoices
   useEffect(() => {
     // Simulate API call to fetch invoices
@@ -51,7 +51,7 @@ export function InvoiceSelectorPage() {
           id: '2',
           invoiceNumber: 'INV-2025-002',
           vendor: 'Globex Inc',
-          amount: 3450.00,
+          amount: 3450.0,
           date: '2025-07-16',
           dueDate: '2025-07-31',
           status: 'pending',
@@ -61,7 +61,7 @@ export function InvoiceSelectorPage() {
           id: '3',
           invoiceNumber: 'INV-2025-003',
           vendor: 'Initech',
-          amount: 875.50,
+          amount: 875.5,
           date: '2025-07-18',
           dueDate: '2025-08-02',
           status: 'pending',
@@ -81,7 +81,7 @@ export function InvoiceSelectorPage() {
           id: '5',
           invoiceNumber: 'INV-2025-005',
           vendor: 'Wayne Enterprises',
-          amount: 5600.00,
+          amount: 5600.0,
           date: '2025-07-22',
           dueDate: '2025-08-06',
           status: 'pending',
@@ -101,7 +101,7 @@ export function InvoiceSelectorPage() {
           id: '7',
           invoiceNumber: 'INV-2025-007',
           vendor: 'Oscorp',
-          amount: 1800.00,
+          amount: 1800.0,
           date: '2025-07-24',
           dueDate: '2025-08-08',
           status: 'pending',
@@ -111,7 +111,7 @@ export function InvoiceSelectorPage() {
           id: '8',
           invoiceNumber: 'INV-2025-008',
           vendor: 'LexCorp',
-          amount: 3200.50,
+          amount: 3200.5,
           date: '2025-07-25',
           dueDate: '2025-08-09',
           status: 'pending',
@@ -131,7 +131,7 @@ export function InvoiceSelectorPage() {
           id: '10',
           invoiceNumber: 'INV-2025-010',
           vendor: 'Massive Dynamic',
-          amount: 1100.00,
+          amount: 1100.0,
           date: '2025-07-27',
           dueDate: '2025-08-11',
           status: 'pending',
@@ -151,7 +151,7 @@ export function InvoiceSelectorPage() {
           id: '12',
           invoiceNumber: 'INV-2025-012',
           vendor: 'Weyland-Yutani',
-          amount: 3900.50,
+          amount: 3900.5,
           date: '2025-07-29',
           dueDate: '2025-08-13',
           status: 'pending',
@@ -161,7 +161,7 @@ export function InvoiceSelectorPage() {
           id: '13',
           invoiceNumber: 'INV-2025-013',
           vendor: 'Acme Corporation',
-          amount: 2200.00,
+          amount: 2200.0,
           date: '2025-07-30',
           dueDate: '2025-08-14',
           status: 'approved',
@@ -171,7 +171,7 @@ export function InvoiceSelectorPage() {
           id: '14',
           invoiceNumber: 'INV-2025-014',
           vendor: 'Globex Inc',
-          amount: 1750.50,
+          amount: 1750.5,
           date: '2025-07-31',
           dueDate: '2025-08-15',
           status: 'approved',
@@ -188,61 +188,67 @@ export function InvoiceSelectorPage() {
           selected: preSelectedIds.includes('15'),
         },
       ];
-      
+
       setInvoices(mockInvoices);
       setFilteredInvoices(mockInvoices);
       setIsLoading(false);
     }, 1000);
   }, [preSelectedIds]);
-  
+
   // Get unique vendors for filter dropdown
   const uniqueVendors = [...new Set(invoices.map(invoice => invoice.vendor))];
-  
+
   // Filter and sort invoices
   useEffect(() => {
     let result = [...invoices];
-    
+
     // Apply status filter
     if (statusFilter !== 'all') {
       result = result.filter(invoice => invoice.status === statusFilter);
     }
-    
+
     // Apply vendor filter
     if (vendorFilter !== 'all') {
       result = result.filter(invoice => invoice.vendor === vendorFilter);
     }
-    
+
     // Apply search query
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
-      result = result.filter(invoice => 
-        invoice.invoiceNumber.toLowerCase().includes(query) ||
-        invoice.vendor.toLowerCase().includes(query)
+      result = result.filter(
+        invoice =>
+          invoice.invoiceNumber.toLowerCase().includes(query) ||
+          invoice.vendor.toLowerCase().includes(query)
       );
     }
-    
+
     // Apply sorting
     result.sort((a, b) => {
       const fieldA = a[sortField];
       const fieldB = b[sortField];
-      
+
       if (typeof fieldA === 'string' && typeof fieldB === 'string') {
-        return sortDirection === 'asc' 
-          ? fieldA.localeCompare(fieldB) 
+        return sortDirection === 'asc'
+          ? fieldA.localeCompare(fieldB)
           : fieldB.localeCompare(fieldA);
       } else if (typeof fieldA === 'number' && typeof fieldB === 'number') {
-        return sortDirection === 'asc' 
-          ? fieldA - fieldB 
-          : fieldB - fieldA;
+        return sortDirection === 'asc' ? fieldA - fieldB : fieldB - fieldA;
       }
-      
+
       return 0;
     });
-    
+
     setFilteredInvoices(result);
     setCurrentPage(1); // Reset to first page when filters change
-  }, [invoices, statusFilter, vendorFilter, searchQuery, sortField, sortDirection]);
-  
+  }, [
+    invoices,
+    statusFilter,
+    vendorFilter,
+    searchQuery,
+    sortField,
+    sortDirection,
+  ]);
+
   // Handle sort toggle
   const handleSort = (field: keyof Invoice) => {
     if (sortField === field) {
@@ -252,77 +258,90 @@ export function InvoiceSelectorPage() {
       setSortDirection('asc');
     }
   };
-  
+
   // Toggle invoice selection
   const handleToggleSelect = (id: string) => {
-    const updatedInvoices = invoices.map(invoice => 
-      invoice.id === id 
-        ? { ...invoice, selected: !invoice.selected } 
-        : invoice
+    const updatedInvoices = invoices.map(invoice =>
+      invoice.id === id ? { ...invoice, selected: !invoice.selected } : invoice
     );
     setInvoices(updatedInvoices);
   };
-  
+
   // Toggle select all invoices on current page
   const handleToggleSelectAll = () => {
     const currentPageInvoices = getCurrentPageInvoices();
     const allSelected = currentPageInvoices.every(invoice => invoice.selected);
-    
+
     const updatedInvoices = invoices.map(invoice => {
-      const isOnCurrentPage = currentPageInvoices.some(i => i.id === invoice.id);
+      const isOnCurrentPage = currentPageInvoices.some(
+        i => i.id === invoice.id
+      );
       return isOnCurrentPage ? { ...invoice, selected: !allSelected } : invoice;
     });
-    
+
     setInvoices(updatedInvoices);
   };
-  
+
   // Get selected invoices
   const selectedInvoices = invoices.filter(invoice => invoice.selected);
-  
+
   // Calculate total amount of selected invoices
-  const totalSelectedAmount = selectedInvoices.reduce((sum, invoice) => sum + invoice.amount, 0);
-  
+  const totalSelectedAmount = selectedInvoices.reduce(
+    (sum, invoice) => sum + invoice.amount,
+    0
+  );
+
   // Get current page data
   const indexOfLastInvoice = currentPage * invoicesPerPage;
   const indexOfFirstInvoice = indexOfLastInvoice - invoicesPerPage;
-  const getCurrentPageInvoices = () => filteredInvoices.slice(indexOfFirstInvoice, indexOfLastInvoice);
+  const getCurrentPageInvoices = () =>
+    filteredInvoices.slice(indexOfFirstInvoice, indexOfLastInvoice);
   const currentInvoices = getCurrentPageInvoices();
-  
+
   // Change page
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
   const totalPages = Math.ceil(filteredInvoices.length / invoicesPerPage);
-  
+
   // Confirm selection and navigate back
   const handleConfirmSelection = () => {
     const selectedIds = selectedInvoices.map(invoice => invoice.id).join(',');
     navigate(`${returnUrl}?selected=${selectedIds}`);
   };
-  
+
   // Render sort indicator
   const renderSortIndicator = (field: keyof Invoice) => {
     if (sortField !== field) return null;
     return <span className="ml-1">{sortDirection === 'asc' ? '↑' : '↓'}</span>;
   };
-  
+
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <span className="loading loading-spinner loading-lg"></span>
+        <span className="loading loading-spinner loading-lg" />
       </div>
     );
   }
-  
+
   return (
     <div className="container mx-auto p-4">
       <div className="flex items-center mb-6">
         <Link to={returnUrl} className="btn btn-ghost btn-sm mr-2">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+              clipRule="evenodd"
+            />
           </svg>
         </Link>
         <h1 className="text-2xl font-bold">Select Invoices</h1>
       </div>
-      
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Main Content */}
         <div className="lg:col-span-2">
@@ -337,42 +356,55 @@ export function InvoiceSelectorPage() {
                       placeholder="Search invoices..."
                       className="input input-bordered w-full"
                       value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onChange={e => setSearchQuery(e.target.value)}
                     />
                     <button className="btn btn-square">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                        />
                       </svg>
                     </button>
                   </div>
                 </div>
-                
+
                 {/* Filters */}
                 <div className="flex flex-col sm:flex-row gap-2">
                   <select
                     className="select select-bordered"
                     value={statusFilter}
-                    onChange={(e) => setStatusFilter(e.target.value)}
+                    onChange={e => setStatusFilter(e.target.value)}
                   >
                     <option value="all">All Statuses</option>
                     <option value="pending">Pending</option>
                     <option value="approved">Approved</option>
                     <option value="paid">Paid</option>
                   </select>
-                  
+
                   <select
                     className="select select-bordered"
                     value={vendorFilter}
-                    onChange={(e) => setVendorFilter(e.target.value)}
+                    onChange={e => setVendorFilter(e.target.value)}
                   >
                     <option value="all">All Vendors</option>
-                    {uniqueVendors.map((vendor) => (
-                      <option key={vendor} value={vendor}>{vendor}</option>
+                    {uniqueVendors.map(vendor => (
+                      <option key={vendor} value={vendor}>
+                        {vendor}
+                      </option>
                     ))}
                   </select>
                 </div>
               </div>
-              
+
               <div className="overflow-x-auto">
                 <table className="table table-zebra w-full">
                   <thead>
@@ -381,41 +413,44 @@ export function InvoiceSelectorPage() {
                         <input
                           type="checkbox"
                           className="checkbox"
-                          checked={currentInvoices.length > 0 && currentInvoices.every(invoice => invoice.selected)}
+                          checked={
+                            currentInvoices.length > 0 &&
+                            currentInvoices.every(invoice => invoice.selected)
+                          }
                           onChange={handleToggleSelectAll}
                         />
                       </th>
-                      <th 
+                      <th
                         className="cursor-pointer"
                         onClick={() => handleSort('invoiceNumber')}
                       >
                         Invoice # {renderSortIndicator('invoiceNumber')}
                       </th>
-                      <th 
+                      <th
                         className="cursor-pointer"
                         onClick={() => handleSort('vendor')}
                       >
                         Vendor {renderSortIndicator('vendor')}
                       </th>
-                      <th 
+                      <th
                         className="cursor-pointer"
                         onClick={() => handleSort('amount')}
                       >
                         Amount {renderSortIndicator('amount')}
                       </th>
-                      <th 
+                      <th
                         className="cursor-pointer"
                         onClick={() => handleSort('date')}
                       >
                         Date {renderSortIndicator('date')}
                       </th>
-                      <th 
+                      <th
                         className="cursor-pointer"
                         onClick={() => handleSort('dueDate')}
                       >
                         Due Date {renderSortIndicator('dueDate')}
                       </th>
-                      <th 
+                      <th
                         className="cursor-pointer"
                         onClick={() => handleSort('status')}
                       >
@@ -425,9 +460,9 @@ export function InvoiceSelectorPage() {
                   </thead>
                   <tbody>
                     {currentInvoices.length > 0 ? (
-                      currentInvoices.map((invoice) => (
-                        <tr 
-                          key={invoice.id} 
+                      currentInvoices.map(invoice => (
+                        <tr
+                          key={invoice.id}
                           className={invoice.selected ? 'bg-base-200' : ''}
                           onClick={() => handleToggleSelect(invoice.id)}
                         >
@@ -437,7 +472,7 @@ export function InvoiceSelectorPage() {
                               className="checkbox"
                               checked={invoice.selected}
                               onChange={() => handleToggleSelect(invoice.id)}
-                              onClick={(e) => e.stopPropagation()}
+                              onClick={e => e.stopPropagation()}
                             />
                           </td>
                           <td>{invoice.invoiceNumber}</td>
@@ -446,12 +481,19 @@ export function InvoiceSelectorPage() {
                           <td>{formatDate(invoice.date)}</td>
                           <td>{formatDate(invoice.dueDate)}</td>
                           <td>
-                            <div className={`badge ${
-                              invoice.status === 'pending' ? 'badge-primary' :
-                              invoice.status === 'approved' ? 'badge-secondary' :
-                              invoice.status === 'paid' ? 'badge-success' : 'badge-ghost'
-                            }`}>
-                              {invoice.status.charAt(0).toUpperCase() + invoice.status.slice(1)}
+                            <div
+                              className={`badge ${
+                                invoice.status === 'pending'
+                                  ? 'badge-primary'
+                                  : invoice.status === 'approved'
+                                    ? 'badge-secondary'
+                                    : invoice.status === 'paid'
+                                      ? 'badge-success'
+                                      : 'badge-ghost'
+                              }`}
+                            >
+                              {invoice.status.charAt(0).toUpperCase() +
+                                invoice.status.slice(1)}
                             </div>
                           </td>
                         </tr>
@@ -466,7 +508,7 @@ export function InvoiceSelectorPage() {
                   </tbody>
                 </table>
               </div>
-              
+
               {/* Pagination */}
               {totalPages > 1 && (
                 <div className="flex justify-center mt-6">
@@ -478,20 +520,24 @@ export function InvoiceSelectorPage() {
                     >
                       «
                     </button>
-                    
-                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                      <button
-                        key={page}
-                        className={`join-item btn ${currentPage === page ? 'btn-active' : ''}`}
-                        onClick={() => paginate(page)}
-                      >
-                        {page}
-                      </button>
-                    ))}
-                    
+
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                      page => (
+                        <button
+                          key={page}
+                          className={`join-item btn ${currentPage === page ? 'btn-active' : ''}`}
+                          onClick={() => paginate(page)}
+                        >
+                          {page}
+                        </button>
+                      )
+                    )}
+
                     <button
                       className="join-item btn"
-                      onClick={() => paginate(Math.min(totalPages, currentPage + 1))}
+                      onClick={() =>
+                        paginate(Math.min(totalPages, currentPage + 1))
+                      }
                       disabled={currentPage === totalPages}
                     >
                       »
@@ -499,51 +545,73 @@ export function InvoiceSelectorPage() {
                   </div>
                 </div>
               )}
-              
+
               {/* Summary */}
               <div className="text-sm text-base-content/70 mt-4">
-                Showing {indexOfFirstInvoice + 1}-{Math.min(indexOfLastInvoice, filteredInvoices.length)} of {filteredInvoices.length} invoices
+                Showing {indexOfFirstInvoice + 1}-
+                {Math.min(indexOfLastInvoice, filteredInvoices.length)} of{' '}
+                {filteredInvoices.length} invoices
               </div>
             </div>
           </div>
         </div>
-        
+
         {/* Selection Summary */}
         <div>
           <div className="card bg-base-100 shadow-xl sticky top-4">
             <div className="card-body">
               <h2 className="card-title text-xl mb-4">Selected Invoices</h2>
-              
+
               <div className="space-y-4">
                 <div>
                   <div className="text-sm opacity-70">Count</div>
-                  <div className="text-xl font-bold">{selectedInvoices.length}</div>
+                  <div className="text-xl font-bold">
+                    {selectedInvoices.length}
+                  </div>
                 </div>
-                
+
                 <div>
                   <div className="text-sm opacity-70">Total Amount</div>
-                  <div className="text-2xl font-bold text-primary">{formatCurrency(totalSelectedAmount)}</div>
+                  <div className="text-2xl font-bold text-primary">
+                    {formatCurrency(totalSelectedAmount)}
+                  </div>
                 </div>
-                
+
                 {selectedInvoices.length > 0 && (
                   <>
-                    <div className="divider"></div>
-                    
+                    <div className="divider" />
+
                     <div className="max-h-64 overflow-y-auto">
-                      {selectedInvoices.map((invoice) => (
-                        <div key={invoice.id} className="flex justify-between items-center mb-2">
+                      {selectedInvoices.map(invoice => (
+                        <div
+                          key={invoice.id}
+                          className="flex justify-between items-center mb-2"
+                        >
                           <div className="text-sm">
                             <div>{invoice.invoiceNumber}</div>
                             <div className="opacity-70">{invoice.vendor}</div>
                           </div>
                           <div className="flex items-center gap-2">
-                            <div className="font-medium">{formatCurrency(invoice.amount)}</div>
+                            <div className="font-medium">
+                              {formatCurrency(invoice.amount)}
+                            </div>
                             <button
                               className="btn btn-xs btn-ghost btn-circle"
                               onClick={() => handleToggleSelect(invoice.id)}
                             >
-                              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-4 w-4"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                  d="M6 18L18 6M6 6l12 12"
+                                />
                               </svg>
                             </button>
                           </div>
@@ -552,7 +620,7 @@ export function InvoiceSelectorPage() {
                     </div>
                   </>
                 )}
-                
+
                 <div className="pt-4">
                   <button
                     className="btn btn-primary w-full"
@@ -561,7 +629,7 @@ export function InvoiceSelectorPage() {
                   >
                     Confirm Selection
                   </button>
-                  
+
                   <Link to={returnUrl} className="btn btn-outline w-full mt-2">
                     Cancel
                   </Link>
@@ -574,4 +642,3 @@ export function InvoiceSelectorPage() {
     </div>
   );
 }
-

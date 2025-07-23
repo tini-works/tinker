@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from 'react';
 
 type Theme = 'light' | 'dark' | 'corporate' | 'business';
 
@@ -15,20 +21,20 @@ interface ThemeProviderProps {
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
   const [theme, setThemeState] = useState<Theme>('light');
-  
+
   useEffect(() => {
     // Initialize theme from localStorage or default to 'light'
-    const savedTheme = localStorage.getItem('theme') as Theme || 'light';
+    const savedTheme = (localStorage.getItem('theme') as Theme) || 'light';
     setThemeState(savedTheme);
     document.documentElement.setAttribute('data-theme', savedTheme);
   }, []);
-  
+
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme);
     localStorage.setItem('theme', newTheme);
     document.documentElement.setAttribute('data-theme', newTheme);
   };
-  
+
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       {children}
@@ -43,4 +49,3 @@ export function useTheme() {
   }
   return context;
 }
-

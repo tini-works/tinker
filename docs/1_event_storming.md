@@ -108,12 +108,14 @@ Policies are business rules that govern the system:
 ## State Changes
 
 ### Invoice States
+
 - **Imported**: Initial state when an invoice is imported into the system.
 - **Linked**: Invoice is linked to a payment request.
 - **Completed**: Invoice is marked as completed after the linked payment request is completed.
 - **Obsolete**: Invoice is marked as obsolete (no longer valid).
 
 ### Payment Request States
+
 - **Draft**: Initial state when a payment request is created.
 - **In Review**: Payment request is submitted for approval and under review.
 - **Approved**: Payment request has been approved.
@@ -132,4 +134,3 @@ During the Event Storming analysis, several hotspots (areas of uncertainty or co
 ## Conclusion
 
 This Event Storming analysis provides a high-level overview of the invoice approval system domain. It identifies the key events, commands, aggregates, and policies that govern the system. This analysis will serve as a foundation for the subsequent user journey mapping and screen design.
-
