@@ -285,16 +285,14 @@ export function InvoiceSelectorPage() {
   // Get current page data
   const indexOfLastInvoice = currentPage * invoicesPerPage;
   const indexOfFirstInvoice = indexOfLastInvoice - invoicesPerPage;
-  const getCurrentPageInvoices = () => {
-    return filteredInvoices.slice(indexOfFirstInvoice, indexOfLastInvoice);
-  };
+  const getCurrentPageInvoices = () => filteredInvoices.slice(indexOfFirstInvoice, indexOfLastInvoice);
   const currentInvoices = getCurrentPageInvoices();
-  const totalPages = Math.ceil(filteredInvoices.length / invoicesPerPage);
   
   // Change page
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+  const totalPages = Math.ceil(filteredInvoices.length / invoicesPerPage);
   
-  // Handle confirm selection
+  // Confirm selection and navigate back
   const handleConfirmSelection = () => {
     const selectedIds = selectedInvoices.map(invoice => invoice.id).join(',');
     navigate(`${returnUrl}?selected=${selectedIds}`);
@@ -303,16 +301,7 @@ export function InvoiceSelectorPage() {
   // Render sort indicator
   const renderSortIndicator = (field: keyof Invoice) => {
     if (sortField !== field) return null;
-    
-    return sortDirection === 'asc' ? (
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 inline-block ml-1" viewBox="0 0 20 20" fill="currentColor">
-        <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
-      </svg>
-    ) : (
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 inline-block ml-1" viewBox="0 0 20 20" fill="currentColor">
-        <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-      </svg>
-    );
+    return <span className="ml-1">{sortDirection === 'asc' ? '↑' : '↓'}</span>;
   };
   
   if (isLoading) {
@@ -334,17 +323,18 @@ export function InvoiceSelectorPage() {
         <h1 className="text-2xl font-bold">Select Invoices</h1>
       </div>
       
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Main Content */}
-        <div className="lg:col-span-3">
+        <div className="lg:col-span-2">
           <div className="card bg-base-100 shadow-xl">
             <div className="card-body">
-              <div className="flex flex-col md:flex-row gap-4 mb-6">
+              <div className="flex flex-col md:flex-row gap-4 mb-4">
+                {/* Search */}
                 <div className="form-control flex-1">
                   <div className="input-group">
                     <input
                       type="text"
-                      placeholder="Search by invoice # or vendor"
+                      placeholder="Search invoices..."
                       className="input input-bordered w-full"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
@@ -357,27 +347,30 @@ export function InvoiceSelectorPage() {
                   </div>
                 </div>
                 
-                <select
-                  className="select select-bordered"
-                  value={statusFilter}
-                  onChange={(e) => setStatusFilter(e.target.value)}
-                >
-                  <option value="all">All Statuses</option>
-                  <option value="pending">Pending</option>
-                  <option value="approved">Approved</option>
-                  <option value="paid">Paid</option>
-                </select>
-                
-                <select
-                  className="select select-bordered"
-                  value={vendorFilter}
-                  onChange={(e) => setVendorFilter(e.target.value)}
-                >
-                  <option value="all">All Vendors</option>
-                  {uniqueVendors.map((vendor, index) => (
-                    <option key={index} value={vendor}>{vendor}</option>
-                  ))}
-                </select>
+                {/* Filters */}
+                <div className="flex flex-col sm:flex-row gap-2">
+                  <select
+                    className="select select-bordered"
+                    value={statusFilter}
+                    onChange={(e) => setStatusFilter(e.target.value)}
+                  >
+                    <option value="all">All Statuses</option>
+                    <option value="pending">Pending</option>
+                    <option value="approved">Approved</option>
+                    <option value="paid">Paid</option>
+                  </select>
+                  
+                  <select
+                    className="select select-bordered"
+                    value={vendorFilter}
+                    onChange={(e) => setVendorFilter(e.target.value)}
+                  >
+                    <option value="all">All Vendors</option>
+                    {uniqueVendors.map((vendor) => (
+                      <option key={vendor} value={vendor}>{vendor}</option>
+                    ))}
+                  </select>
+                </div>
               </div>
               
               <div className="overflow-x-auto">
