@@ -1,16 +1,15 @@
 /**
+ * Utility functions for formatting values consistently across the application
+ */
+
+/**
  * Format a number as currency
  * @param amount The amount to format
- * @param locale The locale to use for formatting (default: 'en-US')
- * @param currency The currency to use (default: 'USD')
+ * @param currency The currency code (default: USD)
  * @returns Formatted currency string
  */
-export function formatCurrency(
-  amount: number,
-  locale: string = 'en-US',
-  currency: string = 'USD'
-): string {
-  return new Intl.NumberFormat(locale, {
+export function formatCurrency(amount: number, currency = 'USD'): string {
+  return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency,
     minimumFractionDigits: 2,
@@ -21,27 +20,26 @@ export function formatCurrency(
 /**
  * Format a date string
  * @param dateString The date string to format
- * @param locale The locale to use for formatting (default: 'en-US')
+ * @param options Intl.DateTimeFormatOptions
  * @returns Formatted date string
  */
 export function formatDate(
   dateString: string,
-  locale: string = 'en-US'
+  options: Intl.DateTimeFormatOptions = { 
+    year: 'numeric', 
+    month: 'short', 
+    day: 'numeric' 
+  }
 ): string {
   if (!dateString) return '';
-  
   const date = new Date(dateString);
-  return new Intl.DateTimeFormat(locale, {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  }).format(date);
+  return new Intl.DateTimeFormat('en-US', options).format(date);
 }
 
 /**
- * Format a date as a relative time (e.g., "2 days ago")
+ * Format a date as a relative time (e.g., "2 hours ago")
  * @param dateString The date string to format
- * @returns Formatted relative time string
+ * @returns Relative time string
  */
 export function formatRelativeTime(dateString: string): string {
   if (!dateString) return '';
@@ -89,19 +87,16 @@ export function formatNumber(num: number): string {
 
 /**
  * Format a file size in bytes to a human-readable format
- * @param bytes The file size in bytes
- * @param decimals The number of decimal places to show (default: 2)
+ * @param bytes - The file size in bytes
  * @returns Formatted file size string
  */
-export function formatFileSize(bytes: number, decimals: number = 2): string {
+export function formatFileSize(bytes: number): string {
   if (bytes === 0) return '0 Bytes';
   
   const k = 1024;
-  const dm = decimals < 0 ? 0 : decimals;
-  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-  
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
   
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
 
