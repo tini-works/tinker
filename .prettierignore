@@ -2,6 +2,7 @@
 dist/
 build/
 coverage/
+site/
 
 # Dependencies
 node_modules/
@@ -20,4 +21,3 @@ pnpm-lock.yaml
 .next
 .cache
 .DS_Store
-
