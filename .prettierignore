@@ -14,10 +14,10 @@ pnpm-lock.yaml
 # Generated files
 *.generated.*
 *.min.*
+site/
 
 # Misc
 .turbo
 .next
 .cache
 .DS_Store
-
