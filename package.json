@@ -1,5 +1,5 @@
 {
-  "name": "invoice-approval-system",
+  "name": "invoice-approval",
   "version": "0.1.0",
   "private": true,
   "workspaces": [
@@ -10,8 +10,10 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md,js,jsx,json}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md,js,jsx,json}\"",
     "test": "turbo run test",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "clean": "turbo run clean && rm -rf node_modules"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",
