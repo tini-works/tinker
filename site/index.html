@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Home - Tinker Documentation</title>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="Documentation for the Tinker project" name="description"/>
+<meta content="mkdocs-1.6.1, mkdocs-gitbook-1.0.7" name="generator"/>
+<meta content="Tinker Team" name="author"/>
+<link href="./images/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+<meta content="true" name="HandheldFriendly">
+<meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<meta href="" rel="next">
+<link href="./css/style.min.css" rel="stylesheet"/>
+<link href="stylesheets/extra.css" rel="stylesheet"/>
+</meta></meta></head>
+<body>
+<div class="book">
+<div class="book-summary">
+<div id="book-search-input" role="search">
+<input placeholder="Type to search" type="text"/>
+</div> <!-- end of book-search-input -->
+<nav role="navigation">
+<ul class="summary">
+<li>
+<a class="custom-link" href="." target="_blank">Tinker Documentation</a>
+</li>
+<li class="divider"></li>
+<li class="chapter active" data-path="">
+<a href=".">Home</a>
+<li class="chapter" data-path="1_event_storming/">
+<a href="1_event_storming/">Event Storming</a>
+<li class="chapter" data-path="2_user_journeys/">
+<a href="2_user_journeys/">User Journeys</a>
+<li class="chapter" data-path="3_touch_points_screens/">
+<a href="3_touch_points_screens/">Touch Points &amp; Screens</a>
+<li class="chapter" data-path="4_screen_mockups/">
+<a href="4_screen_mockups/">Screen Mockups</a>
+<li class="chapter" data-path="5_screen_variations/">
+<a href="5_screen_variations/">Screen Variations</a>
+<li class="chapter" data-path="6_summary/">
+<a href="6_summary/">Summary</a>
+<li class="chapter" data-path="mermaid_example/">
+<a href="mermaid_example/">Mermaid Examples</a>
+<li class="divider"></li>
+<li><a href="http://www.mkdocs.org">
+Published with MkDocs
+</a></li>
+<li><a href="https://github.com/GitbookIO/theme-default">
+Theme by GitBook
+</a></li>
+</li></li></li></li></li></li></li></li></ul>
+</nav>
+</div> <!-- end of book-summary -->
+<div class="book-body">
+<div class="body-inner">
+<div class="book-header" role="navigation">
+<!-- Title -->
+<h1>
+<i class="fa fa-circle-o-notch fa-spin"></i>
+<a href="."></a>
+</h1>
+</div> <!-- end of book-header -->
+<div class="page-wrapper" role="main" tabindex="-1">
+<div class="page-inner">
+<div id="book-search-results">
+<div class="search-noresults">
+<section class="normal markdown-section">
+<h1 id="project">Project<a class="headerlink" href="#project" title="Permanent link">¶</a></h1>
+<p>We'll use this project to think, think deep, think really deep. The outputs are masterpieces because we make, and try, and compact the thinking in multiple steps to get to where we</p>
+<h1 id="goal">Goal<a class="headerlink" href="#goal" title="Permanent link">¶</a></h1>
+<p>Create a set of prompts/setups/commands for Claude to be able to analyze any software subject, and be able to prepare the ultimate document setup for implementation (technical details are prohibited)</p>
+<p>We will not talk about specific frameworks capability or language limitation.
+We DO talk about limitation of user port boudaries, for example, web has it owns limitation, mobile has it owns limitation, desktop application has it owns limitation. Those trade-offs are important in the analysis and reasoning</p>
+<h1 id="workflow-to-kickstarted-the-discoveries">Workflow to kickstarted the discoveries<a class="headerlink" href="#workflow-to-kickstarted-the-discoveries" title="Permanent link">¶</a></h1>
+<ol>
+<li>Build Eventstorming for the main flow. This Eventstorming plays very important role discovering the state changes of database entities</li>
+<li>Build and confirm list of user journeys. Verify that with Eventstorming</li>
+<li>Extract touch points, and build an Information Architecture. With this, we'll know what screens are for, in what states and how to navigate from to.</li>
+<li>Finalize screen mockups and build most important paths based on [3]. Those screen mockups will need to be quite realistics, clickable and navigatable, to default or specific variant as needed</li>
+<li>
+<p>Interactive web app using html and tailwindcss cdn where user can</p>
+</li>
+<li>
+<p>Split screen and variations into different HTML files, use css tricks to make screen can support different variantions over copying</p>
+</li>
+<li>Use iframe to include screen in the main web app</li>
+<li>Can navigate back and forth using IA</li>
+<li>Can navigate by interacting on the prototype</li>
+<li>Can see the reasoning behind materials 1,2,3</li>
+<li>Utilize markdown rendering library via unpacked to render markdown inline without build</li>
+</ol>
+<h1 id="example-of-the-inputs">Example of the inputs<a class="headerlink" href="#example-of-the-inputs" title="Permanent link">¶</a></h1>
+<p>Context:
+An invoice approval system.</p>
+<p>Every month, invoices are going to be imported in batches (or one by one, automatically or manually) to the system. Those invoices are supposed to be processed, end results will be either, imported or obseleted, those are normally can be imported by any users of the system.</p>
+<p>Imported invoices are going to be queued, and to be processed by admin or HR depending on the nature of the invoice.</p>
+<p>HR or admin will start with creating a thing called Payment Request (PR). This PR is the working unit for administration team, they'll work around the PR. Each PR serve a specific purpose, with reasons, proof, working materials (normally comes in excels, pdfs attachments etc), users can leave comments, updates, making approvals or requesting changes.</p>
+<p>This is when the Approval process kicks in. The PR goes through the approval process and can be going back and forth.</p>
+<p>Once the Payment Request got approved (through one or many stages), the finance will make the payment outside of the system (this doesn't need to be tracked). Once the Finance team reviewed the payments, they'll mark the PR as completed manually.</p>
+<ul>
+<li>The PR will be sealed and nolonger can be changed (but it can be reverted to previous state)</li>
+<li>All linked Invoices are marked as completed</li>
+</ul>
+<h1 id="expected-outputs">Expected outputs<a class="headerlink" href="#expected-outputs" title="Permanent link">¶</a></h1>
+<ul>
+<li>md documents as artifacts for steps</li>
+<li>working html that can be served using <code>npx serve -p &lt;port&gt;</code>, please use this to verify</li>
+<li>a summary document so next time agent start working, they can kickstart analyzing (workflow, where to look at, what to look at, how to look at etc)</li>
+</ul>
+</section>
+</div> <!-- end of search-noresults -->
+<div class="search-results">
+<div class="has-results">
+<h1 class="search-results-title"><span class="search-results-count"></span> results matching "<span class="search-query"></span>"</h1>
+<ul class="search-results-list"></ul>
+</div> <!-- end of has-results -->
+<div class="no-results">
+<h1 class="search-results-title">No results matching "<span class="search-query"></span>"</h1>
+</div> <!-- end of no-results -->
+</div> <!-- end of search-results -->
+</div> <!-- end of book-search-results -->
+</div> <!-- end of page-inner -->
+</div> <!-- end of page-wrapper -->
+</div> <!-- end of body-inner -->
+</div> <!-- end of book-body -->
+<script src="./js/main.js"></script>
+<script src="search/main.js"></script>
+<script src="./js/gitbook.min.js"></script>
+<script src="./js/theme.min.js"></script>
+</div></body>
+</html>

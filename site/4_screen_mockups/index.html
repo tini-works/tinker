@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Screen Mockups - Tinker Documentation</title>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="Documentation for the Tinker project" name="description"/>
+<meta content="mkdocs-1.6.1, mkdocs-gitbook-1.0.7" name="generator"/>
+<meta content="Tinker Team" name="author"/>
+<link href="../images/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+<meta content="true" name="HandheldFriendly">
+<meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<meta href="" rel="next">
+<link href="../css/style.min.css" rel="stylesheet"/>
+<link href="../stylesheets/extra.css" rel="stylesheet"/>
+</meta></meta></head>
+<body>
+<div class="book">
+<div class="book-summary">
+<div id="book-search-input" role="search">
+<input placeholder="Type to search" type="text"/>
+</div> <!-- end of book-search-input -->
+<nav role="navigation">
+<ul class="summary">
+<li>
+<a class="custom-link" href=".." target="_blank">Tinker Documentation</a>
+</li>
+<li class="divider"></li>
+<li class="chapter" data-path="">
+<a href="..">Home</a>
+<li class="chapter" data-path="1_event_storming/">
+<a href="../1_event_storming/">Event Storming</a>
+<li class="chapter" data-path="2_user_journeys/">
+<a href="../2_user_journeys/">User Journeys</a>
+<li class="chapter" data-path="3_touch_points_screens/">
+<a href="../3_touch_points_screens/">Touch Points &amp; Screens</a>
+<li class="chapter active" data-path="4_screen_mockups/">
+<a href="./">Screen Mockups</a>
+<li class="chapter" data-path="5_screen_variations/">
+<a href="../5_screen_variations/">Screen Variations</a>
+<li class="chapter" data-path="6_summary/">
+<a href="../6_summary/">Summary</a>
+<li class="chapter" data-path="mermaid_example/">
+<a href="../mermaid_example/">Mermaid Examples</a>
+<li class="divider"></li>
+<li><a href="http://www.mkdocs.org">
+Published with MkDocs
+</a></li>
+<li><a href="https://github.com/GitbookIO/theme-default">
+Theme by GitBook
+</a></li>
+</li></li></li></li></li></li></li></li></ul>
+</nav>
+</div> <!-- end of book-summary -->
+<div class="book-body">
+<div class="body-inner">
+<div class="book-header" role="navigation">
+<!-- Title -->
+<h1>
+<i class="fa fa-circle-o-notch fa-spin"></i>
+<a href="."></a>
+</h1>
+</div> <!-- end of book-header -->
+<div class="page-wrapper" role="main" tabindex="-1">
+<div class="page-inner">
+<div id="book-search-results">
+<div class="search-noresults">
+<section class="normal markdown-section">
+<h1 id="screen-mockups-invoice-approval-system">Screen Mockups: Invoice Approval System<a class="headerlink" href="#screen-mockups-invoice-approval-system" title="Permanent link">¶</a></h1>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">¶</a></h2>
+<p>This document presents wireframe mockups for the key screens in the invoice approval system. These mockups focus on layout and information architecture rather than visual design. They are based on the touch points and screens identified in the previous document.</p>
+<h2 id="dashboard">Dashboard<a class="headerlink" href="#dashboard" title="Permanent link">¶</a></h2>
+<p>The dashboard provides an overview of the system and quick access to main functions.</p>
+<pre class="highlight"><code>+--------------------------------------------------------------+
+|                     INVOICE APPROVAL SYSTEM                   |
++----------------------+---------------+-----------------------+
+| User: John Doe       | Role: Admin   | Logout                |
++----------------------+---------------+-----------------------+
+|                                                              |
+|  SUMMARY                           QUICK ACTIONS             |
+|  +-------------------+             +--------------------+    |
+|  | Pending Invoices  |             | Import Invoices    |    |
+|  | 12                |             +--------------------+    |
+|  +-------------------+             | Create Payment Req |    |
+|  | PRs Awaiting      |             +--------------------+    |
+|  | Approval: 5       |             | View Approvals     |    |
+|  +-------------------+             +--------------------+    |
+|  | Completed PRs     |                                       |
+|  | This Month: 23    |                                       |
+|  +-------------------+                                       |
+|                                                              |
+|  RECENT ACTIVITY                   NOTIFICATIONS             |
+|  +-------------------+             +--------------------+    |
+|  | PR #123 Approved  |             | PR #125 Requires   |    |
+|  | 2 hours ago       |             | Your Approval      |    |
+|  +-------------------+             +--------------------+    |
+|  | Invoices Imported |             | Changes Requested  |    |
+|  | 3 hours ago       |             | for PR #124        |    |
+|  +-------------------+             +--------------------+    |
+|  | PR #122 Completed |                                       |
+|  | 1 day ago         |                                       |
+|  +-------------------+                                       |
+|                                                              |
++--------------------------------------------------------------+
+|                          FOOTER                              |
++--------------------------------------------------------------+</code></pre>
+<h2 id="invoice-list">Invoice List<a class="headerlink" href="#invoice-list" title="Permanent link">¶</a></h2>
+<p>The invoice list displays all invoices in the system with filtering and sorting options.</p>
+<pre class="highlight"><code>+--------------------------------------------------------------+
+|                     INVOICE APPROVAL SYSTEM                   |
++----------------------+---------------+-----------------------+
+| &lt; Dashboard          | Invoices      | Payment Requests &gt;    |
++----------------------+---------------+-----------------------+
+|                                                              |
+|  INVOICES                                                    |
+|                                                              |
+|  +-------------------+-------------------+                   |
+|  | Search            | + Import Invoices |                   |
+|  +-------------------+-------------------+                   |
+|                                                              |
+|  FILTERS                                                     |
+|  +--------+--------+--------+--------+--------+             |
+|  | All    | Import | Linked | Compl. | Obsol. |             |
+|  +--------+--------+--------+--------+--------+             |
+|                                                              |
+|  +------+------------+----------+--------+--------+------+  |
+|  | ID   | Vendor     | Amount   | Date   | Status | Acts |  |
+|  +------+------------+----------+--------+--------+------+  |
+|  | 1001 | Acme Corp  | $1,200   | 05/01  | Import | View |  |
+|  +------+------------+----------+--------+--------+------+  |
+|  | 1002 | XYZ Inc    | $3,500   | 05/02  | Linked | View |  |
+|  +------+------------+----------+--------+--------+------+  |
+|  | 1003 | ABC Ltd    | $750     | 05/03  | Compl. | View |  |
+|  +------+------------+----------+--------+--------+------+  |
+|  | 1004 | Smith Co   | $2,100   | 05/04  | Import | View |  |
+|  +------+------------+----------+--------+--------+------+  |
+|  | 1005 | Johnson LLC| $900     | 05/05  | Obsol. | View |  |
+|  +------+------------+----------+--------+--------+------+  |
+|                                                              |
+|  &lt; Previous | Page 1 of 5 | Next &gt;                          |
+|                                                              |
++--------------------------------------------------------------+
+|                          FOOTER                              |
++--------------------------------------------------------------+</code></pre>
+<h2 id="invoice-import">Invoice Import<a class="headerlink" href="#invoice-import" title="Permanent link">¶</a></h2>
+<p>The invoice import screen allows users to import batches of invoices.</p>
+<pre class="highlight"><code>+--------------------------------------------------------------+
+|                     INVOICE APPROVAL SYSTEM                   |
++----------------------+---------------+-----------------------+
+| &lt; Invoice List       | Import Invoices                       |
++----------------------+---------------+-----------------------+
+|                                                              |
+|  IMPORT INVOICES                                             |
+|                                                              |
+|  Select File:                                                |
+|  +---------------------------------------------------+       |
+|  | Choose File                                       | Browse |
+|  +---------------------------------------------------+       |
+|                                                              |
+|  Import Options:                                             |
+|  +---------------------------------------------------+       |
+|  | [x] Skip duplicate invoices                       |       |
+|  | [ ] Override existing invoices                    |       |
+|  | [x] Validate before import                        |       |
+|  +---------------------------------------------------+       |
+|                                                              |
+|  +-------------------+                                       |
+|  | Import            |                                       |
+|  +-------------------+                                       |
+|                                                              |
+|  VALIDATION RESULTS                                          |
+|  +------+------------+----------+--------+--------+          |
+|  | Row  | Vendor     | Amount   | Date   | Status |          |
+|  +------+------------+----------+--------+--------+          |
+|  | 1    | Acme Corp  | $1,200   | 05/01  | Valid  |          |
+|  +------+------------+----------+--------+--------+          |
+|  | 2    | XYZ Inc    | $3,500   | 05/02  | Valid  |          |
+|  +------+------------+----------+--------+--------+          |
+|  | 3    | ABC Ltd    | Invalid  | 05/03  | Error  |          |
+|  +------+------------+----------+--------+--------+          |
+|                                                              |
+|  +-------------------+-------------------+                   |
+|  | Cancel            | Confirm Import    |                   |
+|  +-------------------+-------------------+                   |
+|                                                              |
++--------------------------------------------------------------+
+|                          FOOTER                              |
++--------------------------------------------------------------+</code></pre>
+<h2 id="invoice-detail">Invoice Detail<a class="headerlink" href="#invoice-detail" title="Permanent link">¶</a></h2>
+<p>The invoice detail screen shows detailed information about a specific invoice.</p>
+<pre class="highlight"><code>+--------------------------------------------------------------+
+|                     INVOICE APPROVAL SYSTEM                   |
++----------------------+---------------+-----------------------+
+| &lt; Invoice List       | Invoice Detail                        |
++----------------------+---------------+-----------------------+
+|                                                              |
+|  INVOICE #1001                                               |
+|                                                              |
+|  Status: Imported                                            |
+|                                                              |
+|  +-------------------+-------------------+                   |
+|  | Vendor: Acme Corp | Date: 05/01/2023 |                   |
+|  +-------------------+-------------------+                   |
+|  | Amount: $1,200    | Due: 06/01/2023  |                   |
+|  +-------------------+-------------------+                   |
+|                                                              |
+|  Description:                                                |
+|  Office supplies for Q2                                      |
+|                                                              |
+|  Additional Information:                                     |
+|  Invoice includes items from multiple departments            |
+|                                                              |
+|  LINKED PAYMENT REQUESTS                                     |
+|  +------+------------+----------+--------+                   |
+|  | ID   | Date       | Amount   | Status |                   |
+|  +------+------------+----------+--------+                   |
+|  | None                                  |                   |
+|  +------+------------+----------+--------+                   |
+|                                                              |
+|  ACTIONS                                                     |
+|  +-------------------+-------------------+-------------------+|
+|  | Edit              | Mark as Obsolete  | Export            ||
+|  +-------------------+-------------------+-------------------+|
+|                                                              |
++--------------------------------------------------------------+
+|                          FOOTER                              |
++--------------------------------------------------------------+</code></pre>
+<h2 id="payment-request-list">Payment Request List<a class="headerlink" href="#payment-request-list" title="Permanent link">¶</a></h2>
+<p>The payment request list displays all payment requests in the system.</p>
+<pre class="highlight"><code>+--------------------------------------------------------------+
+|                     INVOICE APPROVAL SYSTEM                   |
++----------------------+---------------+-----------------------+
+| &lt; Dashboard          | Payment Requests                      |
++----------------------+---------------+-----------------------+
+|                                                              |
+|  PAYMENT REQUESTS                                            |
+|                                                              |
+|  +-------------------+-------------------+                   |
+|  | Search            | + Create PR       |                   |
+|  +-------------------+-------------------+                   |
+|                                                              |
+|  FILTERS                                                     |
+|  +--------+--------+--------+--------+--------+             |
+|  | All    | Draft  | Review | Approv | Compl. |             |
+|  +--------+--------+--------+--------+--------+             |
+|                                                              |
+|  +------+------------+----------+--------+--------+------+  |
+|  | ID   | Date       | Amount   | Status | Invoices| Acts |  |
+|  +------+------------+----------+--------+--------+------+  |
+|  | PR001| 05/10/2023 | $4,700   | Draft  | 2      | View |  |
+|  +------+------------+----------+--------+--------+------+  |
+|  | PR002| 05/09/2023 | $3,500   | Review | 1      | View |  |
+|  +------+------------+----------+--------+--------+------+  |
+|  | PR003| 05/08/2023 | $2,950   | Approv | 3      | View |  |
+|  +------+------------+----------+--------+--------+------+  |
+|  | PR004| 05/07/2023 | $1,800   | Compl. | 2      | View |  |
+|  +------+------------+----------+--------+--------+------+  |
+|  | PR005| 05/06/2023 | $5,200   | Compl. | 4      | View |  |
+|  +------+------------+----------+--------+--------+------+  |
+|                                                              |
+|  &lt; Previous | Page 1 of 3 | Next &gt;                          |
+|                                                              |
++--------------------------------------------------------------+
+|                          FOOTER                              |
++--------------------------------------------------------------+</code></pre>
+<h2 id="create-payment-request">Create Payment Request<a class="headerlink" href="#create-payment-request" title="Permanent link">¶</a></h2>
+<p>The create payment request screen allows users to create a new payment request and link invoices.</p>
+<pre class="highlight"><code>+--------------------------------------------------------------+
+|                     INVOICE APPROVAL SYSTEM                   |
++----------------------+---------------+-----------------------+
+| &lt; Payment Requests   | Create Payment Request                |
++----------------------+---------------+-----------------------+
+|                                                              |
+|  CREATE PAYMENT REQUEST                                      |
+|                                                              |
+|  Basic Information:                                          |
+|  +---------------------------------------------------+       |
+|  | Description: Office Supplies Payment              |       |
+|  +---------------------------------------------------+       |
+|  | Department: Marketing                             |       |
+|  +---------------------------------------------------+       |
+|  | Notes: Urgent payment needed                      |       |
+|  +---------------------------------------------------+       |
+|                                                              |
+|  LINKED INVOICES                                             |
+|  +------+------------+----------+--------+--------+------+  |
+|  | ID   | Vendor     | Amount   | Date   | Status | Remv |  |
+|  +------+------------+----------+--------+--------+------+  |
+|  | 1001 | Acme Corp  | $1,200   | 05/01  | Import | [X]  |  |
+|  +------+------------+----------+--------+--------+------+  |
+|  | 1004 | Smith Co   | $2,100   | 05/04  | Import | [X]  |  |
+|  +------+------------+----------+--------+--------+------+  |
+|                                                              |
+|  Total Amount: $3,300                                        |
+|                                                              |
+|  +-------------------+                                       |
+|  | + Add Invoices    |                                       |
+|  +-------------------+                                       |
+|                                                              |
+|  +-------------------+-------------------+                   |
+|  | Save as Draft     | Submit for Approval                   |
+|  +-------------------+-------------------+                   |
+|                                                              |
++--------------------------------------------------------------+
+|                          FOOTER                              |
++--------------------------------------------------------------+</code></pre>
+<h2 id="invoice-selector">Invoice Selector<a class="headerlink" href="#invoice-selector" title="Permanent link">¶</a></h2>
+<p>The invoice selector allows users to select invoices to link to a payment request.</p>
+<pre class="highlight"><code>+--------------------------------------------------------------+
+|                     SELECT INVOICES                          |
++--------------------------------------------------------------+
+|                                                              |
+|  +-------------------+                                       |
+|  | Search            |                                       |
+|  +-------------------+                                       |
+|                                                              |
+|  FILTERS                                                     |
+|  +--------+--------+--------+                               |
+|  | All    | Import | Linked |                               |
+|  +--------+--------+--------+                               |
+|                                                              |
+|  +------+------------+----------+--------+--------+------+  |
+|  | ID   | Vendor     | Amount   | Date   | Status | Sel. |  |
+|  +------+------------+----------+--------+--------+------+  |
+|  | 1001 | Acme Corp  | $1,200   | 05/01  | Import | [x]  |  |
+|  +------+------------+----------+--------+--------+------+  |
+|  | 1002 | XYZ Inc    | $3,500   | 05/02  | Linked |      |  |
+|  +------+------------+----------+--------+--------+------+  |
+|  | 1004 | Smith Co   | $2,100   | 05/04  | Import | [x]  |  |
+|  +------+------------+----------+--------+--------+------+  |
+|  | 1006 | Johnson LLC| $900     | 05/06  | Import |      |  |
+|  +------+------------+----------+--------+--------+------+  |
+|                                                              |
+|  Selected: 2 invoices                                        |
+|  Total Amount: $3,300                                        |
+|                                                              |
+|  +-------------------+-------------------+                   |
+|  | Cancel            | Confirm Selection |                   |
+|  +-------------------+-------------------+                   |
+|                                                              |
++--------------------------------------------------------------+</code></pre>
+<h2 id="payment-request-detail">Payment Request Detail<a class="headerlink" href="#payment-request-detail" title="Permanent link">¶</a></h2>
+<p>The payment request detail screen shows detailed information about a specific payment request.</p>
+<pre class="highlight"><code>+--------------------------------------------------------------+
+|                     INVOICE APPROVAL SYSTEM                   |
++----------------------+---------------+-----------------------+
+| &lt; Payment Requests   | Payment Request Detail                |
++----------------------+---------------+-----------------------+
+|                                                              |
+|  PAYMENT REQUEST #PR001                                      |
+|                                                              |
+|  Status: Draft                                               |
+|                                                              |
+|  +-------------------+-------------------+                   |
+|  | Created: 05/10/23 | By: John Doe     |                   |
+|  +-------------------+-------------------+                   |
+|  | Department: Marketing                 |                   |
+|  +-------------------+-------------------+                   |
+|                                                              |
+|  Description:                                                |
+|  Office Supplies Payment                                     |
+|                                                              |
+|  Notes:                                                      |
+|  Urgent payment needed                                       |
+|                                                              |
+|  LINKED INVOICES                                             |
+|  +------+------------+----------+--------+--------+          |
+|  | ID   | Vendor     | Amount   | Date   | Status |          |
+|  +------+------------+----------+--------+--------+          |
+|  | 1001 | Acme Corp  | $1,200   | 05/01  | Import |          |
+|  +------+------------+----------+--------+--------+          |
+|  | 1004 | Smith Co   | $2,100   | 05/04  | Import |          |
+|  +------+------------+----------+--------+--------+          |
+|                                                              |
+|  Total Amount: $3,300                                        |
+|                                                              |
+|  APPROVAL HISTORY                                            |
+|  No approval history yet                                     |
+|                                                              |
+|  ACTIONS                                                     |
+|  +-------------------+-------------------+                   |
+|  | Edit              | Submit for Approval                   |
+|  +-------------------+-------------------+                   |
+|                                                              |
++--------------------------------------------------------------+
+|                          FOOTER                              |
++--------------------------------------------------------------+</code></pre>
+<h2 id="approval-screen">Approval Screen<a class="headerlink" href="#approval-screen" title="Permanent link">¶</a></h2>
+<p>The approval screen allows approvers to review and approve or request changes to a payment request.</p>
+<pre class="highlight"><code>+--------------------------------------------------------------+
+|                     INVOICE APPROVAL SYSTEM                   |
++----------------------+---------------+-----------------------+
+| &lt; Payment Request    | Approval                              |
++----------------------+---------------+-----------------------+
+|                                                              |
+|  APPROVE PAYMENT REQUEST #PR002                              |
+|                                                              |
+|  Status: In Review                                           |
+|                                                              |
+|  +-------------------+-------------------+                   |
+|  | Created: 05/09/23 | By: Jane Smith   |                   |
+|  +-------------------+-------------------+                   |
+|  | Department: Sales                     |                   |
+|  +-------------------+-------------------+                   |
+|                                                              |
+|  Description:                                                |
+|  Travel expenses reimbursement                               |
+|                                                              |
+|  LINKED INVOICES                                             |
+|  +------+------------+----------+--------+--------+          |
+|  | ID   | Vendor     | Amount   | Date   | Status |          |
+|  +------+------------+----------+--------+--------+          |
+|  | 1002 | XYZ Inc    | $3,500   | 05/02  | Linked |          |
+|  +------+------------+----------+--------+--------+          |
+|                                                              |
+|  Total Amount: $3,500                                        |
+|                                                              |
+|  PREVIOUS COMMENTS                                           |
+|  No previous comments                                        |
+|                                                              |
+|  Your Comments:                                              |
+|  +---------------------------------------------------+       |
+|  | Please provide itemized receipts for all expenses |       |
+|  +---------------------------------------------------+       |
+|                                                              |
+|  +-------------------+-------------------+-------------------+|
+|  | Request Changes   | Reject            | Approve           ||
+|  +-------------------+-------------------+-------------------+|
+|                                                              |
++--------------------------------------------------------------+
+|                          FOOTER                              |
++--------------------------------------------------------------+</code></pre>
+<h2 id="completion-screen">Completion Screen<a class="headerlink" href="#completion-screen" title="Permanent link">¶</a></h2>
+<p>The completion screen allows finance officers to mark a payment request as completed.</p>
+<pre class="highlight"><code>+--------------------------------------------------------------+
+|                     INVOICE APPROVAL SYSTEM                   |
++----------------------+---------------+-----------------------+
+| &lt; Payment Request    | Completion                            |
++----------------------+---------------+-----------------------+
+|                                                              |
+|  COMPLETE PAYMENT REQUEST #PR003                             |
+|                                                              |
+|  Status: Approved                                            |
+|                                                              |
+|  +-------------------+-------------------+                   |
+|  | Created: 05/08/23 | By: Mark Johnson |                   |
+|  +-------------------+-------------------+                   |
+|  | Department: IT                        |                   |
+|  +-------------------+-------------------+                   |
+|                                                              |
+|  Description:                                                |
+|  Software licenses payment                                   |
+|                                                              |
+|  LINKED INVOICES                                             |
+|  +------+------------+----------+--------+--------+          |
+|  | ID   | Vendor     | Amount   | Date   | Status |          |
+|  +------+------------+----------+--------+--------+          |
+|  | 1007 | Tech Co    | $950     | 05/07  | Linked |          |
+|  +------+------------+----------+--------+--------+          |
+|  | 1008 | Software Inc| $1,200  | 05/07  | Linked |          |
+|  +------+------------+----------+--------+--------+          |
+|  | 1009 | Digital Ltd | $800    | 05/08  | Linked |          |
+|  +------+------------+----------+--------+--------+          |
+|                                                              |
+|  Total Amount: $2,950                                        |
+|                                                              |
+|  Payment Details:                                            |
+|  +---------------------------------------------------+       |
+|  | Payment Date: 05/15/2023                          |       |
+|  +---------------------------------------------------+       |
+|  | Payment Method: Bank Transfer                     |       |
+|  +---------------------------------------------------+       |
+|  | Reference Number: BT12345                         |       |
+|  +---------------------------------------------------+       |
+|                                                              |
+|  +-------------------+-------------------+                   |
+|  | Cancel            | Mark as Completed |                   |
+|  +-------------------+-------------------+                   |
+|                                                              |
++--------------------------------------------------------------+
+|                          FOOTER                              |
++--------------------------------------------------------------+</code></pre>
+<h2 id="reversion-screen">Reversion Screen<a class="headerlink" href="#reversion-screen" title="Permanent link">¶</a></h2>
+<p>The reversion screen allows authorized users to revert a completed payment request.</p>
+<pre class="highlight"><code>+--------------------------------------------------------------+
+|                     INVOICE APPROVAL SYSTEM                   |
++----------------------+---------------+-----------------------+
+| &lt; Payment Request    | Reversion                             |
++----------------------+---------------+-----------------------+
+|                                                              |
+|  REVERT PAYMENT REQUEST #PR004                               |
+|                                                              |
+|  Status: Completed                                           |
+|                                                              |
+|  +-------------------+-------------------+                   |
+|  | Created: 05/07/23 | By: Sarah Lee    |                   |
+|  +-------------------+-------------------+                   |
+|  | Completed: 05/14/23                   |                   |
+|  +-------------------+-------------------+                   |
+|                                                              |
+|  WARNING: Reverting a completed payment request will also    |
+|  revert the status of all linked invoices. This action       |
+|  cannot be undone.                                           |
+|                                                              |
+|  Revert to Status:                                           |
+|  +---------------------------------------------------+       |
+|  | [x] Approved                                      |       |
+|  | [ ] In Review                                     |       |
+|  | [ ] Draft                                         |       |
+|  +---------------------------------------------------+       |
+|                                                              |
+|  Reason for Reversion:                                       |
+|  +---------------------------------------------------+       |
+|  | Payment was recorded incorrectly                  |       |
+|  +---------------------------------------------------+       |
+|                                                              |
+|  +-------------------+-------------------+                   |
+|  | Cancel            | Confirm Reversion |                   |
+|  +-------------------+-------------------+                   |
+|                                                              |
++--------------------------------------------------------------+
+|                          FOOTER                              |
++--------------------------------------------------------------+</code></pre>
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">¶</a></h2>
+<p>This document presents wireframe mockups for the key screens in the invoice approval system. These mockups provide a visual representation of the user interface and will serve as a basis for the development of the HTML mockups. The next step is to develop screen variations to show different states of these screens.</p>
+</section>
+</div> <!-- end of search-noresults -->
+<div class="search-results">
+<div class="has-results">
+<h1 class="search-results-title"><span class="search-results-count"></span> results matching "<span class="search-query"></span>"</h1>
+<ul class="search-results-list"></ul>
+</div> <!-- end of has-results -->
+<div class="no-results">
+<h1 class="search-results-title">No results matching "<span class="search-query"></span>"</h1>
+</div> <!-- end of no-results -->
+</div> <!-- end of search-results -->
+</div> <!-- end of book-search-results -->
+</div> <!-- end of page-inner -->
+</div> <!-- end of page-wrapper -->
+</div> <!-- end of body-inner -->
+</div> <!-- end of book-body -->
+<script src="../js/main.js"></script>
+<script src="../search/main.js"></script>
+<script src="../js/gitbook.min.js"></script>
+<script src="../js/theme.min.js"></script>
+</div></body>
+</html>
