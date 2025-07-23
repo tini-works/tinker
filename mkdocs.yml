@@ -4,12 +4,6 @@ site_author: Tinker Team
 
 theme:
   name: gitbook
-  features:
-    - navigation.instant
-    - navigation.tracking
-    - navigation.expand
-    - navigation.indexes
-    - content.code.copy
 
 plugins:
   - search
