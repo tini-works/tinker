@@ -287,7 +287,7 @@ export function PaymentRequestListPage() {
       <div className="card bg-base-100 shadow-xl">
         <div className="card-body">
           <div className="flex flex-col md:flex-row gap-4 mb-6">
-            <div className="form-control flex-1">
+            <div className="flex-1">
               <div className="input-group">
                 <input
                   type="text"

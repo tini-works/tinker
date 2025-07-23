@@ -232,7 +232,7 @@ export function InvoiceImportPage() {
               <div className="divider">Import Options</div>
 
               <div className="space-y-4">
-                <div className="form-control">
+                <div>
                   <label className="label cursor-pointer justify-start">
                     <input
                       type="checkbox"
@@ -246,7 +246,7 @@ export function InvoiceImportPage() {
                   </label>
                 </div>
 
-                <div className="form-control">
+                <div>
                   <label className="label cursor-pointer justify-start">
                     <input
                       type="checkbox"
@@ -260,7 +260,7 @@ export function InvoiceImportPage() {
                   </label>
                 </div>
 
-                <div className="form-control">
+                <div>
                   <label className="label cursor-pointer justify-start">
                     <input
                       type="checkbox"
