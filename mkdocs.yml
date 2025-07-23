@@ -3,7 +3,7 @@ site_description: Documentation for the Tinker project
 site_author: Tinker Team
 
 theme:
-  name: material
+  name: gitbook
   features:
     - navigation.instant
     - navigation.tracking

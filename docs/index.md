@@ -13,15 +13,27 @@ We DO talk about limitation of user port boudaries, for example, web has it owns
 
 1. Build Eventstorming for the main flow. This Eventstorming plays very important role discovering the state changes of database entities
 2. Build and confirm list of user journeys. Verify that with Eventstorming
-3. Extract touch points, build list of screens, stay at the intention level to verify whether all paths are covered
-4. Build screen mockups for screens without variations
-5. Based on 1,2,3, make the mockups lively by adding variations (state of screens), connect, and navigate back and forth between screens
+3. Extract touch points, and build an Information Architecture. With this, we'll know what screens are for, in what states and how to navigate from to.
+4. Finalize screen mockups and build most important paths based on [3]. Those screen mockups will need to be quite realistics, clickable and navigatable, to default or specific variant as needed
+5. Interactive web app using html and tailwindcss cdn where user can
+- Split screen and variations into different HTML files, use css tricks to make screen can support different variantions over copying
+- Use iframe to include screen in the main web app
+- Can navigate back and forth using IA
+- Can navigate by interacting on the prototype
+- Can see the reasoning behind materials 1,2,3
+- Utilize markdown rendering library via unpacked to render markdown inline without build
 
 # Example of the inputs
 Context:
-An invoice approval system. Every month, invoices are going to be imported in batches to system. Those invoices are supposed to be processed, end results will be either, processed or obseleted, those are normally can be imported by any users of the system.
+An invoice approval system. 
 
-Then admin, or HR can create a Payment Request for the approval process. The Payment Request needs to be linked to one or many Invoices. Each Payment Request will have different route of approvals. Those Payment Request takes sometime to collect, comment back and forth till it's ready to be Reviewed.
+Every month, invoices are going to be imported in batches (or one by one, automatically or manually) to the system. Those invoices are supposed to be processed, end results will be either, imported or obseleted, those are normally can be imported by any users of the system.
+
+Imported invoices are going to be queued, and to be processed by admin or HR depending on the nature of the invoice. 
+
+HR or admin will start with creating a thing called Payment Request (PR). This PR is the working unit for administration team, they'll work around the PR. Each PR serve a specific purpose, with reasons, proof, working materials (normally comes in excels, pdfs attachments etc), users can leave comments, updates, making approvals or requesting changes.
+
+
 
 This is when the Approval process kicks in. The PR goes through the approval process and can be going back and forth.
 
