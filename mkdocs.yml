@@ -3,13 +3,14 @@ site_description: Documentation for the Tinker project
 site_author: Tinker Team
 
 theme:
-  name: gitbook
+  name: material
   features:
     - navigation.instant
     - navigation.tracking
     - navigation.expand
     - navigation.indexes
     - content.code.copy
+    - content.code.annotate
   palette:
     - scheme: default
       primary: indigo
@@ -32,9 +33,11 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
-  - pymdownx.highlight
+  - pymdownx.highlight:
+      anchor_linenums: true
   - pymdownx.inlinehilite
-  - pymdownx.tabbed
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.tasklist:
       custom_checkbox: true
   - toc:
@@ -42,7 +45,7 @@ markdown_extensions:
 
 # Enable Mermaid JavaScript and custom CSS
 extra_javascript:
-  - https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js
+  - https://unpkg.com/mermaid@10.9.1/dist/mermaid.min.js
   - javascripts/extra.js
 
 extra_css:
@@ -57,4 +60,3 @@ nav:
   - Screen Variations: 5_screen_variations.md
   - Summary: 6_summary.md
   - Mermaid Examples: mermaid_example.md
-
