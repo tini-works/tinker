@@ -514,4 +514,3 @@ The reversion screen allows authorized users to revert a completed payment reque
 ## Conclusion
 
 This document presents wireframe mockups for the key screens in the invoice approval system. These mockups provide a visual representation of the user interface and will serve as a basis for the development of the HTML mockups. The next step is to develop screen variations to show different states of these screens.
-

@@ -20,7 +20,7 @@ sequenceDiagram
     participant User
     participant System
     participant Database
-    
+
     User->>System: Request data
     System->>Database: Query data
     Database-->>System: Return results
@@ -38,7 +38,7 @@ classDiagram
         +process()
         +markAsCompleted()
     }
-    
+
     class PaymentRequest {
         +id: string
         +invoices: Invoice[]
@@ -47,7 +47,7 @@ classDiagram
         +approve()
         +reject()
     }
-    
+
     PaymentRequest "1" --> "*" Invoice: contains
 ```
 
@@ -78,4 +78,3 @@ flowchart TD
 ````
 
 For more information on Mermaid syntax, visit the [Mermaid documentation](https://mermaid.js.org/intro/).
-

@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener('DOMContentLoaded', function () {
   // Initialize mermaid with custom settings
   mermaid.initialize({
     startOnLoad: true,
@@ -6,9 +6,8 @@ document.addEventListener("DOMContentLoaded", function() {
     securityLevel: 'loose',
     flowchart: {
       useMaxWidth: true,
-      htmlLabels: true
+      htmlLabels: true,
     },
-    fontFamily: 'Roboto, sans-serif'
+    fontFamily: 'Roboto, sans-serif',
   });
 });
-

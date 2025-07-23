@@ -24,10 +24,7 @@ export function formatCurrency(
  * @param locale - The locale to use for formatting
  * @returns Formatted date string
  */
-export function formatDate(
-  date: string | Date,
-  locale = 'en-US'
-): string {
+export function formatDate(date: string | Date, locale = 'en-US'): string {
   return new Date(date).toLocaleDateString(locale, {
     year: 'numeric',
     month: 'long',
@@ -40,7 +37,8 @@ export function formatDate(
  * @returns A unique ID string
  */
 export function generateId(): string {
-  return Math.random().toString(36).substring(2, 15) +
-    Math.random().toString(36).substring(2, 15);
+  return (
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
+  );
 }
-

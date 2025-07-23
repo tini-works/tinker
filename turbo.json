@@ -12,7 +12,14 @@
     },
     "format": {
       "outputs": [],
-      "inputs": ["src/**/*.tsx", "src/**/*.ts", "src/**/*.js", "src/**/*.jsx", "src/**/*.json", "src/**/*.md"]
+      "inputs": [
+        "src/**/*.tsx",
+        "src/**/*.ts",
+        "src/**/*.js",
+        "src/**/*.jsx",
+        "src/**/*.json",
+        "src/**/*.md"
+      ]
     },
     "dev": {
       "cache": false,
@@ -28,4 +35,3 @@
     }
   }
 }
-

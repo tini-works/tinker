@@ -24,7 +24,7 @@ graph TD
     PRDetail --> PRApproval[Approval Screen]
     PRDetail --> PRCompletion[Completion Screen]
     PRDetail --> PRReversion[Reversion Screen]
-    
+
     class Dashboard,InvoiceList,PRList mainScreen;
     class InvoiceDetail,PRDetail,PRCreate,PRApproval,PRCompletion,PRReversion subScreen;
     class InvoiceImport,InvoiceSelector modal;
@@ -37,12 +37,14 @@ graph TD
 **Purpose**: Provide an overview of the system and quick access to main functions.
 
 **Key Elements**:
+
 - Summary statistics (e.g., pending invoices, payment requests awaiting approval)
 - Quick links to main sections
 - Recent activity feed
 - User notifications
 
 **User Actions**:
+
 - Navigate to Invoice List
 - Navigate to Payment Request List
 - View notifications
@@ -57,12 +59,14 @@ graph TD
 **Purpose**: Display and manage all invoices in the system.
 
 **Key Elements**:
+
 - Filterable and sortable list of invoices
 - Invoice status indicators (Imported, Linked, Completed, Obsolete)
 - Search functionality
 - Batch actions
 
 **User Actions**:
+
 - Import invoices
 - View invoice details
 - Search and filter invoices
@@ -78,12 +82,14 @@ graph TD
 **Purpose**: Import batches of invoices into the system.
 
 **Key Elements**:
+
 - File upload interface
 - Import options
 - Validation results
 - Error handling
 
 **User Actions**:
+
 - Select and upload file
 - Configure import options
 - Review validation results
@@ -99,12 +105,14 @@ graph TD
 **Purpose**: View and manage details of a specific invoice.
 
 **Key Elements**:
+
 - Invoice information (ID, amount, date, vendor, etc.)
 - Status and history
 - Linked payment requests
 - Actions based on current status
 
 **User Actions**:
+
 - Edit invoice details (if allowed)
 - Mark as obsolete
 - View linked payment requests
@@ -119,12 +127,14 @@ graph TD
 **Purpose**: Display and manage all payment requests in the system.
 
 **Key Elements**:
+
 - Filterable and sortable list of payment requests
 - Status indicators (Draft, In Review, Approved, Completed)
 - Search functionality
 - Actions based on user role
 
 **User Actions**:
+
 - Create new payment request
 - View payment request details
 - Search and filter payment requests
@@ -139,12 +149,14 @@ graph TD
 **Purpose**: Create a new payment request and link invoices.
 
 **Key Elements**:
+
 - Basic information form
 - Invoice selector
 - Summary of selected invoices
 - Submission controls
 
 **User Actions**:
+
 - Enter payment request information
 - Select invoices to link
 - Review and adjust
@@ -159,12 +171,14 @@ graph TD
 **Purpose**: Select invoices to link to a payment request.
 
 **Key Elements**:
+
 - Filterable and searchable list of available invoices
 - Selection mechanism
 - Summary of selected invoices
 - Confirmation controls
 
 **User Actions**:
+
 - Search and filter invoices
 - Select/deselect invoices
 - Confirm selection
@@ -178,6 +192,7 @@ graph TD
 **Purpose**: View and manage details of a specific payment request.
 
 **Key Elements**:
+
 - Payment request information
 - Status and history
 - Linked invoices
@@ -185,6 +200,7 @@ graph TD
 - Actions based on current status and user role
 
 **User Actions**:
+
 - Edit (if in Draft status)
 - Submit for approval (if in Draft status)
 - View approval status
@@ -200,6 +216,7 @@ graph TD
 **Purpose**: Review and approve or request changes to a payment request.
 
 **Key Elements**:
+
 - Payment request details
 - Linked invoice details
 - Approval history
@@ -207,6 +224,7 @@ graph TD
 - Approval controls
 
 **User Actions**:
+
 - Review details
 - Add comments/feedback
 - Request changes
@@ -222,11 +240,13 @@ graph TD
 **Purpose**: Mark a payment request as completed after payment has been made.
 
 **Key Elements**:
+
 - Payment request details
 - Payment information form
 - Confirmation controls
 
 **User Actions**:
+
 - Enter payment details
 - Mark as completed
 - Confirm completion
@@ -240,11 +260,13 @@ graph TD
 **Purpose**: Revert a completed payment request to a previous state.
 
 **Key Elements**:
+
 - Payment request details
 - Reason for reversion form
 - Confirmation controls
 
 **User Actions**:
+
 - Enter reason for reversion
 - Select state to revert to
 - Confirm reversion
@@ -256,12 +278,14 @@ graph TD
 ## Touch Points by User Role
 
 ### Invoice Processor
+
 - Dashboard
 - Invoice List
 - Invoice Import
 - Invoice Detail
 
 ### Payment Request Creator (Admin/HR)
+
 - Dashboard
 - Invoice List
 - Invoice Detail
@@ -271,12 +295,14 @@ graph TD
 - Payment Request Detail
 
 ### Approver
+
 - Dashboard
 - Payment Request List
 - Payment Request Detail
 - Approval Screen
 
 ### Finance Officer
+
 - Dashboard
 - Payment Request List
 - Payment Request Detail
@@ -294,7 +320,7 @@ sequenceDiagram
     participant InvoiceList
     participant InvoiceImport
     participant InvoiceDetail
-    
+
     User->>Dashboard: Access dashboard
     Dashboard->>InvoiceList: Navigate to invoice list
     InvoiceList->>InvoiceImport: Initiate import
@@ -313,7 +339,7 @@ sequenceDiagram
     participant PRCreate
     participant InvoiceSelector
     participant PRDetail
-    
+
     User->>Dashboard: Access dashboard
     Dashboard->>PRList: Navigate to PR list
     PRList->>PRCreate: Create new PR
@@ -332,7 +358,7 @@ sequenceDiagram
     participant PRList
     participant PRDetail
     participant ApprovalScreen
-    
+
     Approver->>Dashboard: Access dashboard
     Dashboard->>PRList: Navigate to PR list
     PRList->>PRDetail: View PR details
@@ -350,7 +376,7 @@ sequenceDiagram
     participant PRList
     participant PRDetail
     participant CompletionScreen
-    
+
     Finance->>Dashboard: Access dashboard
     Dashboard->>PRList: Navigate to PR list
     PRList->>PRDetail: View PR details
@@ -362,4 +388,3 @@ sequenceDiagram
 ## Conclusion
 
 This document outlines the key screens and touch points in the invoice approval system. These screens are designed to support the user journeys identified in the previous document and to facilitate the domain events identified in the Event Storming analysis. The next step is to create mockups for these screens to visualize the user interface.
-

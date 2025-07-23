@@ -90,6 +90,7 @@ This repository is configured with an automatic PR merging system. When a pull r
 ### Manual Triggering
 
 You can manually trigger the auto-merge workflow by:
+
 1. Going to the Actions tab in the GitHub repository
 2. Selecting the "Auto Merge PRs" workflow
 3. Clicking "Run workflow"
@@ -113,11 +114,13 @@ The documentation is built using [MkDocs](https://www.mkdocs.org/) with the [Mat
 To view the documentation locally:
 
 1. Install MkDocs and the Material theme:
+
    ```bash
    pip install mkdocs-material
    ```
 
 2. Serve the documentation:
+
    ```bash
    mkdocs serve
    ```
@@ -157,4 +160,3 @@ See the [Mermaid example page](docs/mermaid_example.md) for more examples.
 The documentation is automatically built and deployed to GitHub Pages when changes are pushed to the `main` branch. The deployment is handled by a GitHub Actions workflow defined in `.github/workflows/docs.yml`.
 
 You can also manually trigger the deployment by going to the Actions tab in the GitHub repository and running the "Build and Deploy Documentation" workflow.
-

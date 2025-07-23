@@ -19,6 +19,7 @@ The documentation follows a 5-step workflow designed to progressively build unde
 **Purpose:** Identify the core domain events, commands, and state changes in the system.
 
 **Key Components:**
+
 - Domain Events (orange): Key business events that occur in the system
 - Commands (blue): User actions that trigger events
 - Aggregates (yellow): Core business entities that change state
@@ -26,12 +27,14 @@ The documentation follows a 5-step workflow designed to progressively build unde
 - External Systems (pink): Integration points outside the system
 
 **Main Flows Identified:**
+
 - Invoice Import Process
 - Payment Request Creation
 - Approval Workflow
 - Payment Completion Process
 
 **How to Use This Document:**
+
 - Reference for understanding the core business processes
 - Foundation for identifying system states and transitions
 - Guide for validating that all key business events are addressed in the UI
@@ -41,18 +44,21 @@ The documentation follows a 5-step workflow designed to progressively build unde
 **Purpose:** Map complete paths users take through the system to accomplish goals.
 
 **Key User Types:**
+
 - Regular Users (Invoice Importers)
 - Administrators/HR (Payment Request Creators)
 - Approvers (Various Levels)
 - Finance Team Members
 
 **Primary Journeys Documented:**
+
 - Invoice Import Journey
 - Payment Request Creation Journey
 - Approval Journey
 - Payment Completion Journey
 
 **How to Use This Document:**
+
 - Validate that the UI supports all required user journeys
 - Identify potential friction points in user workflows
 - Ensure all user types have appropriate paths through the system
@@ -62,6 +68,7 @@ The documentation follows a 5-step workflow designed to progressively build unde
 **Purpose:** Enumerate all screens and interaction points needed to support user journeys.
 
 **Screen Categories:**
+
 - Dashboard Screens
 - Invoice Management Screens
 - Payment Request Screens
@@ -69,12 +76,14 @@ The documentation follows a 5-step workflow designed to progressively build unde
 - User Management Screens
 
 **Key Interactions Identified:**
+
 - Data Entry Points
 - Decision Points
 - Notification Points
 - Transition Points
 
 **How to Use This Document:**
+
 - Checklist to ensure all necessary screens are designed
 - Reference for understanding the scope of the UI
 - Guide for identifying screen relationships
@@ -84,6 +93,7 @@ The documentation follows a 5-step workflow designed to progressively build unde
 **Purpose:** Provide detailed UI designs for each screen identified.
 
 **Design Elements:**
+
 - Layout Specifications
 - Component Descriptions
 - Data Display Formats
@@ -91,6 +101,7 @@ The documentation follows a 5-step workflow designed to progressively build unde
 - Navigation Elements
 
 **How to Use This Document:**
+
 - Visual reference for UI implementation
 - Guide for understanding information hierarchy
 - Specification for UI component requirements
@@ -100,6 +111,7 @@ The documentation follows a 5-step workflow designed to progressively build unde
 **Purpose:** Document different states, variations, and navigation paths between screens.
 
 **Key Aspects:**
+
 - Screen States (loading, empty, error, etc.)
 - Role-based Variations
 - Transition Paths
@@ -107,6 +119,7 @@ The documentation follows a 5-step workflow designed to progressively build unde
 - Business Rules Implementation
 
 **How to Use This Document:**
+
 - Reference for implementing dynamic UI behavior
 - Guide for handling different user roles and permissions
 - Specification for screen transitions and navigation
@@ -116,12 +129,14 @@ The documentation follows a 5-step workflow designed to progressively build unde
 Throughout all documents, several cross-cutting concerns are addressed:
 
 ### User Roles and Permissions
+
 - Regular Users: Import invoices, view status
 - Administrators/HR: Create and manage Payment Requests
 - Approvers: Review and approve/reject Payment Requests
 - Finance Team: Mark payments as completed, finalize records
 
 ### System States
+
 - Draft: Initial creation, editable
 - Submitted: In workflow, limited editing
 - In Review: Under approval consideration
@@ -130,6 +145,7 @@ Throughout all documents, several cross-cutting concerns are addressed:
 - Rejected: Returned for modification
 
 ### Business Rules
+
 - Invoice linking requirements
 - Approval routing based on amount thresholds
 - Sequential vs. parallel approval workflows
@@ -138,18 +154,21 @@ Throughout all documents, several cross-cutting concerns are addressed:
 ## How to Use This Documentation
 
 ### For Product Managers
+
 1. Start with Event Storming to understand the business domain
 2. Review User Journeys to validate user workflows
 3. Use Touch Points & Screens to verify scope completeness
 4. Reference Screen Mockups and Variations for detailed requirements
 
 ### For Designers
+
 1. Begin with User Journeys to understand user needs
 2. Use Touch Points & Screens as a design checklist
 3. Implement designs based on Screen Mockups
 4. Incorporate states and variations from Screen Variations
 
 ### For Developers
+
 1. Understand the domain model from Event Storming
 2. Reference User Journeys for workflow implementation
 3. Use Screen Mockups as UI implementation guides
@@ -189,4 +208,3 @@ To move from documentation to implementation:
 This documentation set provides a comprehensive blueprint for the Invoice Approval System, focusing on user experience and business processes rather than technical implementation details. By following the progressive workflow from Event Storming to Screen Variations, we've created a complete picture of the system from multiple perspectives.
 
 The documentation is designed to be accessible to all stakeholders while providing sufficient detail for implementation. By starting with business processes and user needs before moving to UI specifics, we ensure the system will meet business requirements while providing an excellent user experience.
-
