@@ -1,2 +1,46 @@
-{\n  \"name\": \"invoice-approval\",\n  \"version\": \"0.1.0\",\n  \"private\": true,\n  \"workspaces\": [\n    \"apps/*\",\n    \"packages/*\"\n  ],\n  \"scripts\": {\n    \"build\": \"turbo run build\",\n    \"dev\": \"turbo run dev\",\n    \"lint\": \"turbo run lint\",\n    \"format\": \"prettier --write \\\"**/*.{ts,tsx,md,js,jsx,json}\\\"\",\n    \"format:check\": \"prettier --check \\\"**/*.{ts,tsx,md,js,jsx,json}\\\"\",\n    \"test\": \"turbo run test\",\n    \"clean\": \"turbo run clean && rm -rf node_modules\",\n    \"start\": \"turbo run start\",\n    \"prepare\": \"husky install\"\n  },\n  \"devDependencies\": {\n    \"@types/node\": \"^20.10.0\",\n    \"@typescript-eslint/eslint-plugin\": \"^6.13.1\",\n    \"@typescript-eslint/parser\": \"^6.13.1\",\n    \"eslint\": \"^8.54.0\",\n    \"eslint-config-prettier\": \"^9.0.0\",\n    \"eslint-plugin-import\": \"^2.29.0\",\n    \"husky\": \"^8.0.3\",\n    \"lint-staged\": \"^15.1.0\",\n    \"prettier\": \"^3.1.0\",\n    \"turbo\": \"^1.10.16\",\n    \"typescript\": \"^5.3.2\"\n  },\n  \"engines\": {\n    \"node\": \">=18.0.0\"\n  },\n  \"packageManager\": \"npm@10.2.3\",\n  \"lint-staged\": {\n    \"*.{ts,tsx,js,jsx}\": [\n      \"eslint --fix\",\n      \"prettier --write\"\n    ],\n    \"*.{json,md}\": [\n      \"prettier --write\"\n    ]\n  }\n}
-
+{
+  "name": "invoice-approval",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md,js,jsx,json}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md,js,jsx,json}\"",
+    "test": "turbo run test",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "start": "turbo run start",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1",
+    "eslint": "^8.54.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-import": "^2.29.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.1.0",
+    "prettier": "^3.1.0",
+    "turbo": "^1.10.16",
+    "typescript": "^5.3.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "packageManager": "npm@10.2.3",
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  }
+}

@@ -1,0 +1,183 @@
+name: Main Branch Monitor
+
+on:
+  push:
+    branches: [main]
+  workflow_run:
+    workflows: ["Build", "Lint and Format"]
+    branches: [main]
+    types: [completed]
+
+jobs:
+  monitor-main-branch:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Validate package.json
+        run: |
+          echo "Validating package.json format..."
+          cat package.json | jq . > /dev/null
+          echo "✅ package.json is valid JSON"
+          
+      - name: Run build
+        id: build
+        run: |
+          echo "Running build..."
+          npm run build
+          echo "✅ Build successful"
+        continue-on-error: true
+        
+      - name: Run linting
+        id: lint
+        run: |
+          echo "Running linting..."
+          npm run lint
+          echo "✅ Linting successful"
+        continue-on-error: true
+        
+      - name: Run formatting check
+        id: format
+        run: |
+          echo "Checking formatting..."
+          npm run format:check
+          echo "✅ Formatting check successful"
+        continue-on-error: true
+        
+      - name: Create failure issue
+        if: steps.build.outcome == 'failure' || steps.lint.outcome == 'failure' || steps.format.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const sha = context.sha;
+            const runId = context.runId;
+            
+            // Check if there's already an open issue for main branch failures
+            const existingIssues = await github.rest.issues.listForRepo({
+              owner,
+              repo,
+              labels: ['main-branch-failure', 'automated'],
+              state: 'open'
+            });
+            
+            let issueBody = `🚨 **Main Branch Build Failure Detected** 🚨
+            
+**Commit:** ${sha}
+**Workflow Run:** https://github.com/${owner}/${repo}/actions/runs/${runId}
+**Branch:** main
+**Timestamp:** ${new Date().toISOString()}
+
+## Failed Checks:
+`;
+            
+            if ('${{ steps.build.outcome }}' === 'failure') {
+              issueBody += '- ❌ Build failed\n';
+            }
+            if ('${{ steps.lint.outcome }}' === 'failure') {
+              issueBody += '- ❌ Linting failed\n';
+            }
+            if ('${{ steps.format.outcome }}' === 'failure') {
+              issueBody += '- ❌ Formatting check failed\n';
+            }
+            
+            issueBody += `
+## Next Steps:
+1. Review the failed workflow run above
+2. Fix the issues in the main branch
+3. This issue will be automatically closed when main branch is healthy again
+
+**This issue was created automatically by the Main Branch Monitor workflow.**`;
+
+            if (existingIssues.data.length === 0) {
+              // Create new issue
+              await github.rest.issues.create({
+                owner,
+                repo,
+                title: `🚨 Main Branch Build Failure - ${new Date().toISOString().split('T')[0]}`,
+                body: issueBody,
+                labels: ['main-branch-failure', 'automated', 'high-priority', 'bug']
+              });
+              
+              console.log('Created new main branch failure issue');
+            } else {
+              // Update existing issue
+              const issue = existingIssues.data[0];
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: issue.number,
+                body: `## 🔄 Additional Failure Detected\n\n${issueBody}`
+              });
+              
+              console.log('Updated existing main branch failure issue');
+            }
+            
+      - name: Close resolved issues
+        if: steps.build.outcome == 'success' && steps.lint.outcome == 'success' && steps.format.outcome == 'success'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            
+            // Find open main branch failure issues
+            const openIssues = await github.rest.issues.listForRepo({
+              owner,
+              repo,
+              labels: ['main-branch-failure', 'automated'],
+              state: 'open'
+            });
+            
+            // Close them with a success message
+            for (const issue of openIssues.data) {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: issue.number,
+                body: `✅ **Main Branch is now healthy!**
+                
+All checks are now passing on the main branch. This issue is being automatically closed.
+
+**Commit:** ${context.sha}
+**Workflow Run:** https://github.com/${owner}/${repo}/actions/runs/${context.runId}
+**Resolved at:** ${new Date().toISOString()}`
+              });
+              
+              await github.rest.issues.update({
+                owner,
+                repo,
+                issue_number: issue.number,
+                state: 'closed'
+              });
+              
+              console.log(`Closed issue #${issue.number}`);
+            }
+
+  notify-on-failure:
+    runs-on: ubuntu-latest
+    needs: monitor-main-branch
+    if: failure() && github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: Send notification
+        run: |
+          echo "🚨 ALERT: Main branch build failed!"
+          echo "This would typically send notifications to:"
+          echo "- Slack channels"
+          echo "- Email alerts"
+          echo "- Discord webhooks"
+          echo "- Or other notification systems"
+          echo ""
+          echo "Issue has been automatically created in the repository."
