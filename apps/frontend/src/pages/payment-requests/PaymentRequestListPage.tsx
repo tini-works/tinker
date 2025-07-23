@@ -13,6 +13,39 @@ interface PaymentRequest {
   status: 'draft' | 'pending' | 'approved' | 'completed' | 'rejected';
   vendor: string;
   department: string;
+  invoiceNumber?: string;
+  approver?: string;
+}
+
+// Status badge component
+function StatusBadge({ status }: { status: string }) {
+  let badgeClass = '';
+  
+  switch (status) {
+    case 'draft':
+      badgeClass = 'badge-ghost';
+      break;
+    case 'pending':
+      badgeClass = 'badge-primary';
+      break;
+    case 'approved':
+      badgeClass = 'badge-secondary';
+      break;
+    case 'completed':
+      badgeClass = 'badge-success';
+      break;
+    case 'rejected':
+      badgeClass = 'badge-error';
+      break;
+    default:
+      badgeClass = 'badge-ghost';
+  }
+  
+  return (
+    <div className={`badge ${badgeClass}`}>
+      {status.charAt(0).toUpperCase() + status.slice(1)}
+    </div>
+  );
 }
 
 export function PaymentRequestListPage() {
@@ -45,6 +78,8 @@ export function PaymentRequestListPage() {
           status: 'pending',
           vendor: 'Acme Corporation',
           department: 'Operations',
+          invoiceNumber: 'INV-2025-101',
+          approver: 'Jane Smith',
         },
         {
           id: '2',
@@ -67,6 +102,8 @@ export function PaymentRequestListPage() {
           status: 'approved',
           vendor: 'Initech',
           department: 'IT',
+          invoiceNumber: 'INV-2025-103',
+          approver: 'Jane Smith',
         },
         {
           id: '4',
@@ -78,6 +115,8 @@ export function PaymentRequestListPage() {
           status: 'completed',
           vendor: 'Umbrella Corp',
           department: 'Legal',
+          invoiceNumber: 'INV-2025-104',
+          approver: 'John Doe',
         },
         {
           id: '5',
@@ -113,7 +152,8 @@ export function PaymentRequestListPage() {
       result = result.filter(request => 
         request.requestNumber.toLowerCase().includes(query) ||
         request.title.toLowerCase().includes(query) ||
-        request.vendor.toLowerCase().includes(query)
+        request.vendor.toLowerCase().includes(query) ||
+        (request.invoiceNumber && request.invoiceNumber.toLowerCase().includes(query))
       );
     }
     
@@ -209,7 +249,7 @@ export function PaymentRequestListPage() {
               <div className="input-group">
                 <input
                   type="text"
-                  placeholder="Search by request #, title, or vendor"
+                  placeholder="Search by request #, title, vendor, or invoice #"
                   className="input input-bordered w-full"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -296,15 +336,7 @@ export function PaymentRequestListPage() {
                       <td>{formatDate(request.date)}</td>
                       <td>{formatDate(request.dueDate)}</td>
                       <td>
-                        <div className={`badge ${
-                          request.status === 'draft' ? 'badge-ghost' :
-                          request.status === 'pending' ? 'badge-primary' :
-                          request.status === 'approved' ? 'badge-secondary' :
-                          request.status === 'completed' ? 'badge-success' :
-                          request.status === 'rejected' ? 'badge-error' : 'badge-ghost'
-                        }`}>
-                          {request.status.charAt(0).toUpperCase() + request.status.slice(1)}
-                        </div>
+                        <StatusBadge status={request.status} />
                       </td>
                       <td>
                         <div className="flex gap-2">
