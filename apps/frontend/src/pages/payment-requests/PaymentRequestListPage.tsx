@@ -307,9 +307,16 @@ export function PaymentRequestListPage() {
                         </div>
                       </td>
                       <td>
-                        <Link to={`/payment-requests/${request.id}`} className="btn btn-sm btn-outline">
-                          View
-                        </Link>
+                        <div className="flex gap-2">
+                          <Link to={`/payment-requests/${request.id}`} className="btn btn-sm btn-outline">
+                            View
+                          </Link>
+                          {request.status === 'pending' && (
+                            <Link to={`/payment-requests/${request.id}/approve`} className="btn btn-sm btn-primary">
+                              Review
+                            </Link>
+                          )}
+                        </div>
                       </td>
                     </tr>
                   ))

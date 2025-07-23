@@ -6,6 +6,7 @@ import { InvoiceSelectorPage } from './pages/invoices/selector/InvoiceSelectorPa
 import { PaymentRequestListPage } from './pages/payment-requests/PaymentRequestListPage';
 import { CreatePaymentRequestPage } from './pages/payment-requests/create/CreatePaymentRequestPage';
 import { PaymentRequestDetailPage } from './pages/payment-requests/detail/PaymentRequestDetailPage';
+import { ApprovalPage } from './pages/payment-requests/approval/ApprovalPage';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/payment-requests" element={<PaymentRequestListPage />} />
         <Route path="/payment-requests/create" element={<CreatePaymentRequestPage />} />
         <Route path="/payment-requests/:id" element={<PaymentRequestDetailPage />} />
+        <Route path="/payment-requests/:id/approve" element={<ApprovalPage />} />
       </Routes>
     </MainLayout>
   );
