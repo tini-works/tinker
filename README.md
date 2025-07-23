@@ -18,7 +18,7 @@ A monorepo for the Invoice Approval System, containing both frontend and backend
 
 ### Prerequisites
 
-- Node.js (v18 or later)
+- Node.js (v24 or later)
 - npm (v10 or later)
 
 ### Installation
