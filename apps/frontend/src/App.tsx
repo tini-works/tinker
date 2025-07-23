@@ -5,6 +5,14 @@ import { InvoiceListPage } from './pages/invoices/InvoiceListPage';
 import { LoginPage } from './pages/auth/LoginPage';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
+// Import will be added when the file is implemented
+// import { InvoiceSelectorPage } from './pages/invoices/selector/InvoiceSelectorPage';
+import { PaymentRequestListPage } from './pages/payment-requests/PaymentRequestListPage';
+// Import will be added when the file is implemented
+// import { CreatePaymentRequestPage } from './pages/payment-requests/create/CreatePaymentRequestPage';
+// Import will be added when the file is implemented
+// import { PaymentRequestDetailPage } from './pages/payment-requests/detail/PaymentRequestDetailPage';
+import { ApprovalPage } from './pages/payment-requests/approval/ApprovalPage';
 
 // Protected route component
 function ProtectedRoute({ children }: { children: JSX.Element }) {
@@ -47,13 +55,45 @@ function AppRoutes() {
         </ProtectedRoute>
       } />
       
+      {/* Route will be uncommented when the component is implemented */}
+      {/* <Route path="/invoices/selector" element={
+        <ProtectedRoute>
+          <MainLayout>
+            <InvoiceSelectorPage />
+          </MainLayout>
+        </ProtectedRoute>
+      } /> */}
+      
       <Route path="/payment-requests" element={
         <ProtectedRoute>
           <MainLayout>
-            <div className="card bg-base-100 shadow-xl p-6">
-              <h2 className="text-2xl font-bold mb-4">Payment Requests</h2>
-              <p>Payment request list coming soon...</p>
-            </div>
+            <PaymentRequestListPage />
+          </MainLayout>
+        </ProtectedRoute>
+      } />
+      
+      {/* Route will be uncommented when the component is implemented */}
+      {/* <Route path="/payment-requests/create" element={
+        <ProtectedRoute>
+          <MainLayout>
+            <CreatePaymentRequestPage />
+          </MainLayout>
+        </ProtectedRoute>
+      } /> */}
+      
+      {/* Route will be uncommented when the component is implemented */}
+      {/* <Route path="/payment-requests/:id" element={
+        <ProtectedRoute>
+          <MainLayout>
+            <PaymentRequestDetailPage />
+          </MainLayout>
+        </ProtectedRoute>
+      } /> */}
+      
+      <Route path="/payment-requests/:id/approve" element={
+        <ProtectedRoute>
+          <MainLayout>
+            <ApprovalPage />
           </MainLayout>
         </ProtectedRoute>
       } />
