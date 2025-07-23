@@ -1,4 +1,8 @@
 /**
+ * Utility functions for formatting values consistently across the application
+ */
+
+/**
  * Format a number as currency
  * @param amount The amount to format
  * @param currency The currency code (default: USD)

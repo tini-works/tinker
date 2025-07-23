@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { MainLayout } from './components/layout/MainLayout';
 import { DashboardPage } from './pages/dashboard/DashboardPage';
 import { InvoiceListPage } from './pages/invoices/InvoiceListPage';
+import { InvoiceDetailPage } from './pages/invoices/detail/InvoiceDetailPage';
 import { LoginPage } from './pages/auth/LoginPage';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
@@ -51,6 +52,14 @@ function AppRoutes() {
         <ProtectedRoute>
           <MainLayout>
             <InvoiceListPage />
+          </MainLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/invoices/:id" element={
+        <ProtectedRoute>
+          <MainLayout>
+            <InvoiceDetailPage />
           </MainLayout>
         </ProtectedRoute>
       } />
