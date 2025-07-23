@@ -9,6 +9,7 @@ interface Invoice {
   vendor: string;
   amount: number;
   date: string;
+  dueDate: string;
   status: string;
   selected?: boolean;
 }
@@ -22,6 +23,8 @@ interface PaymentRequestForm {
   accountNumber: string;
   notes: string;
   selectedInvoices: string[];
+  vendor?: string;
+  department?: string;
 }
 
 export function CreatePaymentRequestPage() {
@@ -42,6 +45,8 @@ export function CreatePaymentRequestPage() {
     accountNumber: '',
     notes: '',
     selectedInvoices: initialInvoiceId ? [initialInvoiceId] : [],
+    vendor: '',
+    department: '',
   });
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -57,6 +62,7 @@ export function CreatePaymentRequestPage() {
           vendor: 'Acme Corporation',
           amount: 1250.75,
           date: '2025-07-15',
+          dueDate: '2025-07-30',
           status: 'pending',
           selected: initialInvoiceId === '1',
         },
@@ -66,6 +72,7 @@ export function CreatePaymentRequestPage() {
           vendor: 'Globex Inc',
           amount: 3450.00,
           date: '2025-07-16',
+          dueDate: '2025-07-31',
           status: 'pending',
           selected: initialInvoiceId === '2',
         },
@@ -75,6 +82,7 @@ export function CreatePaymentRequestPage() {
           vendor: 'Initech',
           amount: 875.50,
           date: '2025-07-18',
+          dueDate: '2025-08-15',
           status: 'pending',
           selected: initialInvoiceId === '3',
         },
@@ -84,6 +92,7 @@ export function CreatePaymentRequestPage() {
           vendor: 'Umbrella Corp',
           amount: 2100.25,
           date: '2025-07-20',
+          dueDate: '2025-08-20',
           status: 'pending',
           selected: initialInvoiceId === '4',
         },
@@ -93,6 +102,7 @@ export function CreatePaymentRequestPage() {
           vendor: 'Wayne Enterprises',
           amount: 5600.00,
           date: '2025-07-22',
+          dueDate: '2025-08-22',
           status: 'pending',
           selected: initialInvoiceId === '5',
         },
@@ -189,6 +199,14 @@ export function CreatePaymentRequestPage() {
       errors.dueDate = 'Due date is required';
     }
     
+    if (!formData.vendor?.trim()) {
+      errors.vendor = 'Vendor is required';
+    }
+    
+    if (!formData.department?.trim()) {
+      errors.department = 'Department is required';
+    }
+    
     if (formData.paymentMethod === 'bank_transfer' && !formData.accountNumber.trim()) {
       errors.accountNumber = 'Account number is required for bank transfers';
     }
@@ -249,7 +267,7 @@ export function CreatePaymentRequestPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="form-control w-full">
                     <label className="label">
-                      <span className="label-text">Title</span>
+                      <span className="label-text">Title *</span>
                     </label>
                     <input
                       type="text"
@@ -267,7 +285,50 @@ export function CreatePaymentRequestPage() {
                   
                   <div className="form-control w-full">
                     <label className="label">
-                      <span className="label-text">Due Date</span>
+                      <span className="label-text">Vendor *</span>
+                    </label>
+                    <input
+                      type="text"
+                      className={`input input-bordered w-full ${formErrors.vendor ? 'input-error' : ''}`}
+                      value={formData.vendor || selectedInvoices[0]?.vendor || ''}
+                      onChange={(e) => handleInputChange('vendor', e.target.value)}
+                      placeholder="Enter vendor name"
+                    />
+                    {formErrors.vendor && (
+                      <label className="label">
+                        <span className="label-text-alt text-error">{formErrors.vendor}</span>
+                      </label>
+                    )}
+                  </div>
+                  
+                  <div className="form-control w-full">
+                    <label className="label">
+                      <span className="label-text">Department *</span>
+                    </label>
+                    <select
+                      className={`select select-bordered w-full ${formErrors.department ? 'select-error' : ''}`}
+                      value={formData.department}
+                      onChange={(e) => handleInputChange('department', e.target.value)}
+                    >
+                      <option value="">Select Department</option>
+                      <option value="Operations">Operations</option>
+                      <option value="Marketing">Marketing</option>
+                      <option value="IT">IT</option>
+                      <option value="Finance">Finance</option>
+                      <option value="HR">HR</option>
+                      <option value="Legal">Legal</option>
+                      <option value="Facilities">Facilities</option>
+                    </select>
+                    {formErrors.department && (
+                      <label className="label">
+                        <span className="label-text-alt text-error">{formErrors.department}</span>
+                      </label>
+                    )}
+                  </div>
+                  
+                  <div className="form-control w-full">
+                    <label className="label">
+                      <span className="label-text">Due Date *</span>
                     </label>
                     <input
                       type="date"
@@ -281,22 +342,7 @@ export function CreatePaymentRequestPage() {
                       </label>
                     )}
                   </div>
-                </div>
-                
-                <div className="form-control w-full mt-2">
-                  <label className="label">
-                    <span className="label-text">Description</span>
-                  </label>
-                  <textarea
-                    className="textarea textarea-bordered w-full"
-                    value={formData.description}
-                    onChange={(e) => handleInputChange('description', e.target.value)}
-                    placeholder="Enter payment request description"
-                    rows={3}
-                  />
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
+                  
                   <div className="form-control w-full">
                     <label className="label">
                       <span className="label-text">Payment Method</span>
@@ -316,7 +362,7 @@ export function CreatePaymentRequestPage() {
                   {formData.paymentMethod === 'bank_transfer' && (
                     <div className="form-control w-full">
                       <label className="label">
-                        <span className="label-text">Account Number</span>
+                        <span className="label-text">Account Number *</span>
                       </label>
                       <input
                         type="text"
@@ -332,24 +378,34 @@ export function CreatePaymentRequestPage() {
                       )}
                     </div>
                   )}
-                </div>
-                
-                <div className="form-control w-full mt-2">
-                  <label className="label">
-                    <span className="label-text">Notes</span>
-                  </label>
-                  <textarea
-                    className="textarea textarea-bordered w-full"
-                    value={formData.notes}
-                    onChange={(e) => handleInputChange('notes', e.target.value)}
-                    placeholder="Enter additional notes"
-                    rows={2}
-                  />
+                  
+                  <div className="form-control w-full md:col-span-2">
+                    <label className="label">
+                      <span className="label-text">Description</span>
+                    </label>
+                    <textarea
+                      className="textarea textarea-bordered h-24"
+                      value={formData.description}
+                      onChange={(e) => handleInputChange('description', e.target.value)}
+                      placeholder="Enter payment request description"
+                    ></textarea>
+                  </div>
+                  
+                  <div className="form-control w-full md:col-span-2">
+                    <label className="label">
+                      <span className="label-text">Additional Notes</span>
+                    </label>
+                    <textarea
+                      className="textarea textarea-bordered h-24"
+                      value={formData.notes}
+                      onChange={(e) => handleInputChange('notes', e.target.value)}
+                      placeholder="Enter any additional notes"
+                    ></textarea>
+                  </div>
                 </div>
               </div>
             </div>
             
-            {/* Invoice Selection */}
             <div className="card bg-base-100 shadow-xl mt-6">
               <div className="card-body">
                 <div className="flex justify-between items-center mb-4">
@@ -378,7 +434,7 @@ export function CreatePaymentRequestPage() {
                       <div className="input-group">
                         <input
                           type="text"
-                          placeholder="Search invoices by number or vendor"
+                          placeholder="Search invoices..."
                           className="input input-bordered w-full"
                           value={searchQuery}
                           onChange={(e) => setSearchQuery(e.target.value)}
@@ -395,38 +451,32 @@ export function CreatePaymentRequestPage() {
                       <table className="table table-zebra w-full">
                         <thead>
                           <tr>
-                            <th>Select</th>
+                            <th></th>
                             <th>Invoice #</th>
                             <th>Vendor</th>
                             <th>Amount</th>
                             <th>Date</th>
+                            <th>Due Date</th>
                           </tr>
                         </thead>
                         <tbody>
-                          {filteredInvoices.length > 0 ? (
-                            filteredInvoices.map((invoice) => (
-                              <tr key={invoice.id}>
-                                <td>
-                                  <input
-                                    type="checkbox"
-                                    className="checkbox checkbox-primary"
-                                    checked={invoice.selected || false}
-                                    onChange={() => handleInvoiceToggle(invoice.id)}
-                                  />
-                                </td>
-                                <td>{invoice.invoiceNumber}</td>
-                                <td>{invoice.vendor}</td>
-                                <td>{formatCurrency(invoice.amount)}</td>
-                                <td>{formatDate(invoice.date)}</td>
-                              </tr>
-                            ))
-                          ) : (
-                            <tr>
-                              <td colSpan={5} className="text-center py-4">
-                                No invoices found matching your criteria.
+                          {filteredInvoices.map((invoice) => (
+                            <tr key={invoice.id} className={invoice.selected ? 'bg-base-200' : ''}>
+                              <td>
+                                <input
+                                  type="checkbox"
+                                  className="checkbox"
+                                  checked={invoice.selected || false}
+                                  onChange={() => handleInvoiceToggle(invoice.id)}
+                                />
                               </td>
+                              <td>{invoice.invoiceNumber}</td>
+                              <td>{invoice.vendor}</td>
+                              <td>{formatCurrency(invoice.amount)}</td>
+                              <td>{formatDate(invoice.date)}</td>
+                              <td>{formatDate(invoice.dueDate)}</td>
                             </tr>
-                          )}
+                          ))}
                         </tbody>
                       </table>
                     </div>
@@ -442,6 +492,7 @@ export function CreatePaymentRequestPage() {
                           <th>Vendor</th>
                           <th>Amount</th>
                           <th>Date</th>
+                          <th>Due Date</th>
                           <th>Actions</th>
                         </tr>
                       </thead>
@@ -452,6 +503,7 @@ export function CreatePaymentRequestPage() {
                             <td>{invoice.vendor}</td>
                             <td>{formatCurrency(invoice.amount)}</td>
                             <td>{formatDate(invoice.date)}</td>
+                            <td>{formatDate(invoice.dueDate)}</td>
                             <td>
                               <button
                                 type="button"
