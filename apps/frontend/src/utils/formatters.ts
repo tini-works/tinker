@@ -1,37 +1,45 @@
 /**
- * Format a number as currency (USD)
- * @param amount - The amount to format
+ * Utility functions for formatting values consistently across the application
+ */
+
+/**
+ * Format a number as currency
+ * @param amount The amount to format
+ * @param currency The currency code (default: USD)
  * @returns Formatted currency string
  */
-export function formatCurrency(amount: number): string {
+export function formatCurrency(amount: number, currency = 'USD'): string {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'USD',
+    currency,
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   }).format(amount);
 }
 
 /**
- * Format a date string to a human-readable format
- * @param dateString - The date string to format
+ * Format a date string
+ * @param dateString The date string to format
+ * @param options Intl.DateTimeFormatOptions
  * @returns Formatted date string
  */
-export function formatDate(dateString: string): string {
+export function formatDate(
+  dateString: string,
+  options: Intl.DateTimeFormatOptions = { 
+    year: 'numeric', 
+    month: 'short', 
+    day: 'numeric' 
+  }
+): string {
   if (!dateString) return '';
-  
   const date = new Date(dateString);
-  return new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  }).format(date);
+  return new Intl.DateTimeFormat('en-US', options).format(date);
 }
 
 /**
- * Format a date string to a relative time (e.g., "2 days ago")
- * @param dateString - The date string to format
- * @returns Formatted relative time string
+ * Format a date as a relative time (e.g., "2 hours ago")
+ * @param dateString The date string to format
+ * @returns Relative time string
  */
 export function formatRelativeTime(dateString: string): string {
   if (!dateString) return '';
