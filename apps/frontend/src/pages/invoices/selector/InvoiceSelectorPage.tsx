@@ -349,7 +349,7 @@ export function InvoiceSelectorPage() {
             <div className="card-body">
               <div className="flex flex-col md:flex-row gap-4 mb-4">
                 {/* Search */}
-                <div className="form-control flex-1">
+                <div className="flex-1">
                   <div className="input-group">
                     <input
                       type="text"

@@ -113,7 +113,7 @@ export function CreatePaymentRequestPage() {
                 </h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="form-control w-full">
+                  <div>
                     <label className="label">
                       <span className="label-text">Title</span>
                     </label>
@@ -124,7 +124,7 @@ export function CreatePaymentRequestPage() {
                     />
                   </div>
 
-                  <div className="form-control w-full">
+                  <div>
                     <label className="label">
                       <span className="label-text">Due Date</span>
                     </label>
@@ -135,7 +135,7 @@ export function CreatePaymentRequestPage() {
                   </div>
                 </div>
 
-                <div className="form-control w-full mt-2">
+                <div className="mt-2">
                   <label className="label">
                     <span className="label-text">Description</span>
                   </label>

@@ -705,22 +705,22 @@ export function ApprovalPage() {
             <div className="card-body">
               <h2 className="card-title text-xl mb-4">Approval Actions</h2>
 
-              <div className="form-control">
+              <div>
                 <label className="label">
                   <span className="label-text">Comments</span>
                 </label>
                 <textarea
-                  className="textarea textarea-bordered h-32"
+                  className="textarea textarea-bordered h-32 w-full"
                   placeholder="Add your comments or feedback here..."
                   value={comment}
                   onChange={e => setComment(e.target.value)}
                 />
-                <label className="label">
+                <div className="label">
                   <span className="label-text-alt text-error">
                     {!comment.trim() &&
                       'Comments are required before taking any action'}
                   </span>
-                </label>
+                </div>
               </div>
 
               <div className="space-y-4 mt-4">
