@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>User Journeys - Tinker Documentation</title>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="Documentation for the Tinker project" name="description"/>
+<meta content="mkdocs-1.6.1, mkdocs-gitbook-1.0.7" name="generator"/>
+<meta content="Tinker Team" name="author"/>
+<link href="../images/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+<meta content="true" name="HandheldFriendly">
+<meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<meta href="" rel="next">
+<link href="../css/style.min.css" rel="stylesheet"/>
+<link href="../stylesheets/extra.css" rel="stylesheet"/>
+</meta></meta></head>
+<body>
+<div class="book">
+<div class="book-summary">
+<div id="book-search-input" role="search">
+<input placeholder="Type to search" type="text"/>
+</div> <!-- end of book-search-input -->
+<nav role="navigation">
+<ul class="summary">
+<li>
+<a class="custom-link" href=".." target="_blank">Tinker Documentation</a>
+</li>
+<li class="divider"></li>
+<li class="chapter" data-path="">
+<a href="..">Home</a>
+<li class="chapter" data-path="1_event_storming/">
+<a href="../1_event_storming/">Event Storming</a>
+<li class="chapter active" data-path="2_user_journeys/">
+<a href="./">User Journeys</a>
+<li class="chapter" data-path="3_touch_points_screens/">
+<a href="../3_touch_points_screens/">Touch Points &amp; Screens</a>
+<li class="chapter" data-path="4_screen_mockups/">
+<a href="../4_screen_mockups/">Screen Mockups</a>
+<li class="chapter" data-path="5_screen_variations/">
+<a href="../5_screen_variations/">Screen Variations</a>
+<li class="chapter" data-path="6_summary/">
+<a href="../6_summary/">Summary</a>
+<li class="chapter" data-path="mermaid_example/">
+<a href="../mermaid_example/">Mermaid Examples</a>
+<li class="divider"></li>
+<li><a href="http://www.mkdocs.org">
+Published with MkDocs
+</a></li>
+<li><a href="https://github.com/GitbookIO/theme-default">
+Theme by GitBook
+</a></li>
+</li></li></li></li></li></li></li></li></ul>
+</nav>
+</div> <!-- end of book-summary -->
+<div class="book-body">
+<div class="body-inner">
+<div class="book-header" role="navigation">
+<!-- Title -->
+<h1>
+<i class="fa fa-circle-o-notch fa-spin"></i>
+<a href="."></a>
+</h1>
+</div> <!-- end of book-header -->
+<div class="page-wrapper" role="main" tabindex="-1">
+<div class="page-inner">
+<div id="book-search-results">
+<div class="search-noresults">
+<section class="normal markdown-section">
+<h1 id="user-journeys-invoice-approval-system">User Journeys: Invoice Approval System<a class="headerlink" href="#user-journeys-invoice-approval-system" title="Permanent link">¶</a></h1>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">¶</a></h2>
+<p>This document outlines the key user journeys in the invoice approval system. User journeys map out the sequence of steps that different users take to accomplish their goals within the system. These journeys are aligned with the domain events identified in the Event Storming analysis.</p>
+<h2 id="user-personas">User Personas<a class="headerlink" href="#user-personas" title="Permanent link">¶</a></h2>
+<h3 id="1-invoice-processor">1. Invoice Processor<a class="headerlink" href="#1-invoice-processor" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Role</strong>: Responsible for importing invoices into the system</li>
+<li><strong>Goals</strong>: Efficiently import and manage invoices</li>
+<li><strong>Pain Points</strong>: Handling large batches, identifying duplicates, correcting errors</li>
+</ul>
+<h3 id="2-payment-request-creator-adminhr">2. Payment Request Creator (Admin/HR)<a class="headerlink" href="#2-payment-request-creator-adminhr" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Role</strong>: Creates and manages payment requests</li>
+<li><strong>Goals</strong>: Create payment requests, link invoices, submit for approval</li>
+<li><strong>Pain Points</strong>: Tracking approval status, managing rejections</li>
+</ul>
+<h3 id="3-approver">3. Approver<a class="headerlink" href="#3-approver" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Role</strong>: Reviews and approves payment requests</li>
+<li><strong>Goals</strong>: Efficiently review requests, provide feedback, approve valid requests</li>
+<li><strong>Pain Points</strong>: Lack of context, unclear approval criteria</li>
+</ul>
+<h3 id="4-finance-officer">4. Finance Officer<a class="headerlink" href="#4-finance-officer" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Role</strong>: Processes payments and completes payment requests</li>
+<li><strong>Goals</strong>: Track approved requests, mark payments as completed</li>
+<li><strong>Pain Points</strong>: Reconciling payments with external systems</li>
+</ul>
+<h2 id="user-journeys">User Journeys<a class="headerlink" href="#user-journeys" title="Permanent link">¶</a></h2>
+<h3 id="journey-1-importing-invoices">Journey 1: Importing Invoices<a class="headerlink" href="#journey-1-importing-invoices" title="Permanent link">¶</a></h3>
+<p><strong>User</strong>: Invoice Processor</p>
+<div class="mermaid">journey
+    title Importing Invoices
+    section Preparation
+      Access import page: 5: Invoice Processor
+      Prepare invoice batch: 3: Invoice Processor
+    section Import
+      Upload invoice batch: 5: Invoice Processor
+      Review import results: 4: Invoice Processor
+      Handle any import errors: 2: Invoice Processor
+    section Post-Import
+      Verify imported invoices: 4: Invoice Processor
+      Mark any invoices as obsolete if needed: 3: Invoice Processor</div>
+<p><strong>Steps</strong>:</p>
+<ol>
+<li><strong>Access Import Page</strong>: User navigates to the invoice import page.</li>
+<li><strong>Prepare Invoice Batch</strong>: User prepares the batch of invoices for import.</li>
+<li><strong>Upload Invoice Batch</strong>: User uploads the batch of invoices.</li>
+<li><strong>Review Import Results</strong>: User reviews the results of the import, including any errors or warnings.</li>
+<li><strong>Handle Import Errors</strong>: If there are any errors, user corrects them and re-imports if necessary.</li>
+<li><strong>Verify Imported Invoices</strong>: User verifies that all invoices have been imported correctly.</li>
+<li><strong>Mark Obsolete Invoices</strong>: If any invoices are no longer valid, user marks them as obsolete.</li>
+</ol>
+<p><strong>Success Criteria</strong>:</p>
+<ul>
+<li>All valid invoices are successfully imported into the system.</li>
+<li>Any invalid or duplicate invoices are identified and handled appropriately.</li>
+</ul>
+<h3 id="journey-2-creating-a-payment-request">Journey 2: Creating a Payment Request<a class="headerlink" href="#journey-2-creating-a-payment-request" title="Permanent link">¶</a></h3>
+<p><strong>User</strong>: Payment Request Creator (Admin/HR)</p>
+<div class="mermaid">journey
+    title Creating a Payment Request
+    section Creation
+      Access payment request page: 5: Admin/HR
+      Create new payment request: 5: Admin/HR
+      Enter basic information: 4: Admin/HR
+    section Linking Invoices
+      Search for invoices: 3: Admin/HR
+      Select invoices to link: 4: Admin/HR
+      Review linked invoices: 5: Admin/HR
+    section Submission
+      Add additional information: 4: Admin/HR
+      Submit for approval: 5: Admin/HR
+      Confirm submission: 5: Admin/HR</div>
+<p><strong>Steps</strong>:</p>
+<ol>
+<li><strong>Access Payment Request Page</strong>: User navigates to the payment request creation page.</li>
+<li><strong>Create New Payment Request</strong>: User initiates the creation of a new payment request.</li>
+<li><strong>Enter Basic Information</strong>: User enters basic information about the payment request (e.g., description, date).</li>
+<li><strong>Search for Invoices</strong>: User searches for invoices to link to the payment request.</li>
+<li><strong>Select Invoices to Link</strong>: User selects one or more invoices to link to the payment request.</li>
+<li><strong>Review Linked Invoices</strong>: User reviews the invoices linked to the payment request.</li>
+<li><strong>Add Additional Information</strong>: User adds any additional information required for the payment request.</li>
+<li><strong>Submit for Approval</strong>: User submits the payment request for approval.</li>
+<li><strong>Confirm Submission</strong>: User confirms the submission and receives confirmation.</li>
+</ol>
+<p><strong>Success Criteria</strong>:</p>
+<ul>
+<li>Payment request is created with all required information.</li>
+<li>Appropriate invoices are linked to the payment request.</li>
+<li>Payment request is successfully submitted for approval.</li>
+</ul>
+<h3 id="journey-3-reviewing-and-approving-a-payment-request">Journey 3: Reviewing and Approving a Payment Request<a class="headerlink" href="#journey-3-reviewing-and-approving-a-payment-request" title="Permanent link">¶</a></h3>
+<p><strong>User</strong>: Approver</p>
+<div class="mermaid">journey
+    title Reviewing and Approving a Payment Request
+    section Notification
+      Receive approval notification: 3: Approver
+      Access approval page: 5: Approver
+    section Review
+      Review payment request details: 4: Approver
+      Review linked invoices: 4: Approver
+      Review additional information: 3: Approver
+    section Decision
+      Request changes if needed: 2: Approver
+      Approve payment request: 5: Approver
+      Confirm approval: 5: Approver</div>
+<p><strong>Steps</strong>:</p>
+<ol>
+<li><strong>Receive Approval Notification</strong>: User receives notification that a payment request requires their approval.</li>
+<li><strong>Access Approval Page</strong>: User navigates to the approval page for the payment request.</li>
+<li><strong>Review Payment Request Details</strong>: User reviews the details of the payment request.</li>
+<li><strong>Review Linked Invoices</strong>: User reviews the invoices linked to the payment request.</li>
+<li><strong>Review Additional Information</strong>: User reviews any additional information provided.</li>
+<li><strong>Request Changes (if needed)</strong>: If changes are needed, user requests changes and provides feedback.</li>
+<li><strong>Approve Payment Request</strong>: If the payment request is valid, user approves it.</li>
+<li><strong>Confirm Approval</strong>: User confirms the approval and receives confirmation.</li>
+</ol>
+<p><strong>Success Criteria</strong>:</p>
+<ul>
+<li>Approver has all necessary information to make an informed decision.</li>
+<li>Feedback is provided if changes are requested.</li>
+<li>Payment request is approved if it meets all criteria.</li>
+</ul>
+<h3 id="journey-4-handling-requested-changes">Journey 4: Handling Requested Changes<a class="headerlink" href="#journey-4-handling-requested-changes" title="Permanent link">¶</a></h3>
+<p><strong>User</strong>: Payment Request Creator (Admin/HR)</p>
+<div class="mermaid">journey
+    title Handling Requested Changes
+    section Notification
+      Receive change request notification: 3: Admin/HR
+      Access payment request: 5: Admin/HR
+    section Review and Update
+      Review feedback: 4: Admin/HR
+      Make requested changes: 3: Admin/HR
+      Add clarification if needed: 4: Admin/HR
+    section Resubmission
+      Resubmit for approval: 5: Admin/HR
+      Confirm resubmission: 5: Admin/HR</div>
+<p><strong>Steps</strong>:</p>
+<ol>
+<li><strong>Receive Change Request Notification</strong>: User receives notification that changes have been requested for a payment request.</li>
+<li><strong>Access Payment Request</strong>: User navigates to the payment request that requires changes.</li>
+<li><strong>Review Feedback</strong>: User reviews the feedback provided by the approver.</li>
+<li><strong>Make Requested Changes</strong>: User makes the changes requested by the approver.</li>
+<li><strong>Add Clarification</strong>: User adds any clarification or additional information if needed.</li>
+<li><strong>Resubmit for Approval</strong>: User resubmits the payment request for approval.</li>
+<li><strong>Confirm Resubmission</strong>: User confirms the resubmission and receives confirmation.</li>
+</ol>
+<p><strong>Success Criteria</strong>:</p>
+<ul>
+<li>All requested changes are addressed.</li>
+<li>Payment request is successfully resubmitted for approval.</li>
+</ul>
+<h3 id="journey-5-completing-a-payment-request">Journey 5: Completing a Payment Request<a class="headerlink" href="#journey-5-completing-a-payment-request" title="Permanent link">¶</a></h3>
+<p><strong>User</strong>: Finance Officer</p>
+<div class="mermaid">journey
+    title Completing a Payment Request
+    section Preparation
+      Access approved payment requests: 5: Finance Officer
+      Review payment request details: 4: Finance Officer
+    section External Payment
+      Process payment externally: 3: Finance Officer
+      Record payment details: 4: Finance Officer
+    section Completion
+      Mark payment request as completed: 5: Finance Officer
+      Confirm completion: 5: Finance Officer
+      Verify linked invoices are marked as completed: 4: Finance Officer</div>
+<p><strong>Steps</strong>:</p>
+<ol>
+<li><strong>Access Approved Payment Requests</strong>: User navigates to the list of approved payment requests.</li>
+<li><strong>Review Payment Request Details</strong>: User reviews the details of the payment request to be processed.</li>
+<li><strong>Process Payment Externally</strong>: User processes the payment using an external system.</li>
+<li><strong>Record Payment Details</strong>: User records the details of the payment (e.g., date, reference number).</li>
+<li><strong>Mark Payment Request as Completed</strong>: User marks the payment request as completed.</li>
+<li><strong>Confirm Completion</strong>: User confirms the completion and receives confirmation.</li>
+<li><strong>Verify Linked Invoices</strong>: User verifies that all linked invoices are automatically marked as completed.</li>
+</ol>
+<p><strong>Success Criteria</strong>:</p>
+<ul>
+<li>Payment request is successfully marked as completed.</li>
+<li>All linked invoices are automatically marked as completed.</li>
+<li>Payment details are recorded for future reference.</li>
+</ul>
+<h3 id="journey-6-reverting-a-completed-payment-request">Journey 6: Reverting a Completed Payment Request<a class="headerlink" href="#journey-6-reverting-a-completed-payment-request" title="Permanent link">¶</a></h3>
+<p><strong>User</strong>: Admin/HR or Finance Officer</p>
+<div class="mermaid">journey
+    title Reverting a Completed Payment Request
+    section Identification
+      Access completed payment requests: 5: Admin
+      Identify payment request to revert: 4: Admin
+    section Reversion
+      Initiate reversion: 3: Admin
+      Provide reason for reversion: 4: Admin
+      Confirm reversion: 5: Admin
+    section Post-Reversion
+      Verify payment request status: 4: Admin
+      Verify linked invoice status: 4: Admin
+      Take appropriate follow-up action: 3: Admin</div>
+<p><strong>Steps</strong>:</p>
+<ol>
+<li><strong>Access Completed Payment Requests</strong>: User navigates to the list of completed payment requests.</li>
+<li><strong>Identify Payment Request</strong>: User identifies the payment request to be reverted.</li>
+<li><strong>Initiate Reversion</strong>: User initiates the reversion process.</li>
+<li><strong>Provide Reason</strong>: User provides a reason for the reversion.</li>
+<li><strong>Confirm Reversion</strong>: User confirms the reversion and receives confirmation.</li>
+<li><strong>Verify Payment Request Status</strong>: User verifies that the payment request status has been reverted.</li>
+<li><strong>Verify Linked Invoice Status</strong>: User verifies that the status of linked invoices has been updated appropriately.</li>
+<li><strong>Take Follow-up Action</strong>: User takes any necessary follow-up action based on the reason for reversion.</li>
+</ol>
+<p><strong>Success Criteria</strong>:</p>
+<ul>
+<li>Payment request is successfully reverted to the appropriate state.</li>
+<li>Linked invoices are updated appropriately.</li>
+<li>Reason for reversion is recorded for audit purposes.</li>
+</ul>
+<h2 id="journey-map-verification">Journey Map Verification<a class="headerlink" href="#journey-map-verification" title="Permanent link">¶</a></h2>
+<p>The user journeys outlined above have been verified against the Event Storming analysis to ensure that all domain events are covered:</p>
+<table>
+<thead>
+<tr>
+<th>Domain Event</th>
+<th>User Journey</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Invoices Imported</td>
+<td>Journey 1: Importing Invoices</td>
+</tr>
+<tr>
+<td>Payment Request Created</td>
+<td>Journey 2: Creating a Payment Request</td>
+</tr>
+<tr>
+<td>Invoices Linked to PR</td>
+<td>Journey 2: Creating a Payment Request</td>
+</tr>
+<tr>
+<td>PR Submitted for Approval</td>
+<td>Journey 2: Creating a Payment Request</td>
+</tr>
+<tr>
+<td>PR Reviewed</td>
+<td>Journey 3: Reviewing and Approving a Payment Request</td>
+</tr>
+<tr>
+<td>Changes Requested</td>
+<td>Journey 3: Reviewing and Approving a Payment Request</td>
+</tr>
+<tr>
+<td>PR Updated</td>
+<td>Journey 4: Handling Requested Changes</td>
+</tr>
+<tr>
+<td>PR Approved</td>
+<td>Journey 3: Reviewing and Approving a Payment Request</td>
+</tr>
+<tr>
+<td>Payment Made</td>
+<td>Journey 5: Completing a Payment Request</td>
+</tr>
+<tr>
+<td>PR Completed</td>
+<td>Journey 5: Completing a Payment Request</td>
+</tr>
+<tr>
+<td>Invoices Marked as Completed</td>
+<td>Journey 5: Completing a Payment Request</td>
+</tr>
+<tr>
+<td>PR Reverted</td>
+<td>Journey 6: Reverting a Completed Payment Request</td>
+</tr>
+</tbody>
+</table>
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">¶</a></h2>
+<p>This document outlines the key user journeys in the invoice approval system. These journeys provide a user-centric view of the system and will inform the design of the user interface and interactions. The next step is to extract touch points and define the screens needed to support these journeys.</p>
+</section>
+</div> <!-- end of search-noresults -->
+<div class="search-results">
+<div class="has-results">
+<h1 class="search-results-title"><span class="search-results-count"></span> results matching "<span class="search-query"></span>"</h1>
+<ul class="search-results-list"></ul>
+</div> <!-- end of has-results -->
+<div class="no-results">
+<h1 class="search-results-title">No results matching "<span class="search-query"></span>"</h1>
+</div> <!-- end of no-results -->
+</div> <!-- end of search-results -->
+</div> <!-- end of book-search-results -->
+</div> <!-- end of page-inner -->
+</div> <!-- end of page-wrapper -->
+</div> <!-- end of body-inner -->
+</div> <!-- end of book-body -->
+<script src="../js/main.js"></script>
+<script src="../search/main.js"></script>
+<script src="../js/gitbook.min.js"></script>
+<script src="../js/theme.min.js"></script>
+</div><script type="module">import mermaid from "https://unpkg.com/mermaid@10.9.1/dist/mermaid.esm.min.mjs";
+mermaid.initialize({
+    securityLevel: "loose",
+    theme: "default",
+    flowchart: {
+        useMaxWidth: true,
+        htmlLabels: true
+    },
+    journey: {
+        useMaxWidth: true
+    },
+    sequence: {
+        useMaxWidth: true
+    },
+    class: {
+        useMaxWidth: true
+    },
+    state: {
+        useMaxWidth: true
+    }
+});</script></body>
+</html>

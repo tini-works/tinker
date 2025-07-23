@@ -4,16 +4,25 @@ site_author: Tinker Team
 
 theme:
   name: gitbook
-  features:
-    - navigation.instant
-    - navigation.tracking
-    - navigation.expand
-    - navigation.indexes
-    - content.code.copy
 
 plugins:
   - search
-  - mermaid2
+  - mermaid2:
+      javascript: https://unpkg.com/mermaid@10.9.1/dist/mermaid.esm.min.mjs
+      arguments:
+        securityLevel: 'loose'
+        theme: 'default'
+        flowchart:
+          useMaxWidth: true
+          htmlLabels: true
+        journey:
+          useMaxWidth: true
+        sequence:
+          useMaxWidth: true
+        class:
+          useMaxWidth: true
+        state:
+          useMaxWidth: true
 
 markdown_extensions:
   - admonition

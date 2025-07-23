@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Screen Variations - Tinker Documentation</title>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="Documentation for the Tinker project" name="description"/>
+<meta content="mkdocs-1.6.1, mkdocs-gitbook-1.0.7" name="generator"/>
+<meta content="Tinker Team" name="author"/>
+<link href="../images/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+<meta content="true" name="HandheldFriendly">
+<meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<meta href="" rel="next">
+<link href="../css/style.min.css" rel="stylesheet"/>
+<link href="../stylesheets/extra.css" rel="stylesheet"/>
+</meta></meta></head>
+<body>
+<div class="book">
+<div class="book-summary">
+<div id="book-search-input" role="search">
+<input placeholder="Type to search" type="text"/>
+</div> <!-- end of book-search-input -->
+<nav role="navigation">
+<ul class="summary">
+<li>
+<a class="custom-link" href=".." target="_blank">Tinker Documentation</a>
+</li>
+<li class="divider"></li>
+<li class="chapter" data-path="">
+<a href="..">Home</a>
+<li class="chapter" data-path="1_event_storming/">
+<a href="../1_event_storming/">Event Storming</a>
+<li class="chapter" data-path="2_user_journeys/">
+<a href="../2_user_journeys/">User Journeys</a>
+<li class="chapter" data-path="3_touch_points_screens/">
+<a href="../3_touch_points_screens/">Touch Points &amp; Screens</a>
+<li class="chapter" data-path="4_screen_mockups/">
+<a href="../4_screen_mockups/">Screen Mockups</a>
+<li class="chapter active" data-path="5_screen_variations/">
+<a href="./">Screen Variations</a>
+<li class="chapter" data-path="6_summary/">
+<a href="../6_summary/">Summary</a>
+<li class="chapter" data-path="mermaid_example/">
+<a href="../mermaid_example/">Mermaid Examples</a>
+<li class="divider"></li>
+<li><a href="http://www.mkdocs.org">
+Published with MkDocs
+</a></li>
+<li><a href="https://github.com/GitbookIO/theme-default">
+Theme by GitBook
+</a></li>
+</li></li></li></li></li></li></li></li></ul>
+</nav>
+</div> <!-- end of book-summary -->
+<div class="book-body">
+<div class="body-inner">
+<div class="book-header" role="navigation">
+<!-- Title -->
+<h1>
+<i class="fa fa-circle-o-notch fa-spin"></i>
+<a href="."></a>
+</h1>
+</div> <!-- end of book-header -->
+<div class="page-wrapper" role="main" tabindex="-1">
+<div class="page-inner">
+<div id="book-search-results">
+<div class="search-noresults">
+<section class="normal markdown-section">
+<h1 id="screen-variations">Screen Variations<a class="headerlink" href="#screen-variations" title="Permanent link">¶</a></h1>
+<p>This document builds upon our previous work on screen mockups by adding variations, states, and navigation connections between screens for the Invoice Approval System.</p>
+<h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">¶</a></h2>
+<p>The purpose of this document is to:</p>
+<ol>
+<li>Define different states for each screen</li>
+<li>Show how screens connect and flow into each other</li>
+<li>Illustrate the complete user journey through the application</li>
+<li>Document conditional variations based on user roles and system states</li>
+</ol>
+<h2 id="navigation-map">Navigation Map<a class="headerlink" href="#navigation-map" title="Permanent link">¶</a></h2>
+<p>Below is a high-level navigation map showing how screens connect:</p>
+<pre class="highlight"><code>                                 ┌─────────────────┐
+                                 │                 │
+                                 │    Dashboard    │
+                                 │                 │
+                                 └───────┬─────────┘
+                                         │
+                 ┌───────────────┬───────┴────────┬───────────────┐
+                 │               │                │               │
+    ┌────────────▼─────┐ ┌───────▼───────┐ ┌──────▼─────────┐ ┌──▼───────────────┐
+    │                  │ │               │ │                │ │                  │
+    │  Invoice List    │ │ Payment       │ │ Approval       │ │ User             │
+    │                  │ │ Request List  │ │ Dashboard      │ │ Management       │
+    │                  │ │               │ │                │ │                  │
+    └────────┬─────────┘ └───────┬───────┘ └────────┬───────┘ └──────────────────┘
+             │                   │                  │
+    ┌────────▼─────────┐ ┌───────▼───────┐ ┌────────▼───────┐
+    │                  │ │               │ │                │
+    │  Invoice Detail  │ │ PR Detail     │ │ Approval       │
+    │                  │ │               │ │ Detail         │
+    │                  │ │               │ │                │
+    └──────────────────┘ └───────┬───────┘ └────────────────┘
+                                 │
+                         ┌───────▼───────┐
+                         │               │
+                         │ PR Creation/  │
+                         │ Edit Form     │
+                         │               │
+                         └───────────────┘</code></pre>
+<h2 id="screen-states-and-variations">Screen States and Variations<a class="headerlink" href="#screen-states-and-variations" title="Permanent link">¶</a></h2>
+<h3 id="1-dashboard">1. Dashboard<a class="headerlink" href="#1-dashboard" title="Permanent link">¶</a></h3>
+<p><strong>Variations:</strong></p>
+<ul>
+<li><strong>Default View</strong>: Shows summary metrics for all users</li>
+<li><strong>Admin View</strong>: Additional administrative controls and system-wide metrics</li>
+<li><strong>Finance View</strong>: Focus on financial metrics and pending payments</li>
+<li><strong>Approver View</strong>: Emphasis on pending approvals requiring action</li>
+</ul>
+<p><strong>States:</strong></p>
+<ul>
+<li><strong>Loading</strong>: Initial loading state with skeleton UI</li>
+<li><strong>Empty State</strong>: For new users with no data</li>
+<li><strong>Error State</strong>: When data cannot be loaded</li>
+<li><strong>Filtered State</strong>: When filters are applied to dashboard widgets</li>
+</ul>
+<h3 id="2-invoice-list">2. Invoice List<a class="headerlink" href="#2-invoice-list" title="Permanent link">¶</a></h3>
+<p><strong>Variations:</strong></p>
+<ul>
+<li><strong>All Invoices View</strong>: Default view showing all invoices</li>
+<li><strong>Pending Invoices</strong>: Invoices not yet linked to Payment Requests</li>
+<li><strong>Processed Invoices</strong>: Invoices that have been fully processed</li>
+<li><strong>Obsolete Invoices</strong>: Invoices marked as obsolete</li>
+</ul>
+<p><strong>States:</strong></p>
+<ul>
+<li><strong>Loading</strong>: Initial loading state</li>
+<li><strong>Empty State</strong>: No invoices available</li>
+<li><strong>Search Results</strong>: After search is performed</li>
+<li><strong>Filter Applied</strong>: When filters are active</li>
+<li><strong>Batch Import In Progress</strong>: When batch import is running</li>
+<li><strong>Import Error</strong>: When import fails</li>
+</ul>
+<p><strong>Transitions:</strong></p>
+<ul>
+<li>Click on invoice → Invoice Detail</li>
+<li>Click "Import Invoices" → Import Modal</li>
+<li>Click "Create Payment Request" → PR Creation Form (with selected invoices)</li>
+</ul>
+<h3 id="3-invoice-detail">3. Invoice Detail<a class="headerlink" href="#3-invoice-detail" title="Permanent link">¶</a></h3>
+<p><strong>Variations:</strong></p>
+<ul>
+<li><strong>Editable</strong>: For invoices not yet linked to a PR</li>
+<li><strong>Read-only</strong>: For invoices linked to a PR or completed</li>
+<li><strong>Admin View</strong>: With additional administrative options</li>
+</ul>
+<p><strong>States:</strong></p>
+<ul>
+<li><strong>Loading</strong>: Initial loading state</li>
+<li><strong>Error</strong>: When invoice cannot be loaded</li>
+<li><strong>Linked to PR</strong>: Shows PR information</li>
+<li><strong>Unlinked</strong>: Available to be added to a PR</li>
+<li><strong>Completed</strong>: Invoice has been paid</li>
+<li><strong>Obsolete</strong>: Invoice marked as obsolete</li>
+</ul>
+<p><strong>Transitions:</strong></p>
+<ul>
+<li>Click "Back" → Invoice List</li>
+<li>Click "Edit" → Edit Invoice Form</li>
+<li>Click "Add to Payment Request" → PR Selection or Creation</li>
+<li>Click "View Payment Request" → PR Detail (if linked)</li>
+</ul>
+<h3 id="4-payment-request-list">4. Payment Request List<a class="headerlink" href="#4-payment-request-list" title="Permanent link">¶</a></h3>
+<p><strong>Variations:</strong></p>
+<ul>
+<li><strong>All PRs View</strong>: Default view showing all payment requests</li>
+<li><strong>My PRs</strong>: PRs created by or assigned to current user</li>
+<li><strong>Pending Approval</strong>: PRs awaiting approval</li>
+<li><strong>Approved PRs</strong>: Fully approved PRs</li>
+<li><strong>Completed PRs</strong>: PRs marked as paid and completed</li>
+</ul>
+<p><strong>States:</strong></p>
+<ul>
+<li><strong>Loading</strong>: Initial loading state</li>
+<li><strong>Empty State</strong>: No payment requests available</li>
+<li><strong>Search Results</strong>: After search is performed</li>
+<li><strong>Filter Applied</strong>: When filters are active</li>
+</ul>
+<p><strong>Transitions:</strong></p>
+<ul>
+<li>Click on PR → PR Detail</li>
+<li>Click "Create Payment Request" → PR Creation Form</li>
+</ul>
+<h3 id="5-payment-request-detail">5. Payment Request Detail<a class="headerlink" href="#5-payment-request-detail" title="Permanent link">¶</a></h3>
+<p><strong>Variations:</strong></p>
+<ul>
+<li><strong>Creator View</strong>: Full editing capabilities (if in draft)</li>
+<li><strong>Approver View</strong>: With approval actions</li>
+<li><strong>Finance View</strong>: With payment marking options</li>
+<li><strong>Read-only View</strong>: For completed PRs or non-stakeholders</li>
+</ul>
+<p><strong>States:</strong></p>
+<ul>
+<li><strong>Draft</strong>: Editable, not yet submitted</li>
+<li><strong>Submitted</strong>: Awaiting first approval</li>
+<li><strong>In Review</strong>: In approval process</li>
+<li><strong>Rejected</strong>: Sent back for changes</li>
+<li><strong>Approved</strong>: Fully approved, awaiting payment</li>
+<li><strong>Completed</strong>: Payment made and verified</li>
+<li><strong>Reverted</strong>: Returned to previous state</li>
+</ul>
+<p><strong>Transitions:</strong></p>
+<ul>
+<li>Click "Back" → Payment Request List</li>
+<li>Click "Edit" → PR Edit Form (if in draft)</li>
+<li>Click "Submit for Approval" → Confirmation Modal → Approval Process</li>
+<li>Click "Approve" → Approval Confirmation</li>
+<li>Click "Reject" → Rejection Form with Comments</li>
+<li>Click "Mark as Paid" → Payment Confirmation</li>
+<li>Click "View Invoices" → Linked Invoices View</li>
+<li>Click "Add Comment" → Comment Form</li>
+</ul>
+<h3 id="6-pr-creationedit-form">6. PR Creation/Edit Form<a class="headerlink" href="#6-pr-creationedit-form" title="Permanent link">¶</a></h3>
+<p><strong>Variations:</strong></p>
+<ul>
+<li><strong>Creation Mode</strong>: Creating new PR</li>
+<li><strong>Edit Mode</strong>: Editing existing PR</li>
+<li><strong>Admin Override</strong>: With additional options for admins</li>
+</ul>
+<p><strong>States:</strong></p>
+<ul>
+<li><strong>Initial</strong>: Empty form</li>
+<li><strong>Partially Filled</strong>: Some fields completed</li>
+<li><strong>Validation Error</strong>: Form with validation errors</li>
+<li><strong>Ready to Submit</strong>: All required fields filled</li>
+<li><strong>Submitting</strong>: Processing submission</li>
+</ul>
+<p><strong>Transitions:</strong></p>
+<ul>
+<li>Click "Cancel" → Return to previous screen</li>
+<li>Click "Save Draft" → Save and stay on form</li>
+<li>Click "Save and Exit" → Save and return to PR List</li>
+<li>Click "Submit" → Validation → Confirmation → PR Detail</li>
+</ul>
+<h3 id="7-approval-dashboard">7. Approval Dashboard<a class="headerlink" href="#7-approval-dashboard" title="Permanent link">¶</a></h3>
+<p><strong>Variations:</strong></p>
+<ul>
+<li><strong>Approver View</strong>: PRs requiring user's approval</li>
+<li><strong>Creator View</strong>: Status of user's submitted PRs</li>
+<li><strong>Admin View</strong>: All approval processes</li>
+</ul>
+<p><strong>States:</strong></p>
+<ul>
+<li><strong>Loading</strong>: Initial loading state</li>
+<li><strong>Empty</strong>: No approvals pending</li>
+<li><strong>Filtered</strong>: Filtered view of approvals</li>
+</ul>
+<p><strong>Transitions:</strong></p>
+<ul>
+<li>Click on PR → PR Detail with Approval Focus</li>
+<li>Click "Approve" → Quick Approval Flow</li>
+<li>Click "View All" → Filtered PR List</li>
+</ul>
+<h3 id="8-approval-detail">8. Approval Detail<a class="headerlink" href="#8-approval-detail" title="Permanent link">¶</a></h3>
+<p><strong>Variations:</strong></p>
+<ul>
+<li><strong>Single-stage Approval</strong>: Simple approval process</li>
+<li><strong>Multi-stage Approval</strong>: Complex approval chain</li>
+<li><strong>With Delegation</strong>: When approval is delegated</li>
+</ul>
+<p><strong>States:</strong></p>
+<ul>
+<li><strong>Current Stage</strong>: Highlighting current approval stage</li>
+<li><strong>Approved Stages</strong>: Showing completed approvals</li>
+<li><strong>Pending Stages</strong>: Future approval stages</li>
+<li><strong>Rejected</strong>: When approval is rejected</li>
+</ul>
+<p><strong>Transitions:</strong></p>
+<ul>
+<li>Click "Back" → Approval Dashboard</li>
+<li>Click "View PR" → PR Detail</li>
+<li>Click "Approve" → Approval Confirmation</li>
+<li>Click "Reject" → Rejection Form</li>
+<li>Click "Delegate" → Delegation Form</li>
+</ul>
+<h3 id="9-user-management-admin-only">9. User Management (Admin Only)<a class="headerlink" href="#9-user-management-admin-only" title="Permanent link">¶</a></h3>
+<p><strong>Variations:</strong></p>
+<ul>
+<li><strong>User List</strong>: All system users</li>
+<li><strong>Role Management</strong>: Assigning roles</li>
+<li><strong>Approval Chain Setup</strong>: Configuring approval workflows</li>
+</ul>
+<p><strong>States:</strong></p>
+<ul>
+<li><strong>Viewing</strong>: Browsing users</li>
+<li><strong>Editing</strong>: Modifying user details</li>
+<li><strong>Creating</strong>: Adding new user</li>
+</ul>
+<p><strong>Transitions:</strong></p>
+<ul>
+<li>Click on User → User Detail/Edit</li>
+<li>Click "Add User" → User Creation Form</li>
+<li>Click "Manage Roles" → Role Assignment</li>
+<li>Click "Configure Approval Chains" → Approval Configuration</li>
+</ul>
+<h2 id="conditional-logic-and-business-rules">Conditional Logic and Business Rules<a class="headerlink" href="#conditional-logic-and-business-rules" title="Permanent link">¶</a></h2>
+<h3 id="invoice-status-transitions">Invoice Status Transitions<a class="headerlink" href="#invoice-status-transitions" title="Permanent link">¶</a></h3>
+<pre class="highlight"><code>New → Pending → Linked to PR → Completed
+   ↘         ↘
+     Obsolete  Rejected</code></pre>
+<h3 id="payment-request-status-transitions">Payment Request Status Transitions<a class="headerlink" href="#payment-request-status-transitions" title="Permanent link">¶</a></h3>
+<pre class="highlight"><code>Draft → Submitted → In Review → Approved → Completed
+          ↓           ↓
+        Rejected ← Rejected</code></pre>
+<h3 id="approval-rules">Approval Rules<a class="headerlink" href="#approval-rules" title="Permanent link">¶</a></h3>
+<ol>
+<li><strong>Role-based Approval</strong>: Different roles have different approval capabilities</li>
+<li><strong>Sequential Approval</strong>: Some PRs require sequential approval steps</li>
+<li><strong>Threshold-based Routing</strong>: PRs above certain amounts require additional approvals</li>
+<li><strong>Delegation</strong>: Approvals can be delegated with proper authorization</li>
+</ol>
+<h2 id="interactive-elements">Interactive Elements<a class="headerlink" href="#interactive-elements" title="Permanent link">¶</a></h2>
+<h3 id="modals-and-popups">Modals and Popups<a class="headerlink" href="#modals-and-popups" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Confirmation Dialogs</strong>: For critical actions</li>
+<li><strong>Import Progress</strong>: For batch operations</li>
+<li><strong>Quick View</strong>: For previewing items without full navigation</li>
+<li><strong>Comments/Notes</strong>: For adding feedback without changing screens</li>
+</ul>
+<h3 id="notifications">Notifications<a class="headerlink" href="#notifications" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>System Notifications</strong>: For completed processes</li>
+<li><strong>User Alerts</strong>: For required actions</li>
+<li><strong>Error Messages</strong>: For failed operations</li>
+<li><strong>Success Confirmations</strong>: For completed actions</li>
+</ul>
+<h2 id="responsive-considerations">Responsive Considerations<a class="headerlink" href="#responsive-considerations" title="Permanent link">¶</a></h2>
+<h3 id="mobile-adaptations">Mobile Adaptations<a class="headerlink" href="#mobile-adaptations" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Simplified Navigation</strong>: Condensed menu for mobile</li>
+<li><strong>Progressive Disclosure</strong>: Show less information initially on small screens</li>
+<li><strong>Touch-Friendly Controls</strong>: Larger tap targets for mobile users</li>
+<li><strong>Reduced Data Tables</strong>: Simplified tables for small screens</li>
+</ul>
+<h3 id="tablet-adaptations">Tablet Adaptations<a class="headerlink" href="#tablet-adaptations" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Split Views</strong>: Utilize larger screen for master-detail views</li>
+<li><strong>Enhanced Filters</strong>: More visible filtering options</li>
+<li><strong>Optimized Forms</strong>: Better use of screen space for forms</li>
+</ul>
+<h2 id="accessibility-considerations">Accessibility Considerations<a class="headerlink" href="#accessibility-considerations" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Keyboard Navigation</strong>: All screens navigable via keyboard</li>
+<li><strong>Screen Reader Support</strong>: Proper ARIA labels and roles</li>
+<li><strong>Color Contrast</strong>: Sufficient contrast for all text elements</li>
+<li><strong>Focus Indicators</strong>: Clear visual focus for keyboard users</li>
+</ul>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">¶</a></h2>
+<p>This document outlines the various states, variations, and connections between screens in the Invoice Approval System. By defining these relationships and states, we create a comprehensive map of the user experience throughout the application.</p>
+<p>The next steps would be to:</p>
+<ol>
+<li>Create interactive prototypes based on these variations</li>
+<li>Validate the flows with stakeholders</li>
+<li>Refine the transitions and states based on feedback</li>
+<li>Develop the technical specifications for implementation</li>
+</ol>
+</section>
+</div> <!-- end of search-noresults -->
+<div class="search-results">
+<div class="has-results">
+<h1 class="search-results-title"><span class="search-results-count"></span> results matching "<span class="search-query"></span>"</h1>
+<ul class="search-results-list"></ul>
+</div> <!-- end of has-results -->
+<div class="no-results">
+<h1 class="search-results-title">No results matching "<span class="search-query"></span>"</h1>
+</div> <!-- end of no-results -->
+</div> <!-- end of search-results -->
+</div> <!-- end of book-search-results -->
+</div> <!-- end of page-inner -->
+</div> <!-- end of page-wrapper -->
+</div> <!-- end of body-inner -->
+</div> <!-- end of book-body -->
+<script src="../js/main.js"></script>
+<script src="../search/main.js"></script>
+<script src="../js/gitbook.min.js"></script>
+<script src="../js/theme.min.js"></script>
+</div></body>
+</html>
