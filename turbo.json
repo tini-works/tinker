@@ -32,6 +32,14 @@
     },
     "clean": {
       "cache": false
+    },
+    "docs:build": {
+      "outputs": ["docs/.vitepress/dist/**"],
+      "inputs": ["docs/**/*.md", "docs/.vitepress/**"]
+    },
+    "docs:dev": {
+      "cache": false,
+      "persistent": true
     }
   }
 }
