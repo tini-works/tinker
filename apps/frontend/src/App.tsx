@@ -12,8 +12,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import { PaymentRequestListPage } from './pages/payment-requests/PaymentRequestListPage';
 // Import will be added when the file is implemented
 // import { CreatePaymentRequestPage } from './pages/payment-requests/create/CreatePaymentRequestPage';
-// Import will be added when the file is implemented
-// import { PaymentRequestDetailPage } from './pages/payment-requests/detail/PaymentRequestDetailPage';
+import { PaymentRequestDetailPage } from './pages/payment-requests/detail/PaymentRequestDetailPage';
 import { ApprovalPage } from './pages/payment-requests/approval/ApprovalPage';
 
 // Protected route component
@@ -99,14 +98,13 @@ function AppRoutes() {
         </ProtectedRoute>
       } /> */}
       
-      {/* Route will be uncommented when the component is implemented */}
-      {/* <Route path="/payment-requests/:id" element={
+      <Route path="/payment-requests/:id" element={
         <ProtectedRoute>
           <MainLayout>
             <PaymentRequestDetailPage />
           </MainLayout>
         </ProtectedRoute>
-      } /> */}
+      } />
       
       <Route path="/payment-requests/:id/approve" element={
         <ProtectedRoute>
