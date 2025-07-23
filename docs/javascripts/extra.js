@@ -1,13 +1,30 @@
-document.addEventListener('DOMContentLoaded', function () {
-  // Initialize mermaid with custom settings
+document$.subscribe(() => {
   mermaid.initialize({
-    startOnLoad: true,
-    theme: 'default',
+    startOnLoad: false,
+    theme: window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default',
     securityLevel: 'loose',
     flowchart: {
       useMaxWidth: true,
-      htmlLabels: true,
+      htmlLabels: true
     },
-    fontFamily: 'Roboto, sans-serif',
+    sequence: {
+      useMaxWidth: true
+    },
+    gantt: {
+      useMaxWidth: true
+    },
+    class: {
+      useMaxWidth: true
+    },
+    state: {
+      useMaxWidth: true
+    },
+    pie: {
+      useMaxWidth: true
+    },
+    fontFamily: 'Roboto, sans-serif'
   });
+  
+  // Re-render mermaid diagrams when page content changes
+  mermaid.init(undefined, document.querySelectorAll(".mermaid"));
 });
