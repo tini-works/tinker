@@ -107,25 +107,35 @@ You can manually trigger the auto-merge workflow by:
 
 ## Documentation
 
-The documentation is built using [MkDocs](https://www.mkdocs.org/) with the [Material theme](https://squidfunk.github.io/mkdocs-material/) and includes support for [Mermaid diagrams](https://mermaid.js.org/).
+The documentation is built using [VitePress](https://vitepress.dev/) and includes support for [Mermaid diagrams](https://mermaid.js.org/).
 
 ### Viewing Documentation Locally
 
 To view the documentation locally:
 
-1. Install MkDocs and the Material theme:
+1. Install dependencies (if not already done):
 
    ```bash
-   pip install mkdocs-material
+   npm install
    ```
 
 2. Serve the documentation:
 
    ```bash
-   mkdocs serve
+   npm run docs:dev
    ```
 
-3. Open your browser and navigate to http://localhost:8000
+3. Open your browser and navigate to http://localhost:5173
+
+### Building Documentation
+
+To build the documentation for production:
+
+```bash
+npm run docs:build
+```
+
+The built documentation will be available in `docs/.vitepress/dist/`.
 
 ### Documentation Structure
 
