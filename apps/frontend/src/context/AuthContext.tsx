@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from 'react';
 import { User } from '../types';
 import { authService } from '../services/auth';
 
@@ -19,7 +25,7 @@ interface AuthProviderProps {
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  
+
   useEffect(() => {
     // Check if user is already logged in
     const currentUser = authService.getCurrentUser();
@@ -28,7 +34,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
     setIsLoading(false);
   }, []);
-  
+
   const login = async (email: string, password: string): Promise<boolean> => {
     setIsLoading(true);
     try {
@@ -46,12 +52,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
       return false;
     }
   };
-  
+
   const logout = () => {
     authService.logout();
     setUser(null);
   };
-  
+
   const value = {
     user,
     isAuthenticated: !!user,
@@ -59,7 +65,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     login,
     logout,
   };
-  
+
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
@@ -70,4 +76,3 @@ export function useAuth() {
   }
   return context;
 }
-

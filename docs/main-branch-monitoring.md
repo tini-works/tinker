@@ -7,12 +7,14 @@ This repository includes an automated monitoring system to ensure the main branc
 The system automatically detects when the main branch has issues and takes the following actions:
 
 ### What Gets Monitored
+
 - **Build Status**: Ensures the project builds successfully
 - **Linting**: Checks code quality and style rules
 - **Formatting**: Validates code formatting consistency
 - **Package.json Validity**: Ensures package.json is valid JSON
 
 ### Automatic Actions on Failure
+
 1. **Issue Creation**: Automatically creates a GitHub issue with:
    - Details about what failed
    - Link to the failing workflow run
@@ -32,6 +34,7 @@ You can manually check the main branch health using the provided script:
 ```
 
 This script will:
+
 - Switch to the main branch (if not already there)
 - Pull the latest changes
 - Validate package.json format
@@ -42,13 +45,16 @@ This script will:
 ## 📋 Workflow Files
 
 ### `.github/workflows/main-branch-monitor.yml`
+
 The main monitoring workflow that:
+
 - Runs on every push to main
 - Runs when other workflows complete on main
 - Creates/updates issues on failure
 - Closes issues when problems are resolved
 
 ### Existing Workflows
+
 - **Build** (`.github/workflows/build.yml`): Builds the project
 - **Lint and Format** (`.github/workflows/lint-format.yml`): Checks code quality
 
@@ -56,7 +62,7 @@ The main monitoring workflow that:
 
 1. **Trigger**: Any push to main or completion of other workflows on main
 2. **Health Check**: Runs comprehensive checks (build, lint, format, package.json)
-3. **Issue Management**: 
+3. **Issue Management**:
    - Creates issues for new failures
    - Updates existing issues for additional failures
    - Closes issues when all checks pass
@@ -65,6 +71,7 @@ The main monitoring workflow that:
 ## 🛠️ Customization
 
 ### Adding More Checks
+
 To add additional health checks, modify the `main-branch-monitor.yml` workflow:
 
 ```yaml
@@ -78,7 +85,9 @@ To add additional health checks, modify the `main-branch-monitor.yml` workflow:
 ```
 
 ### Adding Notifications
+
 The workflow includes a placeholder for notifications. You can extend it to send alerts to:
+
 - Slack channels
 - Email lists
 - Discord webhooks
@@ -86,6 +95,7 @@ The workflow includes a placeholder for notifications. You can extend it to send
 - Other notification systems
 
 ### Customizing Issue Labels
+
 Modify the labels in the workflow to match your project's labeling system:
 
 ```yaml
@@ -133,6 +143,7 @@ If the monitoring system itself has issues:
 ## 📈 Future Enhancements
 
 Potential improvements to consider:
+
 - Integration with external monitoring services
 - Slack/Teams notifications
 - Performance regression detection

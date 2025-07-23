@@ -7,21 +7,25 @@ This document outlines the key user journeys in the invoice approval system. Use
 ## User Personas
 
 ### 1. Invoice Processor
+
 - **Role**: Responsible for importing invoices into the system
 - **Goals**: Efficiently import and manage invoices
 - **Pain Points**: Handling large batches, identifying duplicates, correcting errors
 
 ### 2. Payment Request Creator (Admin/HR)
+
 - **Role**: Creates and manages payment requests
 - **Goals**: Create payment requests, link invoices, submit for approval
 - **Pain Points**: Tracking approval status, managing rejections
 
 ### 3. Approver
+
 - **Role**: Reviews and approves payment requests
 - **Goals**: Efficiently review requests, provide feedback, approve valid requests
 - **Pain Points**: Lack of context, unclear approval criteria
 
 ### 4. Finance Officer
+
 - **Role**: Processes payments and completes payment requests
 - **Goals**: Track approved requests, mark payments as completed
 - **Pain Points**: Reconciling payments with external systems
@@ -48,6 +52,7 @@ journey
 ```
 
 **Steps**:
+
 1. **Access Import Page**: User navigates to the invoice import page.
 2. **Prepare Invoice Batch**: User prepares the batch of invoices for import.
 3. **Upload Invoice Batch**: User uploads the batch of invoices.
@@ -57,6 +62,7 @@ journey
 7. **Mark Obsolete Invoices**: If any invoices are no longer valid, user marks them as obsolete.
 
 **Success Criteria**:
+
 - All valid invoices are successfully imported into the system.
 - Any invalid or duplicate invoices are identified and handled appropriately.
 
@@ -82,6 +88,7 @@ journey
 ```
 
 **Steps**:
+
 1. **Access Payment Request Page**: User navigates to the payment request creation page.
 2. **Create New Payment Request**: User initiates the creation of a new payment request.
 3. **Enter Basic Information**: User enters basic information about the payment request (e.g., description, date).
@@ -93,6 +100,7 @@ journey
 9. **Confirm Submission**: User confirms the submission and receives confirmation.
 
 **Success Criteria**:
+
 - Payment request is created with all required information.
 - Appropriate invoices are linked to the payment request.
 - Payment request is successfully submitted for approval.
@@ -118,6 +126,7 @@ journey
 ```
 
 **Steps**:
+
 1. **Receive Approval Notification**: User receives notification that a payment request requires their approval.
 2. **Access Approval Page**: User navigates to the approval page for the payment request.
 3. **Review Payment Request Details**: User reviews the details of the payment request.
@@ -128,6 +137,7 @@ journey
 8. **Confirm Approval**: User confirms the approval and receives confirmation.
 
 **Success Criteria**:
+
 - Approver has all necessary information to make an informed decision.
 - Feedback is provided if changes are requested.
 - Payment request is approved if it meets all criteria.
@@ -152,6 +162,7 @@ journey
 ```
 
 **Steps**:
+
 1. **Receive Change Request Notification**: User receives notification that changes have been requested for a payment request.
 2. **Access Payment Request**: User navigates to the payment request that requires changes.
 3. **Review Feedback**: User reviews the feedback provided by the approver.
@@ -161,6 +172,7 @@ journey
 7. **Confirm Resubmission**: User confirms the resubmission and receives confirmation.
 
 **Success Criteria**:
+
 - All requested changes are addressed.
 - Payment request is successfully resubmitted for approval.
 
@@ -184,6 +196,7 @@ journey
 ```
 
 **Steps**:
+
 1. **Access Approved Payment Requests**: User navigates to the list of approved payment requests.
 2. **Review Payment Request Details**: User reviews the details of the payment request to be processed.
 3. **Process Payment Externally**: User processes the payment using an external system.
@@ -193,6 +206,7 @@ journey
 7. **Verify Linked Invoices**: User verifies that all linked invoices are automatically marked as completed.
 
 **Success Criteria**:
+
 - Payment request is successfully marked as completed.
 - All linked invoices are automatically marked as completed.
 - Payment details are recorded for future reference.
@@ -218,6 +232,7 @@ journey
 ```
 
 **Steps**:
+
 1. **Access Completed Payment Requests**: User navigates to the list of completed payment requests.
 2. **Identify Payment Request**: User identifies the payment request to be reverted.
 3. **Initiate Reversion**: User initiates the reversion process.
@@ -228,6 +243,7 @@ journey
 8. **Take Follow-up Action**: User takes any necessary follow-up action based on the reason for reversion.
 
 **Success Criteria**:
+
 - Payment request is successfully reverted to the appropriate state.
 - Linked invoices are updated appropriately.
 - Reason for reversion is recorded for audit purposes.
@@ -236,22 +252,21 @@ journey
 
 The user journeys outlined above have been verified against the Event Storming analysis to ensure that all domain events are covered:
 
-| Domain Event | User Journey |
-|--------------|--------------|
-| Invoices Imported | Journey 1: Importing Invoices |
-| Payment Request Created | Journey 2: Creating a Payment Request |
-| Invoices Linked to PR | Journey 2: Creating a Payment Request |
-| PR Submitted for Approval | Journey 2: Creating a Payment Request |
-| PR Reviewed | Journey 3: Reviewing and Approving a Payment Request |
-| Changes Requested | Journey 3: Reviewing and Approving a Payment Request |
-| PR Updated | Journey 4: Handling Requested Changes |
-| PR Approved | Journey 3: Reviewing and Approving a Payment Request |
-| Payment Made | Journey 5: Completing a Payment Request |
-| PR Completed | Journey 5: Completing a Payment Request |
-| Invoices Marked as Completed | Journey 5: Completing a Payment Request |
-| PR Reverted | Journey 6: Reverting a Completed Payment Request |
+| Domain Event                 | User Journey                                         |
+| ---------------------------- | ---------------------------------------------------- |
+| Invoices Imported            | Journey 1: Importing Invoices                        |
+| Payment Request Created      | Journey 2: Creating a Payment Request                |
+| Invoices Linked to PR        | Journey 2: Creating a Payment Request                |
+| PR Submitted for Approval    | Journey 2: Creating a Payment Request                |
+| PR Reviewed                  | Journey 3: Reviewing and Approving a Payment Request |
+| Changes Requested            | Journey 3: Reviewing and Approving a Payment Request |
+| PR Updated                   | Journey 4: Handling Requested Changes                |
+| PR Approved                  | Journey 3: Reviewing and Approving a Payment Request |
+| Payment Made                 | Journey 5: Completing a Payment Request              |
+| PR Completed                 | Journey 5: Completing a Payment Request              |
+| Invoices Marked as Completed | Journey 5: Completing a Payment Request              |
+| PR Reverted                  | Journey 6: Reverting a Completed Payment Request     |
 
 ## Conclusion
 
 This document outlines the key user journeys in the invoice approval system. These journeys provide a user-centric view of the system and will inform the design of the user interface and interactions. The next step is to extract touch points and define the screens needed to support these journeys.
-

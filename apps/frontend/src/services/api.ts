@@ -1,6 +1,7 @@
 import { ApiResponse } from '../types';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api';
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api';
 
 /**
  * Generic API client for making HTTP requests
@@ -15,12 +16,12 @@ export const apiClient = {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
-      
+
       const data = await response.json();
-      
+
       return {
         data: data as T,
         status: response.status,
@@ -33,7 +34,7 @@ export const apiClient = {
       };
     }
   },
-  
+
   /**
    * Make a POST request
    */
@@ -43,13 +44,13 @@ export const apiClient = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
         body: JSON.stringify(body),
       });
-      
+
       const data = await response.json();
-      
+
       return {
         data: data as T,
         status: response.status,
@@ -62,7 +63,7 @@ export const apiClient = {
       };
     }
   },
-  
+
   /**
    * Make a PUT request
    */
@@ -72,13 +73,13 @@ export const apiClient = {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
         body: JSON.stringify(body),
       });
-      
+
       const data = await response.json();
-      
+
       return {
         data: data as T,
         status: response.status,
@@ -91,7 +92,7 @@ export const apiClient = {
       };
     }
   },
-  
+
   /**
    * Make a DELETE request
    */
@@ -101,12 +102,12 @@ export const apiClient = {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
-      
+
       const data = await response.json();
-      
+
       return {
         data: data as T,
         status: response.status,
@@ -120,4 +121,3 @@ export const apiClient = {
     }
   },
 };
-

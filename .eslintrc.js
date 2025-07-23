@@ -5,12 +5,12 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'prettier'
+    'prettier',
   ],
   env: {
     node: true,
     browser: true,
-    es6: true
+    es6: true,
   },
   rules: {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
@@ -19,9 +19,8 @@ module.exports = {
     'no-console': ['warn', { allow: ['warn', 'error'] }],
     'prefer-const': 'warn',
     'no-var': 'error',
-    'eqeqeq': ['error', 'always', { null: 'ignore' }],
-    'no-duplicate-imports': 'error'
+    eqeqeq: ['error', 'always', { null: 'ignore' }],
+    'no-duplicate-imports': 'error',
   },
-  ignorePatterns: ['node_modules', 'dist', 'build', 'coverage']
+  ignorePatterns: ['node_modules', 'dist', 'build', 'coverage'],
 };
-

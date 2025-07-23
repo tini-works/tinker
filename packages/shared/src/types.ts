@@ -63,4 +63,3 @@ export interface User {
   department: string;
   role: 'ADMIN' | 'APPROVER' | 'FINANCE' | 'USER';
 }
-

@@ -34,7 +34,13 @@ export interface PaymentRequest {
 
 export interface Activity {
   id: string;
-  type: 'created' | 'approved' | 'completed' | 'imported' | 'rejected' | 'reverted';
+  type:
+    | 'created'
+    | 'approved'
+    | 'completed'
+    | 'imported'
+    | 'rejected'
+    | 'reverted';
   user: string;
   timestamp: string;
   item: string;
@@ -63,4 +69,3 @@ export interface ApiResponse<T> {
   status: number;
   message?: string;
 }
-

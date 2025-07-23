@@ -1,6 +1,6 @@
 # Project
 
-We'll use this project to think, think deep, think really deep. The outputs are masterpieces because we make, and try, and compact the thinking in multiple steps to get to where we 
+We'll use this project to think, think deep, think really deep. The outputs are masterpieces because we make, and try, and compact the thinking in multiple steps to get to where we
 
 # Goal
 
@@ -18,6 +18,7 @@ We DO talk about limitation of user port boudaries, for example, web has it owns
 5. Based on 1,2,3, make the mockups lively by adding variations (state of screens), connect, and navigate back and forth between screens
 
 # Example of the inputs
+
 Context:
 An invoice approval system. Every month, invoices are going to be imported in batches to system. Those invoices are supposed to be processed, end results will be either, processed or obseleted, those are normally can be imported by any users of the system.
 
@@ -25,7 +26,8 @@ Then admin, or HR can create a Payment Request for the approval process. The Pay
 
 This is when the Approval process kicks in. The PR goes through the approval process and can be going back and forth.
 
-Once the Payment Request got approved (through one or many stages), the finance will make the payment outside of the system (this doesn't need to be tracked). Once the Finance team reviewed the payments, they'll mark the PR as completed manually. 
+Once the Payment Request got approved (through one or many stages), the finance will make the payment outside of the system (this doesn't need to be tracked). Once the Finance team reviewed the payments, they'll mark the PR as completed manually.
+
 - The PR will be sealed and nolonger can be changed (but it can be reverted to previous state)
 - All linked Invoices are marked as completed
 
