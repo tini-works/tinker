@@ -1,6 +1,6 @@
-# Invoice Approval System
+# Tinker - Invoice Approval System
 
-A monorepo for the Invoice Approval System, containing both frontend and backend code.
+A modern invoice approval system built with Hono, Drizzle ORM, better-auth, and TypeScript. This monorepo contains both frontend and backend applications with comprehensive business process tracking.
 
 ## Project Structure
 
@@ -95,15 +95,29 @@ You can manually trigger the auto-merge workflow by:
 2. Selecting the "Auto Merge PRs" workflow
 3. Clicking "Run workflow"
 
-## Tech Stack
+## Modern Tech Stack
 
+### Current Implementation
 - **Build Tools**: Turborepo, Vite
-- **Frontend**: React, React Router, Tailwind CSS, DaisyUI
-- **Backend**: Express, Node.js
+- **Frontend**: React, React Router, Tailwind CSS 4, DaisyUI v5
 - **Language**: TypeScript
-- **Styling**: Tailwind CSS 4, DaisyUI v5
 - **Testing**: Vitest, Jest
 - **Linting**: ESLint, Prettier
+
+### New Backend Stack (Implementation in Progress)
+- **Backend Framework**: Hono.js - Ultrafast web framework built on Web Standards
+- **Database ORM**: Drizzle ORM v0.32.1 - TypeScript-first ORM with SQLite
+- **Database**: SQLite - Lightweight, serverless database
+- **Authentication**: better-auth - Comprehensive TypeScript authentication library
+- **Client-Server Communication**: Hono RPC - Type-safe API communication
+- **Testing**: Vitest - Fast unit testing framework
+
+### Key Benefits of New Stack
+- ⚡ **Performance**: Hono's ultrafast routing with SQLite efficiency
+- 🔒 **Type Safety**: End-to-end TypeScript with full type inference
+- 🚀 **Developer Experience**: Auto-generated schemas, type-safe APIs, excellent tooling
+- 🔐 **Authentication**: Built-in OAuth + username/password with Drizzle integration
+- 📊 **Business Intelligence**: Indexed business processes with comprehensive error tracking
 
 ## Documentation
 
@@ -141,13 +155,22 @@ The built documentation will be available in `docs/.vitepress/dist/`.
 
 The documentation is organized as follows:
 
+#### Implementation Guides
+- **[Database Implementation Plan](docs/database-implementation.md)** - Complete database design with mermaid diagrams
+- **[Technical Architecture](docs/technical-architecture.md)** - System architecture and tech stack details
+- **[Development Setup](docs/development-setup.md)** - Complete development environment setup
+- **[Business Processes & Error Codes](docs/business-processes.md)** - Indexed business processes with error handling
+
+#### Domain Analysis
+- `docs/1_event_storming.md`: Event Storming analysis - Domain events and business processes
+- `docs/2_user_journeys.md`: User Journeys - User personas and workflows
+- `docs/3_touch_points_screens.md`: Touch Points & Screens - UI interaction points
+- `docs/4_screen_mockups.md`: Screen Mockups - Visual design mockups
+- `docs/5_screen_variations.md`: Screen Variations - UI variations and states
+- `docs/6_summary.md`: Summary - Project overview and conclusions
+
+#### Examples & References
 - `docs/index.md`: Home page
-- `docs/1_event_storming.md`: Event Storming documentation
-- `docs/2_user_journeys.md`: User Journeys documentation
-- `docs/3_touch_points_screens.md`: Touch Points & Screens documentation
-- `docs/4_screen_mockups.md`: Screen Mockups documentation
-- `docs/5_screen_variations.md`: Screen Variations documentation
-- `docs/6_summary.md`: Summary documentation
 - `docs/mermaid_example.md`: Examples of Mermaid diagrams
 
 ### Using Mermaid Diagrams
