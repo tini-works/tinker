@@ -18,7 +18,7 @@ describe('Health Check API', () => {
     const data = await res.json();
     
     expect(res.status).toBe(200);
-    expect(data).toHaveProperty('name', 'Tinker Backend API v2');
+    expect(data).toHaveProperty('name', 'Tinker Backend API');
     expect(data).toHaveProperty('version', '0.1.0');
     expect(data).toHaveProperty('health', '/health');
   });
@@ -32,4 +32,3 @@ describe('Health Check API', () => {
     expect(data).toHaveProperty('path', '/unknown-route');
   });
 });
-

@@ -1,4 +1,4 @@
-# Tinker Backend API v2
+# Tinker Backend API
 
 Modern Hono.js backend for the Tinker invoice approval system, built with TypeScript, Drizzle ORM, and better-auth.
 
@@ -119,4 +119,3 @@ Required variables:
 ## License
 
 MIT
-

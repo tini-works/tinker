@@ -1,0 +1,88 @@
+name: Auto-Fix Build Failures
+
+on:
+  workflow_run:
+    workflows: ["Build", "Lint and Format", "Build and Deploy Documentation"]
+    types:
+      - completed
+
+jobs:
+  spawn-fix-agent:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    
+    steps:
+      - name: Get PR number from workflow run
+        id: get-pr
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: workflowRun } = await github.rest.actions.getWorkflowRun({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: context.payload.workflow_run.id
+            });
+            
+            // Get associated pull requests
+            const { data: prs } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              head: `${context.repo.owner}:${workflowRun.head_branch}`,
+              state: 'open'
+            });
+            
+            if (prs.length > 0) {
+              core.setOutput('pr_number', prs[0].number);
+              core.setOutput('pr_url', prs[0].html_url);
+              core.setOutput('head_sha', workflowRun.head_sha);
+              core.setOutput('workflow_name', workflowRun.name);
+              core.setOutput('workflow_url', workflowRun.html_url);
+            } else {
+              core.setOutput('pr_number', '');
+            }
+
+      - name: Trigger Codegen Agent
+        if: steps.get-pr.outputs.pr_number != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = '${{ steps.get-pr.outputs.pr_number }}';
+            const prUrl = '${{ steps.get-pr.outputs.pr_url }}';
+            const workflowName = '${{ steps.get-pr.outputs.workflow_name }}';
+            const workflowUrl = '${{ steps.get-pr.outputs.workflow_url }}';
+            const headSha = '${{ steps.get-pr.outputs.head_sha }}';
+            
+            // Create a comment to trigger Codegen agent
+            const commentBody = `🤖 **Auto-Fix Agent Triggered**
+            
+            A build failure was detected in the **${workflowName}** workflow.
+            
+            **Details:**
+            - **PR**: ${prUrl}
+            - **Commit**: ${headSha.substring(0, 7)}
+            - **Failed Workflow**: [${workflowName}](${workflowUrl})
+            
+            @codegen please investigate and fix the build failure. Follow the linting and quality rules in \`.codegen/agent-rules.md\` before pushing any fixes.
+            
+            **Required checks before pushing:**
+            - [ ] Run \`npm run lint:fix\`
+            - [ ] Run \`npm run format\`
+            - [ ] Run \`npm run test\`
+            - [ ] Verify \`npm run build\` works
+            - [ ] Ensure all quality gates pass`;
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: parseInt(prNumber),
+              body: commentBody
+            });
+
+      - name: Log workflow failure
+        if: steps.get-pr.outputs.pr_number == ''
+        run: |
+          echo "::warning::Build failure detected but no associated PR found"
+          echo "Workflow: ${{ github.event.workflow_run.name }}"
+          echo "Branch: ${{ github.event.workflow_run.head_branch }}"
+          echo "Commit: ${{ github.event.workflow_run.head_sha }}"
+

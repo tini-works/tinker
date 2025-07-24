@@ -1,20 +1,50 @@
 {
-  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
     "outDir": "./dist",
     "rootDir": "./src",
-    "module": "commonjs",
-    "target": "es2020",
-    "tsBuildInfoFile": "./node_modules/.cache/.tsbuildinfo.backend",
+    "baseUrl": "./src",
     "paths": {
-      "@/*": ["./src/*"],
-      "@invoice-approval/shared": ["../../packages/shared/src"]
-    }
+      "@/*": ["./*"],
+      "@/db/*": ["./db/*"],
+      "@/services/*": ["./services/*"],
+      "@/routes/*": ["./routes/*"],
+      "@/middleware/*": ["./middleware/*"],
+      "@/types/*": ["./types/*"],
+      "@/utils/*": ["./utils/*"],
+      "@/config/*": ["./config/*"]
+    },
+    "types": ["node", "vitest/globals"],
+    "lib": ["ES2022"]
   },
-  "include": ["src/**/*"],
-  "references": [
-    {
-      "path": "../../packages/shared"
-    }
-  ]
+  "include": [
+    "src/**/*",
+    "**/*.test.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.js"
+  ],
+  "ts-node": {
+    "esm": true
+  }
 }
+
