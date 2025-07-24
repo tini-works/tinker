@@ -39,11 +39,9 @@ export function getConfig(): Config {
   const parseResult = envSchema.safeParse(process.env);
 
   if (!parseResult.success) {
-    const errorMessage =
-      'Invalid environment variables:\n' +
-      parseResult.error.issues
-        .map(issue => `  ${issue.path.join('.')}: ${issue.message}`)
-        .join('\n');
+    const errorMessage = `Invalid environment variables:\n${parseResult.error.issues
+      .map(issue => `  ${issue.path.join('.')}: ${issue.message}`)
+      .join('\n')}`;
 
     // In test environment, throw error instead of exiting
     if (process.env.NODE_ENV === 'test') {
@@ -79,4 +77,3 @@ export function getConfig(): Config {
 }
 
 export type Config = ReturnType<typeof getConfig>;
-

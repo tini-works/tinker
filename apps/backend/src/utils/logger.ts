@@ -57,4 +57,3 @@ export const createLogger = (service: string) => {
 };
 
 export const logger = getLogger();
-
