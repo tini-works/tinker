@@ -98,6 +98,7 @@ You can manually trigger the auto-merge workflow by:
 ## Modern Tech Stack
 
 ### Current Implementation
+
 - **Build Tools**: Turborepo, Vite
 - **Frontend**: React, React Router, Tailwind CSS 4, DaisyUI v5
 - **Language**: TypeScript
@@ -105,6 +106,7 @@ You can manually trigger the auto-merge workflow by:
 - **Linting**: ESLint, Prettier
 
 ### New Backend Stack (Implementation in Progress)
+
 - **Backend Framework**: Hono.js - Ultrafast web framework built on Web Standards
 - **Database ORM**: Drizzle ORM v0.32.1 - TypeScript-first ORM with SQLite
 - **Database**: SQLite - Lightweight, serverless database
@@ -113,6 +115,7 @@ You can manually trigger the auto-merge workflow by:
 - **Testing**: Vitest - Fast unit testing framework
 
 ### Key Benefits of New Stack
+
 - ⚡ **Performance**: Hono's ultrafast routing with SQLite efficiency
 - 🔒 **Type Safety**: End-to-end TypeScript with full type inference
 - 🚀 **Developer Experience**: Auto-generated schemas, type-safe APIs, excellent tooling
@@ -156,12 +159,14 @@ The built documentation will be available in `docs/.vitepress/dist/`.
 The documentation is organized as follows:
 
 #### Implementation Guides
+
 - **[Database Implementation Plan](docs/database-implementation.md)** - Complete database design with mermaid diagrams
 - **[Technical Architecture](docs/technical-architecture.md)** - System architecture and tech stack details
 - **[Development Setup](docs/development-setup.md)** - Complete development environment setup
 - **[Business Processes & Error Codes](docs/business-processes.md)** - Indexed business processes with error handling
 
 #### Domain Analysis
+
 - `docs/1_event_storming.md`: Event Storming analysis - Domain events and business processes
 - `docs/2_user_journeys.md`: User Journeys - User personas and workflows
 - `docs/3_touch_points_screens.md`: Touch Points & Screens - UI interaction points
@@ -170,6 +175,7 @@ The documentation is organized as follows:
 - `docs/6_summary.md`: Summary - Project overview and conclusions
 
 #### Examples & References
+
 - `docs/index.md`: Home page
 - `docs/mermaid_example.md`: Examples of Mermaid diagrams
 

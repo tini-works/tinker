@@ -241,21 +241,23 @@ const invoiceRoutes = new Hono();
 
 const createInvoiceSchema = z.object({
   batchId: z.string().min(1),
-  invoices: z.array(z.object({
-    amount: z.number().positive(),
-    invoiceDate: z.string().date(),
-    vendor: z.string().min(1),
-    metadata: z.record(z.any()).optional(),
-  })),
+  invoices: z.array(
+    z.object({
+      amount: z.number().positive(),
+      invoiceDate: z.string().date(),
+      vendor: z.string().min(1),
+      metadata: z.record(z.any()).optional(),
+    })
+  ),
 });
 
 invoiceRoutes.post(
   '/import',
   zValidator('json', createInvoiceSchema),
-  async (c) => {
+  async c => {
     const data = c.req.valid('json');
     const user = c.get('user');
-    
+
     try {
       const result = await invoiceService.importInvoices(data, user.id);
       return c.json(result, 201);
@@ -351,12 +353,7 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
-      exclude: [
-        'node_modules/',
-        'src/test/',
-        'drizzle/',
-        '**/*.d.ts',
-      ],
+      exclude: ['node_modules/', 'src/test/', 'drizzle/', '**/*.d.ts'],
     },
   },
   resolve: {
@@ -400,20 +397,20 @@ describe('Invoice API', () => {
   it('should import invoices successfully', async () => {
     const user = await createTestUser();
     const client = testClient(user);
-    
+
     const response = await client.invoices.import.$post({
       json: {
         batchId: 'test-batch-001',
         invoices: [
           {
-            amount: 1000.00,
+            amount: 1000.0,
             invoiceDate: '2024-01-15',
             vendor: 'Test Vendor',
           },
         ],
       },
     });
-    
+
     expect(response.status).toBe(201);
     const data = await response.json();
     expect(data.success).toBe(true);
@@ -479,12 +476,11 @@ const logger = createLogger({
 });
 
 if (process.env.NODE_ENV !== 'production') {
-  logger.add(new transports.Console({
-    format: format.combine(
-      format.colorize(),
-      format.simple()
-    )
-  }));
+  logger.add(
+    new transports.Console({
+      format: format.combine(format.colorize(), format.simple()),
+    })
+  );
 }
 
 export { logger };
@@ -495,6 +491,7 @@ export { logger };
 ### Adding a New API Endpoint
 
 1. **Define the route schema**:
+
 ```typescript
 const newEndpointSchema = z.object({
   // Define your schema
@@ -502,23 +499,26 @@ const newEndpointSchema = z.object({
 ```
 
 2. **Implement the route handler**:
+
 ```typescript
-app.post('/new-endpoint', zValidator('json', newEndpointSchema), async (c) => {
+app.post('/new-endpoint', zValidator('json', newEndpointSchema), async c => {
   // Implementation
 });
 ```
 
 3. **Add business logic**:
+
 ```typescript
 // In service layer
 export const newService = {
   async handleNewEndpoint(data: NewEndpointData) {
     // Business logic
-  }
+  },
 };
 ```
 
 4. **Write tests**:
+
 ```typescript
 describe('New Endpoint', () => {
   it('should handle new endpoint correctly', async () => {
@@ -530,6 +530,7 @@ describe('New Endpoint', () => {
 ### Adding a New Database Table
 
 1. **Update schema**:
+
 ```typescript
 // In src/db/schema.ts
 export const newTable = sqliteTable('new_table', {
@@ -539,16 +540,19 @@ export const newTable = sqliteTable('new_table', {
 ```
 
 2. **Generate migration**:
+
 ```bash
 npx drizzle-kit generate:sqlite
 ```
 
 3. **Apply migration**:
+
 ```bash
 npx drizzle-kit migrate
 ```
 
 4. **Update seed data**:
+
 ```typescript
 // In src/db/seed.ts
 await db.insert(newTable).values([
@@ -586,12 +590,13 @@ app.use('*', async (c, next) => {
   const start = Date.now();
   await next();
   const duration = Date.now() - start;
-  
+
   if (duration > 1000) {
-    logger.warn(`Slow request: ${c.req.method} ${c.req.url} took ${duration}ms`);
+    logger.warn(
+      `Slow request: ${c.req.method} ${c.req.url} took ${duration}ms`
+    );
   }
 });
 ```
 
 This development setup guide provides everything needed to get started with the modern invoice approval system development.
-

@@ -34,7 +34,7 @@ flowchart TD
 **Description**: Batch import of invoices into the system  
 **Trigger**: User uploads invoice file  
 **Actor**: Invoice Processor  
-**Outcome**: Invoices created with "imported" status  
+**Outcome**: Invoices created with "imported" status
 
 ```mermaid
 flowchart LR
@@ -48,6 +48,7 @@ flowchart LR
 ```
 
 **Error Codes**:
+
 - `01001`: Invalid file format
 - `01002`: Duplicate invoice detected
 - `01003`: Missing required fields
@@ -64,7 +65,7 @@ flowchart LR
 **Description**: Create a new payment request  
 **Trigger**: User initiates payment request creation  
 **Actor**: Payment Request Creator (Admin/HR)  
-**Outcome**: Payment request created with "draft" status  
+**Outcome**: Payment request created with "draft" status
 
 ```mermaid
 flowchart LR
@@ -77,6 +78,7 @@ flowchart LR
 ```
 
 **Error Codes**:
+
 - `02001`: Insufficient permissions
 - `02002`: Invalid amount
 - `02003`: Invalid date
@@ -93,7 +95,7 @@ flowchart LR
 **Description**: Associate invoices with a payment request  
 **Trigger**: User selects invoices to link  
 **Actor**: Payment Request Creator  
-**Outcome**: Invoices linked to payment request  
+**Outcome**: Invoices linked to payment request
 
 ```mermaid
 flowchart LR
@@ -107,6 +109,7 @@ flowchart LR
 ```
 
 **Error Codes**:
+
 - `03001`: Invoice already linked
 - `03002`: Invoice not found
 - `03003`: Invoice in wrong status
@@ -123,7 +126,7 @@ flowchart LR
 **Description**: Submit payment request for approval workflow  
 **Trigger**: User submits payment request  
 **Actor**: Payment Request Creator  
-**Outcome**: Payment request status changed to "in_review"  
+**Outcome**: Payment request status changed to "in_review"
 
 ```mermaid
 flowchart LR
@@ -136,6 +139,7 @@ flowchart LR
 ```
 
 **Error Codes**:
+
 - `04001`: No invoices linked
 - `04002`: Invalid approval workflow
 - `04003`: Approver not available
@@ -152,7 +156,7 @@ flowchart LR
 **Description**: Approver reviews payment request  
 **Trigger**: Approver accesses payment request  
 **Actor**: Approver  
-**Outcome**: Review session initiated  
+**Outcome**: Review session initiated
 
 ```mermaid
 flowchart LR
@@ -164,6 +168,7 @@ flowchart LR
 ```
 
 **Error Codes**:
+
 - `05001`: Access denied
 - `05002`: Payment request not found
 - `05003`: Not assigned approver
@@ -180,7 +185,7 @@ flowchart LR
 **Description**: Approver requests changes to payment request  
 **Trigger**: Approver clicks "Request Changes"  
 **Actor**: Approver  
-**Outcome**: Payment request returned to creator with feedback  
+**Outcome**: Payment request returned to creator with feedback
 
 ```mermaid
 flowchart LR
@@ -193,6 +198,7 @@ flowchart LR
 ```
 
 **Error Codes**:
+
 - `06001`: Comments required
 - `06002`: Invalid status transition
 - `06003`: Permission denied
@@ -209,7 +215,7 @@ flowchart LR
 **Description**: Creator makes requested changes to payment request  
 **Trigger**: Creator modifies payment request  
 **Actor**: Payment Request Creator  
-**Outcome**: Payment request updated and ready for resubmission  
+**Outcome**: Payment request updated and ready for resubmission
 
 ```mermaid
 flowchart LR
@@ -221,6 +227,7 @@ flowchart LR
 ```
 
 **Error Codes**:
+
 - `07001`: Invalid modifications
 - `07002`: Permission denied
 - `07003`: Payment request locked
@@ -237,7 +244,7 @@ flowchart LR
 **Description**: Approver approves payment request  
 **Trigger**: Approver clicks "Approve"  
 **Actor**: Approver  
-**Outcome**: Payment request approved (may trigger next approval stage)  
+**Outcome**: Payment request approved (may trigger next approval stage)
 
 ```mermaid
 flowchart LR
@@ -253,6 +260,7 @@ flowchart LR
 ```
 
 **Error Codes**:
+
 - `08001`: Approval validation failed
 - `08002`: Permission denied
 - `08003`: Invalid approver
@@ -269,7 +277,7 @@ flowchart LR
 **Description**: External payment processing  
 **Trigger**: Finance initiates payment  
 **Actor**: Finance Officer  
-**Outcome**: Payment processed in external system  
+**Outcome**: Payment processed in external system
 
 ```mermaid
 flowchart LR
@@ -282,6 +290,7 @@ flowchart LR
 ```
 
 **Error Codes**:
+
 - `09001`: Payment validation failed
 - `09002`: External system error
 - `09003`: Insufficient funds
@@ -298,7 +307,7 @@ flowchart LR
 **Description**: Mark payment request as completed  
 **Trigger**: Finance confirms payment completion  
 **Actor**: Finance Officer  
-**Outcome**: Payment request and linked invoices marked as completed  
+**Outcome**: Payment request and linked invoices marked as completed
 
 ```mermaid
 flowchart LR
@@ -311,6 +320,7 @@ flowchart LR
 ```
 
 **Error Codes**:
+
 - `10001`: Payment not confirmed
 - `10002`: Permission denied
 - `10003`: Invalid status transition
@@ -327,7 +337,7 @@ flowchart LR
 **Description**: Revert payment request to previous state  
 **Trigger**: Admin initiates revert  
 **Actor**: Admin  
-**Outcome**: Payment request reverted with audit trail  
+**Outcome**: Payment request reverted with audit trail
 
 ```mermaid
 flowchart LR
@@ -341,6 +351,7 @@ flowchart LR
 ```
 
 **Error Codes**:
+
 - `11001`: Revert not allowed
 - `11002`: Permission denied
 - `11003`: Invalid target state
@@ -357,9 +368,10 @@ flowchart LR
 **Description**: User login and session management  
 **Trigger**: User attempts to log in  
 **Actor**: Any User  
-**Outcome**: User authenticated and session created  
+**Outcome**: User authenticated and session created
 
 **Error Codes**:
+
 - `12001`: Invalid credentials
 - `12002`: Account locked
 - `12003`: Account not verified
@@ -376,9 +388,10 @@ flowchart LR
 **Description**: Check user permissions for actions  
 **Trigger**: User attempts protected action  
 **Actor**: Any User  
-**Outcome**: Permission granted or denied  
+**Outcome**: Permission granted or denied
 
 **Error Codes**:
+
 - `13001`: Insufficient permissions
 - `13002`: Role not found
 - `13003`: Permission check failed
@@ -395,9 +408,10 @@ flowchart LR
 **Description**: Validate input data across the system  
 **Trigger**: Data submission or update  
 **Actor**: System  
-**Outcome**: Data validated or rejected  
+**Outcome**: Data validated or rejected
 
 **Error Codes**:
+
 - `14001`: Required field missing
 - `14002`: Invalid data format
 - `14003`: Data type mismatch
@@ -414,9 +428,10 @@ flowchart LR
 **Description**: Integration with external systems  
 **Trigger**: System-to-system communication  
 **Actor**: System  
-**Outcome**: Integration successful or failed  
+**Outcome**: Integration successful or failed
 
 **Error Codes**:
+
 - `15001`: External service unavailable
 - `15002`: API rate limit exceeded
 - `15003`: Authentication failed
@@ -431,10 +446,13 @@ flowchart LR
 ## Error Code Structure
 
 ### Format
+
 ```
 PPXXX
 ```
+
 Where:
+
 - `PP`: Process index (01-15)
 - `XXX`: Specific error code (001-010)
 
@@ -463,18 +481,18 @@ flowchart LR
     A --> C[High: 004-006]
     A --> D[Medium: 007-008]
     A --> E[Low: 009-010]
-    
+
     B --> B1[System Failures]
     B --> B2[Data Corruption]
     B --> B3[Security Breaches]
-    
+
     C --> C1[Business Rule Violations]
     C --> C2[Permission Errors]
     C --> C3[Workflow Failures]
-    
+
     D --> D1[Validation Errors]
     D --> D2[Configuration Issues]
-    
+
     E --> E1[User Input Errors]
     E --> E2[Minor System Issues]
 ```
@@ -528,7 +546,13 @@ interface BusinessProcessLog {
     "errorCode": "01002",
     "details": {
       "duplicateCount": 5,
-      "duplicateInvoices": ["inv_001", "inv_002", "inv_003", "inv_004", "inv_005"]
+      "duplicateInvoices": [
+        "inv_001",
+        "inv_002",
+        "inv_003",
+        "inv_004",
+        "inv_005"
+      ]
     },
     "userId": "user_123",
     "duration": 5000,
@@ -547,19 +571,19 @@ flowchart TD
     A --> C[Error Frequency]
     A --> D[Performance Metrics]
     A --> E[User Activity]
-    
+
     B --> B1[01: Import Success Rate]
     B --> B2[04: Approval Success Rate]
     B --> B3[10: Completion Success Rate]
-    
+
     C --> C1[Top Error Codes]
     C --> C2[Error Trends]
     C --> C3[Critical Errors]
-    
+
     D --> D1[Process Duration]
     D --> D2[System Response Time]
     D --> D3[Database Performance]
-    
+
     E --> E1[Active Users]
     E --> E2[User Actions]
     E --> E3[Session Duration]
@@ -567,13 +591,13 @@ flowchart TD
 
 ### Alert Conditions
 
-| Condition | Severity | Action |
-|-----------|----------|--------|
-| Error rate > 10% for any process | High | Immediate notification |
-| Critical error (001-003) occurs | Critical | Page on-call engineer |
-| Process duration > 5x average | Medium | Log for investigation |
-| Authentication failures > 50/hour | High | Security team notification |
-| System integration failures | High | Operations team notification |
+| Condition                         | Severity | Action                       |
+| --------------------------------- | -------- | ---------------------------- |
+| Error rate > 10% for any process  | High     | Immediate notification       |
+| Critical error (001-003) occurs   | Critical | Page on-call engineer        |
+| Process duration > 5x average     | Medium   | Log for investigation        |
+| Authentication failures > 50/hour | High     | Security team notification   |
+| System integration failures       | High     | Operations team notification |
 
 ## Implementation Guidelines
 
@@ -604,7 +628,7 @@ export class BusinessProcessError extends Error {
 // Usage in service
 export async function importInvoices(data: InvoiceImportData, userId: string) {
   const processIndex = 1;
-  
+
   try {
     // Log process start
     await logBusinessProcess({
@@ -613,9 +637,9 @@ export async function importInvoices(data: InvoiceImportData, userId: string) {
       entityId: data.batchId,
       status: 'started',
       userId,
-      details: { fileName: data.fileName, expectedCount: data.invoices.length }
+      details: { fileName: data.fileName, expectedCount: data.invoices.length },
     });
-    
+
     // Validate file format
     if (!isValidFormat(data.fileName)) {
       throw new BusinessProcessError(
@@ -625,10 +649,10 @@ export async function importInvoices(data: InvoiceImportData, userId: string) {
         { fileName: data.fileName, supportedFormats: ['csv', 'xlsx'] }
       );
     }
-    
+
     // Process invoices...
     const result = await processInvoices(data);
-    
+
     // Log success
     await logBusinessProcess({
       processIndex,
@@ -636,11 +660,10 @@ export async function importInvoices(data: InvoiceImportData, userId: string) {
       entityId: data.batchId,
       status: 'completed',
       userId,
-      details: { processedCount: result.length }
+      details: { processedCount: result.length },
     });
-    
+
     return result;
-    
   } catch (error) {
     // Log failure
     await logBusinessProcess({
@@ -648,15 +671,15 @@ export async function importInvoices(data: InvoiceImportData, userId: string) {
       entityType: 'invoice_batch',
       entityId: data.batchId,
       status: 'failed',
-      errorCode: error instanceof BusinessProcessError ? error.errorCode : '01009',
+      errorCode:
+        error instanceof BusinessProcessError ? error.errorCode : '01009',
       userId,
-      details: { error: error.message }
+      details: { error: error.message },
     });
-    
+
     throw error;
   }
 }
 ```
 
 This comprehensive business process and error code system provides a solid foundation for tracking, monitoring, and debugging the invoice approval system.
-

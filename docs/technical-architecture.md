@@ -12,31 +12,31 @@ graph TB
         WEB[Web Frontend]
         MOBILE[Mobile App]
     end
-    
+
     subgraph "API Layer"
         HONO[Hono.js Server]
         RPC[Hono RPC]
         AUTH[better-auth]
     end
-    
+
     subgraph "Business Layer"
         BL[Business Logic]
         WF[Workflow Engine]
         VAL[Validation Layer]
     end
-    
+
     subgraph "Data Layer"
         DRIZZLE[Drizzle ORM]
         SQLITE[SQLite Database]
         CACHE[Cache Layer]
     end
-    
+
     subgraph "External Services"
         GOOGLE[Google OAuth]
         PAYMENT[Payment System]
         EMAIL[Email Service]
     end
-    
+
     WEB --> RPC
     MOBILE --> RPC
     RPC --> HONO
@@ -65,7 +65,7 @@ flowchart LR
         D[Zero Dependencies]
         E[TypeScript First]
     end
-    
+
     subgraph "Middleware Stack"
         F[CORS]
         G[Authentication]
@@ -73,20 +73,20 @@ flowchart LR
         I[Error Handling]
         J[Logging]
     end
-    
+
     subgraph "Route Handlers"
         K[Invoice Routes]
         L[Payment Request Routes]
         M[User Routes]
         N[Approval Routes]
     end
-    
+
     A --> F
     B --> G
     C --> H
     D --> I
     E --> J
-    
+
     F --> K
     G --> L
     H --> M
@@ -103,38 +103,38 @@ flowchart TD
         C[Constraints]
         D[Indexes]
     end
-    
+
     subgraph "Query Builder"
         E[Type-Safe Queries]
         F[Join Operations]
         G[Aggregations]
         H[Transactions]
     end
-    
+
     subgraph "Migration System"
         I[Schema Changes]
         J[Version Control]
         K[Rollback Support]
         L[Environment Sync]
     end
-    
+
     subgraph "Database Layer"
         M[SQLite Connection]
         N[Connection Pool]
         O[Query Optimization]
         P[Performance Monitoring]
     end
-    
+
     A --> E
     B --> F
     C --> G
     D --> H
-    
+
     E --> I
     F --> J
     G --> K
     H --> L
-    
+
     I --> M
     J --> N
     K --> O
@@ -153,7 +153,7 @@ sequenceDiagram
     participant BA as better-auth
     participant DB as Database
     participant G as Google OAuth
-    
+
     Note over U,G: Username/Password Flow
     U->>C: Login with email/password
     C->>H: POST /auth/sign-in
@@ -163,7 +163,7 @@ sequenceDiagram
     BA-->>H: Session token
     H-->>C: Set session cookie
     C-->>U: Redirect to dashboard
-    
+
     Note over U,G: Google OAuth Flow
     U->>C: Click "Sign in with Google"
     C->>H: GET /auth/google
@@ -193,7 +193,7 @@ stateDiagram-v2
     Refreshing --> Anonymous : Failure
     Authenticated --> Anonymous : Logout
     Authenticated --> Anonymous : Session Expired
-    
+
     note right of Authenticated
         Session stored in:
         - HTTP-only cookie
@@ -218,7 +218,7 @@ flowchart TD
     G -->|Complete| I[Save to Database]
     I --> J[Log Process 01: Success]
     J --> K[Return Success Response]
-    
+
     C --> L[Log Process 01: Failed]
     F --> L
     H --> L
@@ -234,7 +234,7 @@ flowchart TD
     D --> E{Amount > $10,000?}
     E -->|Yes| F[Multi-Stage Approval]
     E -->|No| G[Single Approval]
-    
+
     F --> H[Stage 1: Department Head]
     H --> I{Approved?}
     I -->|No| J[Request Changes]
@@ -242,15 +242,15 @@ flowchart TD
     K --> L{Approved?}
     L -->|No| J
     L -->|Yes| M[Mark as Approved]
-    
+
     G --> N[Single Approver Review]
     N --> O{Approved?}
     O -->|No| J
     O -->|Yes| M
-    
+
     J --> P[Update PR Status]
     P --> Q[Notify Creator]
-    
+
     M --> R[Ready for Payment]
     R --> S[External Payment Process]
     S --> T[Mark as Completed]
@@ -270,7 +270,7 @@ sequenceDiagram
     participant D as Drizzle ORM
     participant DB as SQLite
     participant L as Logger
-    
+
     C->>M: HTTP Request
     M->>M: CORS Check
     M->>M: Authentication
@@ -303,7 +303,7 @@ flowchart TD
     I -->|No| K{Database Error?}
     K -->|Yes| L[Log Error + Return 500]
     K -->|No| M[Return Success]
-    
+
     C --> N[Log Error Details]
     J --> N
     L --> N
@@ -326,7 +326,7 @@ erDiagram
         datetime createdAt
         datetime updatedAt
     }
-    
+
     Session {
         string id PK
         string userId FK
@@ -335,7 +335,7 @@ erDiagram
         string ipAddress
         string userAgent
     }
-    
+
     Account {
         string id PK
         string userId FK
@@ -345,7 +345,7 @@ erDiagram
         string refreshToken
         datetime expiresAt
     }
-    
+
     Invoice {
         string id PK
         string batchId
@@ -358,7 +358,7 @@ erDiagram
         datetime createdAt
         datetime updatedAt
     }
-    
+
     PaymentRequest {
         string id PK
         decimal totalAmount
@@ -370,13 +370,13 @@ erDiagram
         datetime createdAt
         datetime updatedAt
     }
-    
+
     InvoicePaymentRequest {
         string invoiceId FK
         string paymentRequestId FK
         datetime linkedAt
     }
-    
+
     ApprovalHistory {
         string id PK
         string paymentRequestId FK
@@ -386,7 +386,7 @@ erDiagram
         json metadata
         datetime createdAt
     }
-    
+
     BusinessProcessLog {
         string id PK
         int processIndex
@@ -397,7 +397,7 @@ erDiagram
         json details
         datetime createdAt
     }
-    
+
     User ||--o{ Session : has
     User ||--o{ Account : has
     User ||--o{ Invoice : imports
@@ -412,18 +412,18 @@ erDiagram
 
 ```sql
 -- Ensure invoice amounts are positive
-ALTER TABLE invoices ADD CONSTRAINT chk_invoice_amount_positive 
+ALTER TABLE invoices ADD CONSTRAINT chk_invoice_amount_positive
 CHECK (amount > 0);
 
 -- Ensure payment request total matches linked invoices
 CREATE TRIGGER update_payment_request_total
 AFTER INSERT ON invoice_payment_requests
 BEGIN
-    UPDATE payment_requests 
+    UPDATE payment_requests
     SET total_amount = (
-        SELECT SUM(i.amount) 
-        FROM invoices i 
-        JOIN invoice_payment_requests ipr ON i.id = ipr.invoice_id 
+        SELECT SUM(i.amount)
+        FROM invoices i
+        JOIN invoice_payment_requests ipr ON i.id = ipr.invoice_id
         WHERE ipr.payment_request_id = NEW.payment_request_id
     )
     WHERE id = NEW.payment_request_id;
@@ -436,7 +436,7 @@ BEGIN
     INSERT INTO business_process_logs (
         process_index, entity_type, entity_id, status, details, created_at
     ) VALUES (
-        CASE 
+        CASE
             WHEN NEW.status = 'in_review' THEN 4
             WHEN NEW.status = 'approved' THEN 8
             WHEN NEW.status = 'completed' THEN 10
@@ -479,21 +479,21 @@ export interface PaymentRequestCreateRequest {
 
 // API route definitions
 const invoiceRoutes = new Hono()
-  .post('/import', zValidator('json', invoiceCreateSchema), async (c) => {
+  .post('/import', zValidator('json', invoiceCreateSchema), async c => {
     // Implementation
   })
-  .get('/:id', async (c) => {
+  .get('/:id', async c => {
     // Implementation
   });
 
 const paymentRequestRoutes = new Hono()
-  .post('/', zValidator('json', paymentRequestCreateSchema), async (c) => {
+  .post('/', zValidator('json', paymentRequestCreateSchema), async c => {
     // Implementation
   })
-  .post('/:id/submit', async (c) => {
+  .post('/:id/submit', async c => {
     // Implementation
   })
-  .post('/:id/approve', async (c) => {
+  .post('/:id/approve', async c => {
     // Implementation
   });
 
@@ -515,12 +515,12 @@ const response = await client.invoices.import.$post({
     batchId: 'batch-001',
     invoices: [
       {
-        amount: 1000.00,
+        amount: 1000.0,
         invoiceDate: '2024-01-15',
-        vendor: 'Acme Corp'
-      }
-    ]
-  }
+        vendor: 'Acme Corp',
+      },
+    ],
+  },
 });
 
 if (response.ok) {
@@ -540,26 +540,26 @@ flowchart LR
         C[Connection Pooling]
         D[Prepared Statements]
     end
-    
+
     subgraph "Caching Strategy"
         E[In-Memory Cache]
         F[Query Result Cache]
         G[Session Cache]
         H[Static Asset Cache]
     end
-    
+
     subgraph "Monitoring"
         I[Query Performance]
         J[Connection Metrics]
         K[Cache Hit Rates]
         L[Error Tracking]
     end
-    
+
     A --> E
     B --> F
     C --> G
     D --> H
-    
+
     E --> I
     F --> J
     G --> K
@@ -573,18 +573,18 @@ flowchart TD
     A[Load Balancer] --> B[Hono Instance 1]
     A --> C[Hono Instance 2]
     A --> D[Hono Instance N]
-    
+
     B --> E[Shared SQLite]
     C --> E
     D --> E
-    
+
     E --> F[Read Replicas]
     E --> G[Backup System]
-    
+
     H[Redis Cache] --> B
     H --> C
     H --> D
-    
+
     I[File Storage] --> B
     I --> C
     I --> D
@@ -601,25 +601,25 @@ flowchart TD
         B[CORS Policy]
         C[Rate Limiting]
     end
-    
+
     subgraph "Application Layer"
         D[Input Validation]
         E[Authentication]
         F[Authorization]
         G[Session Security]
     end
-    
+
     subgraph "Data Layer"
         H[SQL Injection Prevention]
         I[Data Encryption]
         J[Access Logging]
         K[Backup Encryption]
     end
-    
+
     A --> D
     B --> E
     C --> F
-    
+
     D --> H
     E --> I
     F --> J
@@ -628,14 +628,14 @@ flowchart TD
 
 ### Threat Model
 
-| Threat | Mitigation | Implementation |
-|--------|------------|----------------|
-| SQL Injection | Parameterized Queries | Drizzle ORM |
-| XSS | Input Sanitization | Zod Validation |
-| CSRF | Token Validation | better-auth |
-| Session Hijacking | Secure Cookies | HTTP-only, Secure flags |
-| Data Breach | Encryption | At-rest and in-transit |
-| Privilege Escalation | Role-based Access | Authorization middleware |
+| Threat               | Mitigation            | Implementation           |
+| -------------------- | --------------------- | ------------------------ |
+| SQL Injection        | Parameterized Queries | Drizzle ORM              |
+| XSS                  | Input Sanitization    | Zod Validation           |
+| CSRF                 | Token Validation      | better-auth              |
+| Session Hijacking    | Secure Cookies        | HTTP-only, Secure flags  |
+| Data Breach          | Encryption            | At-rest and in-transit   |
+| Privilege Escalation | Role-based Access     | Authorization middleware |
 
 ## Deployment Architecture
 
@@ -648,25 +648,25 @@ flowchart LR
         B[Mock Services]
         C[Debug Logging]
     end
-    
+
     subgraph "Testing"
         D[In-Memory DB]
         E[Test Fixtures]
         F[Coverage Reports]
     end
-    
+
     subgraph "Staging"
         G[Staging SQLite]
         H[Real OAuth]
         I[Performance Testing]
     end
-    
+
     subgraph "Production"
         J[Optimized SQLite]
         K[Monitoring]
         L[Error Tracking]
     end
-    
+
     A --> D
     D --> G
     G --> J
@@ -692,4 +692,3 @@ flowchart TD
 ```
 
 This technical architecture provides a comprehensive foundation for building a modern, scalable, and secure invoice approval system using the latest web development technologies and best practices.
-
