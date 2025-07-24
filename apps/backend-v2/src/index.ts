@@ -12,13 +12,16 @@ const log = createLogger('server');
 // Middleware
 app.use('*', logger());
 app.use('*', prettyJSON());
-app.use('*', cors({
-  origin: ['http://localhost:3000', 'http://localhost:5173'],
-  credentials: true,
-}));
+app.use(
+  '*',
+  cors({
+    origin: ['http://localhost:3000', 'http://localhost:5173'],
+    credentials: true,
+  })
+);
 
 // Health check endpoint
-app.get('/health', (c) => {
+app.get('/health', c => {
   return c.json({
     status: 'ok',
     timestamp: new Date().toISOString(),
@@ -28,7 +31,7 @@ app.get('/health', (c) => {
 });
 
 // Basic API info
-app.get('/', (c) => {
+app.get('/', c => {
   return c.json({
     name: 'Tinker Backend API v2',
     description: 'Modern Hono.js backend for invoice approval system',
@@ -39,21 +42,27 @@ app.get('/', (c) => {
 });
 
 // 404 handler
-app.notFound((c) => {
-  return c.json({
-    error: 'Not Found',
-    message: 'The requested resource was not found',
-    path: c.req.path,
-  }, 404);
+app.notFound(c => {
+  return c.json(
+    {
+      error: 'Not Found',
+      message: 'The requested resource was not found',
+      path: c.req.path,
+    },
+    404
+  );
 });
 
 // Error handler
 app.onError((err, c) => {
   log.error('Unhandled error:', err);
-  return c.json({
-    error: 'Internal Server Error',
-    message: 'An unexpected error occurred',
-  }, 500);
+  return c.json(
+    {
+      error: 'Internal Server Error',
+      message: 'An unexpected error occurred',
+    },
+    500
+  );
 });
 
 const port = config.port;
@@ -61,12 +70,14 @@ const port = config.port;
 log.info(`Starting Tinker Backend API v2 on port ${port}`);
 log.info(`Environment: ${config.nodeEnv}`);
 
-serve({
-  fetch: app.fetch,
-  port,
-}, (info) => {
-  log.info(`🔥 Server is running on http://localhost:${info.port}`);
-});
+serve(
+  {
+    fetch: app.fetch,
+    port,
+  },
+  info => {
+    log.info(`🔥 Server is running on http://localhost:${info.port}`);
+  }
+);
 
 export default app;
-

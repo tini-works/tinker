@@ -80,6 +80,7 @@ npm start
 ## API Endpoints
 
 ### Health Check
+
 - `GET /health` - Server health status
 - `GET /` - API information
 
@@ -103,6 +104,7 @@ src/
 See `.env.example` for all available configuration options.
 
 Required variables:
+
 - `BETTER_AUTH_SECRET` - Secret key for authentication (32+ characters)
 
 ## Tech Stack
@@ -119,4 +121,3 @@ Required variables:
 ## License
 
 MIT
-

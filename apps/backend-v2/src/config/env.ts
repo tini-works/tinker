@@ -7,19 +7,23 @@ dotenvConfig();
 const envSchema = z.object({
   // Server
   PORT: z.string().default('3001').transform(Number),
-  NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
-  
+  NODE_ENV: z
+    .enum(['development', 'production', 'test'])
+    .default('development'),
+
   // Database
   DATABASE_URL: z.string().default('./data/app.db'),
-  
+
   // Authentication
-  BETTER_AUTH_SECRET: z.string().min(32, 'Auth secret must be at least 32 characters'),
+  BETTER_AUTH_SECRET: z
+    .string()
+    .min(32, 'Auth secret must be at least 32 characters'),
   BETTER_AUTH_URL: z.string().url().default('http://localhost:3001'),
-  
+
   // Google OAuth (optional)
   GOOGLE_CLIENT_ID: z.string().optional(),
   GOOGLE_CLIENT_SECRET: z.string().optional(),
-  
+
   // Logging
   LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error']).default('info'),
   LOG_FORMAT: z.enum(['json', 'pretty']).default('pretty'),
@@ -56,4 +60,3 @@ export const config = {
 } as const;
 
 export type Config = typeof config;
-

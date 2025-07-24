@@ -34,17 +34,9 @@
     "types": ["node", "vitest/globals"],
     "lib": ["ES2022"]
   },
-  "include": [
-    "src/**/*",
-    "**/*.test.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "**/*.test.js"
-  ],
+  "include": ["src/**/*", "**/*.test.ts"],
+  "exclude": ["node_modules", "dist", "**/*.test.js"],
   "ts-node": {
     "esm": true
   }
 }
-
