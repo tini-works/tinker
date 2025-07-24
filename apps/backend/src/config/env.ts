@@ -29,6 +29,26 @@ const envSchema = z.object({
   LOG_FORMAT: z.enum(['json', 'pretty']).default('pretty'),
 });
 
+export interface Config {
+  port: number;
+  nodeEnv: 'development' | 'production' | 'test';
+  database: {
+    url: string;
+  };
+  auth: {
+    secret: string;
+    url: string;
+    google: {
+      clientId?: string;
+      clientSecret?: string;
+    };
+  };
+  logging: {
+    level: 'debug' | 'info' | 'warn' | 'error';
+    format: 'json' | 'pretty';
+  };
+}
+
 let cachedConfig: Config | null = null;
 
 export function getConfig(): Config {
@@ -75,5 +95,3 @@ export function getConfig(): Config {
 
   return cachedConfig;
 }
-
-export type Config = ReturnType<typeof getConfig>;
