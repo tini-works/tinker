@@ -18,7 +18,7 @@ export function MainLayout({ children }: MainLayoutProps) {
 
   // Handle theme selection
   const handleThemeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setTheme(e.target.value as 'light' | 'dark' | 'corporate' | 'business');
+    setTheme(e.target.value as 'light' | 'dark' | 'lofi' | 'business');
   };
 
   return (
@@ -91,10 +91,10 @@ export function MainLayout({ children }: MainLayoutProps) {
                 </li>
                 <li>
                   <button
-                    onClick={() => setTheme('corporate')}
-                    className={theme === 'corporate' ? 'active' : ''}
+                    onClick={() => setTheme('lofi')}
+                    className={theme === 'lofi' ? 'active' : ''}
                   >
-                    Corporate
+                    Lofi
                   </button>
                 </li>
                 <li>

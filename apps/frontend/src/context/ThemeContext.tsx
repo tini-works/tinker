@@ -6,7 +6,7 @@ import {
   ReactNode,
 } from 'react';
 
-type Theme = 'light' | 'dark' | 'corporate' | 'business';
+type Theme = 'light' | 'dark' | 'lofi' | 'business';
 
 interface ThemeContextType {
   theme: Theme;
