@@ -30,7 +30,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '24.x'
       
       - name: Find PRs ready to merge
         id: find-prs
@@ -86,4 +86,3 @@ jobs:
               echo "  PR cannot be merged, status: $mergeStatus"
             fi
           done
-
