@@ -1,49 +1,84 @@
-# Project
+# Tinker - Invoice Approval System
 
-We'll use this project to think, think deep, think really deep. The outputs are masterpieces because we make, and try, and compact the thinking in multiple steps to get to where we
+A modern invoice approval system built with Hono, Drizzle ORM, better-auth, and TypeScript. This documentation provides comprehensive guides for implementing a type-safe, high-performance invoice approval system with business process tracking.
 
-# Goal
+## Overview
 
-Create a set of prompts/setups/commands for Claude to be able to analyze any software subject, and be able to prepare the ultimate document setup for implementation (technical details are prohibited)
+This project demonstrates a complete software analysis and implementation approach, from domain modeling through technical implementation. The system handles invoice processing, payment request workflows, multi-stage approvals, and comprehensive business process tracking.
 
-We will not talk about specific frameworks capability or language limitation.
-We DO talk about limitation of user port boudaries, for example, web has it owns limitation, mobile has it owns limitation, desktop application has it owns limitation. Those trade-offs are important in the analysis and reasoning
+## Key Features
 
-# Workflow to kickstarted the discoveries
+- **Modern Tech Stack**: Hono.js + Drizzle ORM + better-auth + SQLite
+- **Type Safety**: End-to-end TypeScript with full type inference
+- **Authentication**: Username/password + Google OAuth integration
+- **Business Intelligence**: 15 indexed processes with 150 specific error codes
+- **Rich Documentation**: Comprehensive guides with mermaid diagrams
 
-1. Build Eventstorming for the main flow. This Eventstorming plays very important role discovering the state changes of database entities
-2. Build and confirm list of user journeys. Verify that with Eventstorming
-3. Extract touch points, and build an Information Architecture. With this, we'll know what screens are for, in what states and how to navigate from to.
-4. Finalize screen mockups and build most important paths based on [3]. Those screen mockups will need to be quite realistics, clickable and navigatable, to default or specific variant as needed
-5. Interactive web app using html and tailwindcss cdn where user can
+## Documentation Structure
 
-- Split screen and variations into different HTML files, use css tricks to make screen can support different variantions over copying
-- Use iframe to include screen in the main web app
-- Can navigate back and forth using IA
-- Can navigate by interacting on the prototype
-- Can see the reasoning behind materials 1,2,3
-- Utilize markdown rendering library via unpacked to render markdown inline without build
+### 🚀 Implementation Guides
+- **[Database Implementation](./database-implementation.md)** - Complete database design with eventstorming integration
+- **[Technical Architecture](./technical-architecture.md)** - System architecture and data flows  
+- **[Development Setup](./development-setup.md)** - Complete development environment setup
+- **[Business Processes & Error Codes](./business-processes.md)** - Indexed business processes with error handling
 
-# Example of the inputs
+### 📊 Domain Analysis
+- **[Event Storming](./1_event_storming.md)** - Domain events and business process discovery
+- **[User Journeys](./2_user_journeys.md)** - User personas and workflow analysis
+- **[Touch Points & Screens](./3_touch_points_screens.md)** - UI interaction points and navigation
+- **[Screen Mockups](./4_screen_mockups.md)** - Visual design mockups and prototypes
+- **[Screen Variations](./5_screen_variations.md)** - UI variations and different states
+- **[Summary](./6_summary.md)** - Project overview and conclusions
 
-Context:
-An invoice approval system.
+### 🎨 Examples & References
+- **[Mermaid Examples](./mermaid_example.md)** - Diagram examples and syntax reference
 
-Every month, invoices are going to be imported in batches (or one by one, automatically or manually) to the system. Those invoices are supposed to be processed, end results will be either, imported or obseleted, those are normally can be imported by any users of the system.
+## Analysis Workflow
 
-Imported invoices are going to be queued, and to be processed by admin or HR depending on the nature of the invoice.
+The project follows a systematic approach to software analysis and implementation:
 
-HR or admin will start with creating a thing called Payment Request (PR). This PR is the working unit for administration team, they'll work around the PR. Each PR serve a specific purpose, with reasons, proof, working materials (normally comes in excels, pdfs attachments etc), users can leave comments, updates, making approvals or requesting changes.
+1. **Event Storming** - Discover domain events and state changes of database entities
+2. **User Journey Mapping** - Build and confirm user workflows, verify against event storming
+3. **Information Architecture** - Extract touch points and build navigation structure
+4. **Screen Mockups** - Create realistic, clickable prototypes for key user paths
+5. **Technical Implementation** - Modern tech stack with comprehensive documentation
 
-This is when the Approval process kicks in. The PR goes through the approval process and can be going back and forth.
+## System Overview
 
-Once the Payment Request got approved (through one or many stages), the finance will make the payment outside of the system (this doesn't need to be tracked). Once the Finance team reviewed the payments, they'll mark the PR as completed manually.
+### Business Context
 
-- The PR will be sealed and nolonger can be changed (but it can be reverted to previous state)
-- All linked Invoices are marked as completed
+The Tinker invoice approval system handles the complete lifecycle of invoice processing:
 
-# Expected outputs
+**Invoice Processing Flow:**
+1. **Import** - Invoices imported in batches (manual/automatic)
+2. **Queue** - Invoices queued for processing by admin/HR
+3. **Payment Request Creation** - Admin/HR creates Payment Requests (PRs) 
+4. **Approval Workflow** - Multi-stage approval process with back-and-forth capability
+5. **Payment Processing** - Finance handles external payments
+6. **Completion** - Finance marks PRs as completed, sealing the process
 
-- md documents as artifacts for steps
-- working html that can be served using `npx serve -p <port>`, please use this to verify
-- a summary document so next time agent start working, they can kickstart analyzing (workflow, where to look at, what to look at, how to look at etc)
+### Key Entities
+
+- **Invoices** - Individual invoice records with import/obsolete status
+- **Payment Requests (PRs)** - Working units containing grouped invoices with approval workflow
+- **Users** - Different roles: Invoice Processor, PR Creator, Approver, Finance Officer, Admin
+- **Approval History** - Complete audit trail of approval decisions and comments
+
+### Technical Implementation
+
+The system is built with modern web technologies focusing on:
+- **Type Safety** - Full TypeScript implementation with Drizzle ORM
+- **Performance** - Hono.js for ultrafast API responses
+- **Authentication** - better-auth with OAuth and traditional login
+- **Business Intelligence** - Comprehensive error tracking and process monitoring
+
+## Getting Started
+
+1. **Start with Domain Analysis** - Review the [Event Storming](./1_event_storming.md) documentation
+2. **Understand the Architecture** - Check the [Technical Architecture](./technical-architecture.md) guide
+3. **Set up Development** - Follow the [Development Setup](./development-setup.md) instructions
+4. **Implement Database** - Use the [Database Implementation](./database-implementation.md) plan
+
+## Next Steps
+
+This documentation provides the foundation for implementing a production-ready invoice approval system. Each guide includes detailed implementation steps, code examples, and architectural decisions to ensure a successful deployment.
