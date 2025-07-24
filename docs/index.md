@@ -17,12 +17,14 @@ This project demonstrates a complete software analysis and implementation approa
 ## Documentation Structure
 
 ### 🚀 Implementation Guides
+
 - **[Database Implementation](./database-implementation.md)** - Complete database design with eventstorming integration
-- **[Technical Architecture](./technical-architecture.md)** - System architecture and data flows  
+- **[Technical Architecture](./technical-architecture.md)** - System architecture and data flows
 - **[Development Setup](./development-setup.md)** - Complete development environment setup
 - **[Business Processes & Error Codes](./business-processes.md)** - Indexed business processes with error handling
 
 ### 📊 Domain Analysis
+
 - **[Event Storming](./1_event_storming.md)** - Domain events and business process discovery
 - **[User Journeys](./2_user_journeys.md)** - User personas and workflow analysis
 - **[Touch Points & Screens](./3_touch_points_screens.md)** - UI interaction points and navigation
@@ -31,6 +33,7 @@ This project demonstrates a complete software analysis and implementation approa
 - **[Summary](./6_summary.md)** - Project overview and conclusions
 
 ### 🎨 Examples & References
+
 - **[Mermaid Examples](./mermaid_example.md)** - Diagram examples and syntax reference
 
 ## Analysis Workflow
@@ -50,9 +53,10 @@ The project follows a systematic approach to software analysis and implementatio
 The Tinker invoice approval system handles the complete lifecycle of invoice processing:
 
 **Invoice Processing Flow:**
+
 1. **Import** - Invoices imported in batches (manual/automatic)
 2. **Queue** - Invoices queued for processing by admin/HR
-3. **Payment Request Creation** - Admin/HR creates Payment Requests (PRs) 
+3. **Payment Request Creation** - Admin/HR creates Payment Requests (PRs)
 4. **Approval Workflow** - Multi-stage approval process with back-and-forth capability
 5. **Payment Processing** - Finance handles external payments
 6. **Completion** - Finance marks PRs as completed, sealing the process
@@ -67,6 +71,7 @@ The Tinker invoice approval system handles the complete lifecycle of invoice pro
 ### Technical Implementation
 
 The system is built with modern web technologies focusing on:
+
 - **Type Safety** - Full TypeScript implementation with Drizzle ORM
 - **Performance** - Hono.js for ultrafast API responses
 - **Authentication** - better-auth with OAuth and traditional login

@@ -7,6 +7,7 @@ This document outlines the comprehensive database implementation plan for the Ti
 ## Tech Stack
 
 ### Core Technologies
+
 - **Backend Framework**: Hono.js (latest) - Ultrafast web framework built on Web Standards
 - **Database ORM**: Drizzle ORM v0.32.1 - TypeScript-first ORM with SQLite support
 - **Database**: SQLite - Lightweight, serverless database
@@ -15,6 +16,7 @@ This document outlines the comprehensive database implementation plan for the Ti
 - **Testing**: Vitest - Fast unit testing framework
 
 ### Key Benefits
+
 - **Type Safety**: End-to-end TypeScript with full type inference
 - **Performance**: Hono's ultrafast routing with SQLite's efficiency
 - **Developer Experience**: Auto-generated schemas, type-safe APIs, excellent tooling
@@ -36,14 +38,14 @@ erDiagram
         datetime createdAt
         datetime updatedAt
     }
-    
+
     Session {
         string id PK
         string userId FK
         datetime expiresAt
         string token
     }
-    
+
     Invoice {
         string id PK
         string batchId
@@ -55,7 +57,7 @@ erDiagram
         datetime createdAt
         datetime updatedAt
     }
-    
+
     PaymentRequest {
         string id PK
         decimal totalAmount
@@ -66,13 +68,13 @@ erDiagram
         datetime createdAt
         datetime updatedAt
     }
-    
+
     InvoicePaymentRequest {
         string invoiceId FK
         string paymentRequestId FK
         datetime linkedAt
     }
-    
+
     ApprovalHistory {
         string id PK
         string paymentRequestId FK
@@ -81,7 +83,7 @@ erDiagram
         string comments
         datetime createdAt
     }
-    
+
     BusinessProcessLog {
         string id PK
         int processIndex
@@ -92,7 +94,7 @@ erDiagram
         string details
         datetime createdAt
     }
-    
+
     User ||--o{ Invoice : imports
     User ||--o{ PaymentRequest : creates
     User ||--o{ ApprovalHistory : approves
@@ -104,6 +106,7 @@ erDiagram
 ### State Management
 
 #### Invoice States
+
 ```mermaid
 stateDiagram-v2
     [*] --> Imported : Import Invoices
@@ -115,6 +118,7 @@ stateDiagram-v2
 ```
 
 #### Payment Request States
+
 ```mermaid
 stateDiagram-v2
     [*] --> Draft : Create Payment Request
@@ -123,7 +127,7 @@ stateDiagram-v2
     InReview --> Approved : Approve
     Approved --> Completed : Mark as Completed
     Completed --> [*]
-    
+
     note right of InReview
         Multi-stage approval
         workflow supported
@@ -149,7 +153,7 @@ flowchart TD
     A --> J[09: Make Payment]
     A --> K[10: Mark as Completed]
     A --> L[11: Revert Payment Request]
-    
+
     B --> B1[Error Codes: 01001-01099]
     C --> C1[Error Codes: 02001-02099]
     D --> D1[Error Codes: 03001-03099]
@@ -166,22 +170,23 @@ flowchart TD
 ### Error Code Structure
 
 Format: `PPXXX` where:
+
 - `PP`: Process index (01-11)
 - `XXX`: Specific error code (001-099)
 
 #### Example Error Codes
 
-| Process | Error Code | Description |
-|---------|------------|-------------|
-| 01 (Import) | 01001 | Invalid file format |
-| 01 (Import) | 01002 | Duplicate invoice detected |
-| 01 (Import) | 01003 | Missing required fields |
-| 02 (Create PR) | 02001 | Insufficient permissions |
-| 02 (Create PR) | 02002 | Invalid amount |
-| 03 (Link) | 03001 | Invoice already linked |
-| 03 (Link) | 03002 | Invoice not found |
-| 04 (Submit) | 04001 | No invoices linked |
-| 04 (Submit) | 04002 | Invalid approval workflow |
+| Process        | Error Code | Description                |
+| -------------- | ---------- | -------------------------- |
+| 01 (Import)    | 01001      | Invalid file format        |
+| 01 (Import)    | 01002      | Duplicate invoice detected |
+| 01 (Import)    | 01003      | Missing required fields    |
+| 02 (Create PR) | 02001      | Insufficient permissions   |
+| 02 (Create PR) | 02002      | Invalid amount             |
+| 03 (Link)      | 03001      | Invoice already linked     |
+| 03 (Link)      | 03002      | Invoice not found          |
+| 04 (Submit)    | 04001      | No invoices linked         |
+| 04 (Submit)    | 04002      | Invalid approval workflow  |
 
 ## Authentication & Authorization
 
@@ -203,13 +208,13 @@ flowchart LR
 
 ### User Roles & Permissions
 
-| Role | Permissions |
-|------|-------------|
-| **Invoice Processor** | Import invoices, view invoice status |
+| Role                        | Permissions                                    |
+| --------------------------- | ---------------------------------------------- |
+| **Invoice Processor**       | Import invoices, view invoice status           |
 | **Payment Request Creator** | Create PRs, link invoices, submit for approval |
-| **Approver** | Review PRs, approve/reject, request changes |
-| **Finance Officer** | Mark payments as completed, view all data |
-| **Admin** | Full system access, user management |
+| **Approver**                | Review PRs, approve/reject, request changes    |
+| **Finance Officer**         | Mark payments as completed, view all data      |
+| **Admin**                   | Full system access, user management            |
 
 ### Authentication Methods
 
@@ -228,7 +233,7 @@ sequenceDiagram
     participant D as Drizzle ORM
     participant DB as SQLite Database
     participant A as better-auth
-    
+
     C->>H: API Request (Type-safe)
     H->>A: Validate Session
     A-->>H: User Info
@@ -247,9 +252,9 @@ const routes = app
   .route('/auth', authRoutes)
   .route('/invoices', invoiceRoutes)
   .route('/payment-requests', paymentRequestRoutes)
-  .route('/approvals', approvalRoutes)
+  .route('/approvals', approvalRoutes);
 
-export type AppType = typeof routes
+export type AppType = typeof routes;
 ```
 
 ## Database Schema Implementation
@@ -257,6 +262,7 @@ export type AppType = typeof routes
 ### Core Tables
 
 #### Users & Authentication (better-auth generated)
+
 ```sql
 -- Auto-generated by better-auth
 CREATE TABLE user (
@@ -291,6 +297,7 @@ CREATE TABLE account (
 ```
 
 #### Business Domain Tables
+
 ```sql
 CREATE TABLE invoices (
     id TEXT PRIMARY KEY,
@@ -353,6 +360,7 @@ CREATE TABLE business_process_logs (
 ```
 
 ### Indexes for Performance
+
 ```sql
 CREATE INDEX idx_invoices_status ON invoices(status);
 CREATE INDEX idx_invoices_batch_id ON invoices(batch_id);
@@ -383,6 +391,7 @@ flowchart TD
 ```
 
 ### Migration Commands
+
 ```bash
 # Install dependencies
 npm install hono drizzle-orm better-auth @hono/zod-validator zod
@@ -408,23 +417,23 @@ flowchart LR
     B --> C[Database Tests]
     C --> D[Authentication Tests]
     D --> E[End-to-End Tests]
-    
+
     A --> A1[Business Logic]
     A --> A2[Validation]
     A --> A3[Error Handling]
-    
+
     B --> B1[Route Handlers]
     B --> B2[Middleware]
     B --> B3[RPC Types]
-    
+
     C --> C1[Schema Validation]
     C --> C2[Migrations]
     C --> C3[Seed Data]
-    
+
     D --> D1[Login/Logout]
     D --> D2[OAuth Flow]
     D --> D3[Session Management]
-    
+
     E --> E1[Complete Workflows]
     E --> E2[User Journeys]
 ```
@@ -445,19 +454,19 @@ flowchart LR
     A[Development] --> B[Testing]
     B --> C[Preview]
     C --> D[Production]
-    
+
     A --> A1[SQLite File]
     A --> A2[Local OAuth]
     A --> A3[Debug Logging]
-    
+
     B --> B1[In-Memory DB]
     B --> B2[Mock Services]
     B --> B3[Test Coverage]
-    
+
     C --> C1[SQLite File]
     C --> C2[Real OAuth]
     C --> C3[Performance Monitoring]
-    
+
     D --> D1[Optimized SQLite]
     D --> D2[Production OAuth]
     D --> D3[Error Tracking]
@@ -482,22 +491,22 @@ flowchart TD
     C --> D[Data Encryption]
     D --> E[Audit Logging]
     E --> F[Error Handling]
-    
+
     A --> A1[Zod Schemas]
     A --> A2[SQL Injection Prevention]
-    
+
     B --> B1[better-auth Sessions]
     B --> B2[OAuth Integration]
-    
+
     C --> C1[Role-Based Access]
     C --> C2[Resource Permissions]
-    
+
     D --> D1[Sensitive Data Hashing]
     D --> D2[Token Encryption]
-    
+
     E --> E1[Business Process Logs]
     E --> E2[Access Logs]
-    
+
     F --> F1[Safe Error Messages]
     F --> F2[No Data Leakage]
 ```
@@ -523,13 +532,13 @@ flowchart LR
     C[Error Logs] --> D
     D --> E[Monitoring Dashboard]
     E --> F[Alerts]
-    
+
     A --> A1[Request/Response]
     A --> A2[Performance Metrics]
-    
+
     B --> B1[Process Index Tracking]
     B --> B2[State Transitions]
-    
+
     C --> C1[Error Codes]
     C --> C2[Stack Traces]
 ```
@@ -551,4 +560,3 @@ flowchart LR
 6. **Phase 6**: Production deployment with monitoring
 
 This implementation plan provides a solid foundation for building a modern, type-safe, and scalable invoice approval system that leverages the best practices in current web development.
-
