@@ -267,8 +267,10 @@ export async function seedDatabase() {
         processIndex: BUSINESS_PROCESS_INDEX.IMPORT_INVOICES,
         entityType: 'invoice',
         entityId: 'invoice-001',
+        action: 'import',
         status: 'completed',
-        details: {
+        userId: 'user-001',
+        metadata: {
           batchId: 'BATCH-2024-001',
           fileName: 'invoices_batch_001.csv',
           processedCount: 2,
@@ -278,8 +280,10 @@ export async function seedDatabase() {
         processIndex: BUSINESS_PROCESS_INDEX.IMPORT_INVOICES,
         entityType: 'invoice',
         entityId: 'invoice-002',
+        action: 'import',
         status: 'completed',
-        details: {
+        userId: 'user-001',
+        metadata: {
           batchId: 'BATCH-2024-001',
           fileName: 'invoices_batch_001.csv',
           processedCount: 2,
@@ -289,8 +293,10 @@ export async function seedDatabase() {
         processIndex: BUSINESS_PROCESS_INDEX.CREATE_PAYMENT_REQUEST,
         entityType: 'payment_request',
         entityId: 'pr-001',
+        action: 'create',
         status: 'completed',
-        details: {
+        userId: 'user-002',
+        metadata: {
           totalAmount: 2100.5,
           invoiceCount: 2,
         },
@@ -299,8 +305,10 @@ export async function seedDatabase() {
         processIndex: BUSINESS_PROCESS_INDEX.LINK_INVOICES_TO_PR,
         entityType: 'payment_request',
         entityId: 'pr-001',
+        action: 'link',
         status: 'completed',
-        details: {
+        userId: 'user-002',
+        metadata: {
           linkedInvoices: ['invoice-001', 'invoice-002'],
         },
       },
@@ -308,8 +316,10 @@ export async function seedDatabase() {
         processIndex: BUSINESS_PROCESS_INDEX.SUBMIT_FOR_APPROVAL,
         entityType: 'payment_request',
         entityId: 'pr-002',
+        action: 'submit',
         status: 'completed',
-        details: {
+        userId: 'user-002',
+        metadata: {
           submittedTo: 'user-approver-002',
           workflowStage: 1,
         },
@@ -318,8 +328,10 @@ export async function seedDatabase() {
         processIndex: BUSINESS_PROCESS_INDEX.APPROVE_PAYMENT_REQUEST,
         entityType: 'payment_request',
         entityId: 'pr-003',
+        action: 'approve',
         status: 'completed',
-        details: {
+        userId: 'user-approver-001',
+        metadata: {
           approvedBy: 'user-approver-001',
           finalApproval: true,
         },
@@ -328,8 +340,10 @@ export async function seedDatabase() {
         processIndex: BUSINESS_PROCESS_INDEX.MARK_AS_COMPLETED,
         entityType: 'payment_request',
         entityId: 'pr-003',
+        action: 'complete',
         status: 'completed',
-        details: {
+        userId: 'user-finance-001',
+        metadata: {
           completedBy: 'user-finance-001',
           paymentMethod: 'bank_transfer',
         },

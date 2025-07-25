@@ -11,6 +11,7 @@ import {
   runMigrations,
 } from '@/db/connection';
 import authRoutes from '@/routes/auth';
+import apiRoutes from '@/routes/api';
 
 const app = new Hono();
 const log = createLogger('server');
@@ -26,8 +27,9 @@ app.use(
   })
 );
 
-// Mount auth routes
+// Mount routes
 app.route('/auth', authRoutes);
+app.route('/api', apiRoutes);
 
 // Health check endpoint
 app.get('/health', c => {

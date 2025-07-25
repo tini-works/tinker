@@ -209,11 +209,14 @@ export const businessProcessLogs = sqliteTable(
       enum: ['invoice', 'payment_request', 'approval', 'user'],
     }).notNull(),
     entityId: text('entity_id').notNull(),
+    action: text('action').notNull(),
     status: text('status', {
       enum: ['started', 'completed', 'failed'],
     }).notNull(),
+    userId: text('user_id'),
     errorCode: text('error_code'),
-    details: text('details', { mode: 'json' }),
+    errorMessage: text('error_message'),
+    metadata: text('metadata', { mode: 'json' }),
     createdAt: integer('created_at', { mode: 'timestamp' }).default(
       sql`(unixepoch())`
     ),
@@ -272,6 +275,7 @@ export const BUSINESS_PROCESS_INDEX = {
   MAKE_PAYMENT: 9,
   MARK_AS_COMPLETED: 10,
   REVERT_PAYMENT_REQUEST: 11,
+  USER_MANAGEMENT: 12,
 } as const;
 
 // Error Code Ranges (from documentation)
