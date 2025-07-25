@@ -10,6 +10,7 @@ import {
   getDatabaseStats,
   runMigrations,
 } from '@/db/connection';
+import authRoutes from '@/routes/auth';
 
 const app = new Hono();
 const log = createLogger('server');
@@ -24,6 +25,9 @@ app.use(
     credentials: true,
   })
 );
+
+// Mount auth routes
+app.route('/auth', authRoutes);
 
 // Health check endpoint
 app.get('/health', c => {
