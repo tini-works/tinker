@@ -324,7 +324,7 @@ export class UserService {
         .from(users)
         .groupBy(users.role);
 
-      const totalUsers = stats.reduce((sum, stat) => sum + 1, 0);
+      const totalUsers = stats.length;
       const roleDistribution = stats.reduce((acc, stat) => {
         acc[stat.role] = (acc[stat.role] || 0) + 1;
         return acc;
