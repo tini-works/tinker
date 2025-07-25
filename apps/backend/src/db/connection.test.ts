@@ -1,5 +1,10 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { db, checkDatabaseConnection, getDatabaseStats, closeDatabaseConnection } from './connection';
+import {
+  db,
+  checkDatabaseConnection,
+  getDatabaseStats,
+  closeDatabaseConnection,
+} from './connection';
 import { users, invoices, paymentRequests } from './schema';
 import { eq } from 'drizzle-orm';
 
@@ -38,19 +43,28 @@ describe('Database Connection', () => {
   });
 
   it('should be able to query users by role', async () => {
-    const adminUsers = await db.select().from(users).where(eq(users.role, 'admin'));
+    const adminUsers = await db
+      .select()
+      .from(users)
+      .where(eq(users.role, 'admin'));
     expect(adminUsers.length).toBeGreaterThan(0);
     expect(adminUsers[0]?.role).toBe('admin');
   });
 
   it('should be able to query invoices by status', async () => {
-    const importedInvoices = await db.select().from(invoices).where(eq(invoices.status, 'imported'));
+    const importedInvoices = await db
+      .select()
+      .from(invoices)
+      .where(eq(invoices.status, 'imported'));
     expect(importedInvoices.length).toBeGreaterThan(0);
     expect(importedInvoices[0]?.status).toBe('imported');
   });
 
   it('should be able to query payment requests by status', async () => {
-    const draftPaymentRequests = await db.select().from(paymentRequests).where(eq(paymentRequests.status, 'draft'));
+    const draftPaymentRequests = await db
+      .select()
+      .from(paymentRequests)
+      .where(eq(paymentRequests.status, 'draft'));
     expect(draftPaymentRequests.length).toBeGreaterThan(0);
     expect(draftPaymentRequests[0]?.status).toBe('draft');
   });
@@ -60,7 +74,7 @@ describe('Database Connection', () => {
     await expect(
       db.insert(invoices).values({
         batchId: 'TEST-BATCH',
-        amount: 100.00,
+        amount: 100.0,
         invoiceDate: new Date(),
         vendor: 'Test Vendor',
         status: 'imported',

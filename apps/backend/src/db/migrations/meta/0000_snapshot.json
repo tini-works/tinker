@@ -63,12 +63,8 @@
           "name": "account_userId_user_id_fk",
           "tableFrom": "account",
           "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -126,23 +122,17 @@
       "indexes": {
         "idx_approval_history_payment_request_id": {
           "name": "idx_approval_history_payment_request_id",
-          "columns": [
-            "payment_request_id"
-          ],
+          "columns": ["payment_request_id"],
           "isUnique": false
         },
         "idx_approval_history_approver_id": {
           "name": "idx_approval_history_approver_id",
-          "columns": [
-            "approver_id"
-          ],
+          "columns": ["approver_id"],
           "isUnique": false
         },
         "idx_approval_history_action": {
           "name": "idx_approval_history_action",
-          "columns": [
-            "action"
-          ],
+          "columns": ["action"],
           "isUnique": false
         }
       },
@@ -151,12 +141,8 @@
           "name": "approval_history_payment_request_id_payment_requests_id_fk",
           "tableFrom": "approval_history",
           "tableTo": "payment_requests",
-          "columnsFrom": [
-            "payment_request_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["payment_request_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -164,12 +150,8 @@
           "name": "approval_history_approver_id_user_id_fk",
           "tableFrom": "approval_history",
           "tableTo": "user",
-          "columnsFrom": [
-            "approver_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["approver_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -241,31 +223,22 @@
       "indexes": {
         "idx_business_process_logs_process_index": {
           "name": "idx_business_process_logs_process_index",
-          "columns": [
-            "process_index"
-          ],
+          "columns": ["process_index"],
           "isUnique": false
         },
         "idx_business_process_logs_entity": {
           "name": "idx_business_process_logs_entity",
-          "columns": [
-            "entity_type",
-            "entity_id"
-          ],
+          "columns": ["entity_type", "entity_id"],
           "isUnique": false
         },
         "idx_business_process_logs_status": {
           "name": "idx_business_process_logs_status",
-          "columns": [
-            "status"
-          ],
+          "columns": ["status"],
           "isUnique": false
         },
         "idx_business_process_logs_error_code": {
           "name": "idx_business_process_logs_error_code",
-          "columns": [
-            "error_code"
-          ],
+          "columns": ["error_code"],
           "isUnique": false
         }
       },
@@ -309,24 +282,17 @@
       "indexes": {
         "idx_invoice_payment_requests_invoice": {
           "name": "idx_invoice_payment_requests_invoice",
-          "columns": [
-            "invoice_id"
-          ],
+          "columns": ["invoice_id"],
           "isUnique": false
         },
         "idx_invoice_payment_requests_pr": {
           "name": "idx_invoice_payment_requests_pr",
-          "columns": [
-            "payment_request_id"
-          ],
+          "columns": ["payment_request_id"],
           "isUnique": false
         },
         "idx_invoice_payment_requests_unique": {
           "name": "idx_invoice_payment_requests_unique",
-          "columns": [
-            "invoice_id",
-            "payment_request_id"
-          ],
+          "columns": ["invoice_id", "payment_request_id"],
           "isUnique": false
         }
       },
@@ -335,12 +301,8 @@
           "name": "invoice_payment_requests_invoice_id_invoices_id_fk",
           "tableFrom": "invoice_payment_requests",
           "tableTo": "invoices",
-          "columnsFrom": [
-            "invoice_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["invoice_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -348,12 +310,8 @@
           "name": "invoice_payment_requests_payment_request_id_payment_requests_id_fk",
           "tableFrom": "invoice_payment_requests",
           "tableTo": "payment_requests",
-          "columnsFrom": [
-            "payment_request_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["payment_request_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -441,23 +399,17 @@
       "indexes": {
         "idx_invoices_status": {
           "name": "idx_invoices_status",
-          "columns": [
-            "status"
-          ],
+          "columns": ["status"],
           "isUnique": false
         },
         "idx_invoices_batch_id": {
           "name": "idx_invoices_batch_id",
-          "columns": [
-            "batch_id"
-          ],
+          "columns": ["batch_id"],
           "isUnique": false
         },
         "idx_invoices_imported_by": {
           "name": "idx_invoices_imported_by",
-          "columns": [
-            "imported_by"
-          ],
+          "columns": ["imported_by"],
           "isUnique": false
         }
       },
@@ -466,12 +418,8 @@
           "name": "invoices_imported_by_user_id_fk",
           "tableFrom": "invoices",
           "tableTo": "user",
-          "columnsFrom": [
-            "imported_by"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["imported_by"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -559,23 +507,17 @@
       "indexes": {
         "idx_payment_requests_status": {
           "name": "idx_payment_requests_status",
-          "columns": [
-            "status"
-          ],
+          "columns": ["status"],
           "isUnique": false
         },
         "idx_payment_requests_created_by": {
           "name": "idx_payment_requests_created_by",
-          "columns": [
-            "created_by"
-          ],
+          "columns": ["created_by"],
           "isUnique": false
         },
         "idx_payment_requests_current_approver": {
           "name": "idx_payment_requests_current_approver",
-          "columns": [
-            "current_approver"
-          ],
+          "columns": ["current_approver"],
           "isUnique": false
         }
       },
@@ -584,12 +526,8 @@
           "name": "payment_requests_created_by_user_id_fk",
           "tableFrom": "payment_requests",
           "tableTo": "user",
-          "columnsFrom": [
-            "created_by"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["created_by"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -597,12 +535,8 @@
           "name": "payment_requests_current_approver_user_id_fk",
           "tableFrom": "payment_requests",
           "tableTo": "user",
-          "columnsFrom": [
-            "current_approver"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["current_approver"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -645,9 +579,7 @@
       "indexes": {
         "session_token_unique": {
           "name": "session_token_unique",
-          "columns": [
-            "token"
-          ],
+          "columns": ["token"],
           "isUnique": true
         }
       },
@@ -656,12 +588,8 @@
           "name": "session_userId_user_id_fk",
           "tableFrom": "session",
           "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -736,9 +664,7 @@
       "indexes": {
         "user_email_unique": {
           "name": "user_email_unique",
-          "columns": [
-            "email"
-          ],
+          "columns": ["email"],
           "isUnique": true
         }
       },

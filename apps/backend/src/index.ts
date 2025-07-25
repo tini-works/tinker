@@ -5,7 +5,11 @@ import { logger } from 'hono/logger';
 import { prettyJSON } from 'hono/pretty-json';
 import { getConfig } from '@/config/env';
 import { createLogger } from '@/utils/logger';
-import { checkDatabaseConnection, getDatabaseStats, runMigrations } from '@/db/connection';
+import {
+  checkDatabaseConnection,
+  getDatabaseStats,
+  runMigrations,
+} from '@/db/connection';
 
 const app = new Hono();
 const log = createLogger('server');
@@ -25,7 +29,7 @@ app.use(
 app.get('/health', c => {
   const config = getConfig();
   const dbConnected = checkDatabaseConnection();
-  
+
   return c.json({
     status: dbConnected ? 'ok' : 'degraded',
     timestamp: new Date().toISOString(),
@@ -42,7 +46,7 @@ app.get('/health', c => {
 app.get('/db/status', c => {
   const dbConnected = checkDatabaseConnection();
   const stats = dbConnected ? getDatabaseStats() : null;
-  
+
   return c.json({
     connected: dbConnected,
     stats,
@@ -97,7 +101,7 @@ async function startServer() {
   try {
     log.info('Initializing database...');
     await runMigrations();
-    
+
     const dbConnected = checkDatabaseConnection();
     if (dbConnected) {
       const stats = getDatabaseStats();
@@ -119,7 +123,9 @@ async function startServer() {
     },
     info => {
       log.info(`🔥 Server is running on http://localhost:${info.port}`);
-      log.info(`🗄️ Database: ${checkDatabaseConnection() ? 'Connected' : 'Disconnected'}`);
+      log.info(
+        `🗄️ Database: ${checkDatabaseConnection() ? 'Connected' : 'Disconnected'}`
+      );
     }
   );
 }
