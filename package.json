@@ -48,5 +48,8 @@
     "*.{json,md}": [
       "prettier --write"
     ]
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.32.2"
   }
 }
